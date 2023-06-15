@@ -1,0 +1,162 @@
+﻿@model List<medprohiremvp.Models.ClinicalInstitution.InProcessShiftViewModel>
+@{
+    ViewData["Title"] = "In Process Work Orders";
+}
+@section cssplugins{
+
+    <link href="~/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+}
+<div class="new-heading new-heading-background ">
+    <h2 class="">@ViewData["Title"]</h2>
+</div>
+<div class="usercontainer ">
+
+    <form asp-action="ClientShiftList">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+
+        <div id="shiftlist">
+            @if (Model != null)
+            {
+            <div class="row">
+                <div class="col-lg-12 col-xl-8 justify-content-center">
+                    <div class="heading-3 text-left">
+                        <h4 class="">Contractors</h4>
+                    </div>
+                    <div class="justifing_content mx-auto">
+                        <table class="table responsive datatable text-left nowrap  table-hover proccesshifttable" style="width:100%">
+                            <thead>
+                                <tr>
+
+
+                                    <th data-priority="1">Contractor Name</th>
+                                    <th data-priority="2">Req ID</th>
+                                    <th data-priority="3">Location</th>
+                                    <th data-priority="6" class="flex-wrap">Specialty</th>
+                                    <th data-priority="4">Phone Number</th>
+                                    <th data-priority="5">Status</th>
+                                    @*<th data-priority="7">Worked Hours</th>
+                    <th data-priority="8">Complete</th>*@
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+
+                                    <tr>
+
+                                        <td>
+
+                                            <div class="d-inline-flex">
+                                                <img src="@(Model[i].Img==""||Model[i].Img==null?"/Upload/User.png":Model[i].Img)" class="little-rounded-circle" />
+
+
+                                                <a class="applicant  @(i==0?"activeapplicant":"")" href="#" data-href=@(String.Format("#{0}_{1}", Model[i].ClientShift_ID,Model[i].Applicant_ID))> @(String.Format("{0} {1}", Model[i].LastName, Model[i].FirstName))</a>
+                                            </div>
+                                        </td>
+                                        <td>@Model[i].ClientShift_ID</td>
+                                        <td>@Model[i].LocationName</td>
+                                        <td>@Model[i].SpecialitiesString</td>
+                                        <td><i class="far fa-phone"></i> @Model[i].PhoneNumber</td>
+
+                                        @if (Model[i].NumberofShift == Model[i].CompletedNumberofShift && Model[i].NumberofShift != 0)
+                                        {
+                                            <td>
+                                                <label class="label label-primary">Completed</label>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            if (Model[i].CompletedNumberofShift == 0)
+                                            {
+                                                <td>
+                                                    <label class="label label-info">Not Started</label>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <label class="label label-success">In Process</label>
+                                                </td>
+                                            }
+                                        }
+                                        @*<td>@Model[i].WorkedHours</td>
+                        @if ( Model[i].NumberofShift != 0)
+                        {
+                        <td> @((((float)Model[i].CompletedNumberofShift / Model[i].NumberofShift) * 100).ToString("0"))%</td>
+                        }
+                        else
+                        {
+                            <td>0%</td>
+                        }*@
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    </div>
+
+                    <div class="col-lg-12 col-xl-4 ml-auto">
+                        <div class="backgroundlast applicantdetailinfo ">
+                            @for (int i = 0; i < Model.Count; i++)
+                            {
+                                <div id="@(String.Format("{0}_{1}", Model[i].ClientShift_ID,Model[i].Applicant_ID))" class="tab-pane fade @(i==0?"active show":"") applicantinfo">
+                                    @Html.Partial("_InProccessShiftPartial", Model[i])
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+
+
+    </form>
+</div>
+<div class="modal  fade" id="ShiftDateModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="form-group-sm text-center">
+                    <label class="control-label">
+                        <strong>
+                            Shift Dates:
+                        </strong>
+                    </label>
+
+                    <input type="hidden" id="StartDate" />
+                    <input type="hidden" id="EndDate" />
+                    <input type="hidden" id="ShiftsDates" />
+                    <div class="form-group">
+                        <div class="d-flex ">
+                            <div class="shiftdatelist mx-auto" readonly data-date-multidate="true">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section jsplugins{
+
+ 
+    <script src="~/node_modules/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/node_modules/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+
+}
+@section scripts{
+    <script src="~/js/client/InProccess.js"></script>
+    <script src="~/js/client/ShiftDates.js"></script>
+
+}

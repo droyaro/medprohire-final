@@ -1,0 +1,52 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.LocationViewModel
+<div class="main-container-1 container text-xs-center text-sm-center text-md-left">
+
+    <h3 class="heading-1 text-xs-center text-sm-center text-md-left"><strong>Locations</strong></h3>
+
+    <div class="spacer"></div>
+    <div class="row">
+        <div class="col-md-8 col-sm-12">
+            <div class="tabs-1-wrap">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tabs-1-pane1">
+                        <form asp-action="_Branches">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Address" class="control-label"></label>
+                                <input asp-for="Address" class="form-control" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ZipCode" class="control-label"></label>
+                                <input asp-for="ZipCode" class="form-control" />
+                                <span asp-validation-for="ZipCode" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PhoneNumber" class="control-label"></label>
+                                <input asp-for="PhoneNumber" class="form-control" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ContactName" class="control-label"></label>
+                                <input asp-for="ContactName" class="form-control" />
+                                <span asp-validation-for="ContactName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

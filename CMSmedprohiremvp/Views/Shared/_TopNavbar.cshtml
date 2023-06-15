@@ -1,0 +1,50 @@
+﻿<div class="row border-bottom">
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            @*<form role="search" class="navbar-form-custom" method="post" action="">
+                    <div class="form-group">
+                        <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                    </div>
+                </form>*@
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+
+            @using Microsoft.AspNetCore.Identity
+            @using medprohiremvp.DATA.IdentityModels
+            @using System.IO
+            @using Microsoft.AspNetCore.Hosting
+            @using medprohiremvp.Service.IServices
+            @inject SignInManager<ApplicationUser> SignInManager
+            @inject UserManager<ApplicationUser> UserManager
+            @inject IHostingEnvironment Environment
+            @inject ICommonServices CommonServices
+            @if (SignInManager.IsSignedIn(User))
+            {
+                var user = UserManager.GetUserAsync(User).Result;
+                var admin = CommonServices.GetAdministratorbyID(user.Id);
+                if (admin != null)
+                {
+
+                    <li>
+                        <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext">Welcome @admin.LastName @admin.FirstName</span>
+                    </li>
+                }
+
+
+                <li>
+                    <a href="@Url.Action("Logout", "Home")">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+            }
+
+
+            @*<li>
+            <a class="right-sidebar-toggle">
+                <i class="fa fa-tasks"></i>
+            </a>
+        </li>*@
+        </ul>
+    </nav>
+</div>

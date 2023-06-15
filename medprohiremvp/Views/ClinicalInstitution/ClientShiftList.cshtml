@@ -1,0 +1,206 @@
+﻿@model List<medprohiremvp.Models.ClinicalInstitution.ClientShiftViewModel>
+@{ViewData["Title"] = "Shift Management";
+}
+
+<div class="d-flex justify-content-between flex-wrap u-nav-v1-2  flex-column flex-md-row ">
+   
+        <div class="p-2">
+            <div class="new-heading  ">
+                <h2 class="">@ViewData["Title"]</h2>
+            </div>
+        </div>
+        <div class="p-2   nowrap  availablepickmenu ml-md-auto ">
+            <ul class="nav u-nav-v1-1 u-nav-primary u-nav-search   nowrap u-nav-v2  flex-column flex-sm-row nav-justified g-mb-70" role="tablist" data-target="nav-1-1-default-hor-left-rounded-underline" data-tabs-mobile-type="slide-up-down" data-btn-classes="btn btn-md btn-block u-btn-outline-primary g-mb-20">
+                <li class="nav-item">
+                    <a class="nav-link g-rounded-bottom-0  active show" data-toggle="tab" href="#All" role="tab" aria-selected="true">All</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link g-rounded-bottom-0" data-toggle="tab" href="#notstarted" role="tab" aria-selected="false">Not Started</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link g-rounded-bottom-0" data-toggle="tab" href="#completed" role="tab" aria-selected="false">Completed</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link g-rounded-bottom-0" data-toggle="tab" href="#active" role="tab" aria-selected="false">Active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link g-rounded-bottom-0 " data-toggle="tab" href="#incomplete" role="tab" aria-selected="false">Incomplete</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link g-rounded-bottom-0 " data-toggle="tab" href="#canceled" role="tab" aria-selected="false">Canceled</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+<div class="usercontainer ">
+    <form asp-action="ClientShiftList">
+
+        <div class="form-group text-left">
+            <a class="btn btn-main btn-big-main" asp-controller="ClinicalInstitution" asp-action="NewClientShift">Create New</a>
+        </div>
+
+        <div class="backgroundlast">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+
+
+            @{
+                if (Model != null)
+                {
+                    <div class="tab-content">
+                        <div id="All" class="tab-pane  active">
+                            @for (int i = 0; i < Model.Count; i++)
+                            {
+
+                               @(Html.Partial("_shiftdetail_for_List",Model[i]))
+
+
+
+                                if (i != Model.Count - 1)
+                                {
+                                    <hr />
+                                }
+                            }
+                        </div>
+                        <div id="notstarted" class="tab-pane  fade">
+                            @{
+                                var notstarted = Model.Where(x => x.Category_ID == 1).ToList();
+                                if (notstarted != null)
+                                {
+                                    @for (int i = 0; i < notstarted.Count; i++)
+                                    {
+
+                                        @(Html.Partial("_shiftdetail_for_List", notstarted[i]))
+
+
+
+                                        if (i != notstarted.Count - 1)
+                                        {
+                                            <hr />
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                        <div id="completed" class="tab-pane  fade">
+                            @{
+                                var completed = Model.Where(x => x.Category_ID == 4).ToList();
+                                if (completed != null)
+                                {
+                                    @for (int i = 0; i < completed.Count; i++)
+                                    {
+
+                                        @(Html.Partial("_shiftdetail_for_List", completed[i]))
+
+
+
+                                        if (i != completed.Count - 1)
+                                        {
+                                            <hr />
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                        <div id="active" class="tab-pane  fade">
+                            @{
+                                var active = Model.Where(x => x.Category_ID == 2).ToList();
+                                if (active != null)
+                                {
+                                    @for (int i = 0; i < active.Count; i++)
+                                    {
+
+                                        @(Html.Partial("_shiftdetail_for_List", active[i]))
+
+
+
+                                        if (i != active.Count - 1)
+                                        {
+                                            <hr />
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                        <div id="incomplete" class="tab-pane  fade">
+                            @{
+                                var incomplete = Model.Where(x => x.Category_ID == 5).ToList();
+                                if (incomplete != null)
+                                {
+                                    @for (int i = 0; i < incomplete.Count; i++)
+                                    {
+
+                                        @(Html.Partial("_shiftdetail_for_List", incomplete[i]))
+
+
+                                        if (i != incomplete.Count - 1)
+                                        {
+                                            <hr />
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                        <div id="canceled" class="tab-pane  fade">
+                            @{
+                                var canceled = Model.Where(x => x.Category_ID == 3).ToList();
+                                if (canceled != null)
+                                {
+                                    @for (int i = 0; i < canceled.Count; i++)
+                                    {
+
+                                        @(Html.Partial("_shiftdetail_for_List", canceled[i]))
+
+
+
+                                        if (i != canceled.Count - 1)
+                                        {
+                                            <hr />
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+
+                }
+
+            }
+
+
+
+        </div>
+
+    </form>
+</div>
+<div class="modal  fade" id="ShiftDateModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="form-group-sm text-center">
+                    <label class="control-label">
+                        <strong>
+                            Shift Dates:
+                        </strong>
+                    </label>
+
+                    <input type="hidden" id="StartDate"  />
+                    <input type="hidden" id="EndDate" />
+                    <input type="hidden" id="ShiftsDates" />
+                    <div class="form-group">
+                        <div class="d-flex ">
+                            <div class="shiftdatelist mx-auto" readonly data-date-multidate="true">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/client/ShiftDates.js"></script>
+
+}

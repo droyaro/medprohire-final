@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Welcome!";
+}
+
+<form>
+
+    <div class="new-heading new-heading-background">
+        <h2 class="">@ViewData["Title"]</h2>
+    </div>
+
+    <div class="">
+        <div class=" usercontainer">
+            <div class="background  ">
+                <div class=" text-left mx-auto">
+
+                    @using Microsoft.AspNetCore.Identity
+                    @using medprohiremvp.DATA.IdentityModels
+                    @using medprohiremvp.DATA.Entity
+                    @using medprohiremvp.Service.IServices
+                    @inject SignInManager<ApplicationUser> SignInManager
+                    @inject UserManager<ApplicationUser> UserManager
+                    @inject ICommonServices CommonServices
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        string rolename = "Applicant";
+                        var user = UserManager.GetUserAsync(User).Result;
+                        var roles = UserManager.GetRolesAsync(user).Result;
+
+                        rolename = roles[0];
+                        @if (rolename == "Applicant")
+                        {
+                            Applicants app = CommonServices.FindApplicantByUserID(user.Id);
+                            if (app != null)
+                            {
+                                <p>Dear @string.Format("{0} {1}", app.FirstName, app.LastName)</p>
+                                <p>
+                                    Thank you for your interest in MedPro Hire. We have received your application. This will be reviewed by a recruiter who will contact you soon.
+                                </p>
+                                <p>
+                                    In the meantime, you can visit our website at any time to check your status on the candidate portal.
+
+                                </p>
+                                <p>
+                                    Best Regards,
+                                </p>
+                                <p>Talent Acquisition</p>
+
+                            }
+                        }
+                        else
+                        {
+                            ClinicalInstitutions clinical = CommonServices.FindClinicaByUserID(user.Id);
+                            if (clinical != null)
+                            {
+                                <p>
+                                    Thank you for registering @clinical.InstitutionName with MedProHire LLC. One of our representatives will be reaching out to you to set up a meeting to discuss our business relationship.
+                                </p>
+                                <p>
+                                    Welcome!
+                                </p>
+                                <p> MedProHire Team.</p>
+                            }
+
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

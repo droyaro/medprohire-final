@@ -1,0 +1,60 @@
+﻿@model medprohiremvp.Models.Applicant.Clockoutpartialviewmodel
+
+
+
+<div class="form-group">
+
+    <label asp-for="BranchName" class="control-label ">
+        <strong>
+            @Html.DisplayNameFor(m => m.BranchName):
+        </strong>
+        @Model.BranchName
+    </label>
+</div>
+<div class="form-group">
+    <label asp-for="SpecialitiesName" class="control-label ">
+        <strong> @Html.DisplayNameFor(m => m.SpecialitiesName):</strong>
+        @Model.SpecialitiesName
+    </label>
+</div>
+<div class="form-group">
+    <label asp-for="SelectedDay" class="control-label "><strong>@Html.DisplayNameFor(m => m.SelectedDay):</strong></label>
+    @Model.SelectedDay.ToString("MMMM dd")
+    <span asp-validation-for="SelectedDay" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="ClockinTime" class="control-label"><strong>@Html.DisplayNameFor(m => m.ClockinTime):</strong></label>
+    <span class="Clockintime">@Model.ClockinTime.ToShortTimeString()</span>
+</div>
+<p class="Currenttime"></p>
+
+@using Microsoft.AspNetCore.Identity
+@using medprohiremvp.DATA.IdentityModels
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+
+    var user = UserManager.GetUserAsync(User).Result;
+    if (user!=null)
+    {
+        
+        int timeoffset = user.TimeOffset;
+       
+        TimeSpan offset = TimeSpan.FromMinutes(-(timeoffset));
+        DateTime timenow = DateTime.UtcNow.Add(offset);
+        @if ((Model.ClockinTime - timenow).Duration() <= Model.Clockin_difference)
+        {
+
+            <div class="text-center">
+                <a asp-action="ConfirmClockin" asp-controller="Applicant" asp-route-id="@Model.clockin_id" class="btn btn-main">Start Work </a>
+            </div>
+        }
+        else
+        {
+            <div class="text-center">
+                <a href="#">Now You Can Not Clock In</a>
+            </div>
+        }
+
+    }
+}

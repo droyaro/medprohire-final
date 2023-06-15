@@ -1,0 +1,156 @@
+﻿@model medprohiremvp.Models.Applicant.AppliedShifts
+@{
+    ViewData["Title"] = "Shift Details";
+}
+<form asp-action="ShiftView">
+
+
+            <div class="form-group text-left">
+                <a class="btn btn-info" asp-controller="Applicant" asp-action="Applicant_ShiftSearch"><i class="fa fa-angle-left"></i> BACK</a>
+            </div>
+     
+
+            <div class=" text-left">
+                <div class="d-inline-block">
+                    <h5>CLIENT INFO</h5>
+                </div>
+            </div>
+            <div class="background">
+                <div class="form-group text-left">
+                    <div class="form-group-sm">
+                        <label asp-for="Branch_ID" class="control-label ">
+                            <strong>
+                               @(Html.DisplayNameFor(m=>m.BranchName)):
+                            </strong>
+                            @Model.BranchName
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label asp-for="Location" class="control-label ">
+                            <strong>
+                                 @(Html.DisplayNameFor(m=>m.Location)):
+                            </strong>
+                            @Model.Location
+                        </label>
+                    </div>
+                </div>
+            </div>
+      
+ 
+            <div class=" text-left">
+                <div class="d-inline-block">
+                    <h5>Shift</h5>
+                </div>
+            </div>
+            <div class="background">
+
+                <div class="form-group text-left">
+
+                    <div class="form-group-sm">
+                        <label class="control-label ">
+                            <strong> @(Html.DisplayNameFor(m => m.ShiftsDates)):</strong>
+                            @Model.StartDate.ToString("MMMM dd")- @Model.EndDate.ToString("MMMM dd")
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label asp-for="ShiftLabel_ID" class="control-label ">
+                            <strong> @(Html.DisplayNameFor(m => m.ShiftLabelName)):</strong>
+                            @Model.ShiftLabelName
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label asp-for="ClockInTime" class="control-label ">
+                            <strong>  @(Html.DisplayNameFor(m => m.ClockInTime)):</strong>
+                            @Model.ClockInTime.ToShortTimeString()-@Model.ClockOutTime.ToShortTimeString()
+                        </label>
+                    </div>
+                  
+                    <div class="form-group-sm">
+                        <label asp-for="Occurrences" class="control-label ">
+                            <Strong> @(Html.DisplayNameFor(m => m.Occurrences)):</Strong>
+                            @Model.Occurrences
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label asp-for="Specialities" class="control-label ">
+                            <strong> @(Html.DisplayNameFor(m => m.SpecialitiesName)):</strong>
+                            @Model.SpecialitiesName
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label asp-for="ShiftDescription" class="control-label">
+                            <strong> @(Html.DisplayNameFor(m => m.ShiftDescription)):</strong>
+                        </label>
+                        <div class="form-group-sm">
+                            <label> @Model.ShiftDescription</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group-sm">
+                        <label asp-for="Responsibility" class="control-label">
+                            <strong>
+                                @(Html.DisplayNameFor(m => m.Responsibility)):
+                            </strong>
+                        </label>
+                        <div class="form-group-sm">
+                            <label> @Model.Responsibility </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-auto ">
+                <div class=" text-left">
+                    <div class="d-inline-block">
+                        <h6>Pick the Shift</h6>
+                    </div>
+                </div>
+                <div class="backgroundlast">
+                    <div class="d-flex justify-content-between bd-highlight mb-2">
+                        <div class="p-2">
+                            <div class="form-group-sm">
+
+                                <div class="form-group-sm">
+                                    <input id="Selectdays" class="checkbox" type="checkbox" />
+                                    <label for="Selectdays" class="checkbox">Pick Specific days from Shift</label>
+
+                                </div>
+                                <div class="form-group-sm">
+                                    <div class="Pickdays" hidden>
+                                        <input type="hidden" asp-for="AppliedAllDays" value="true" />
+                                        <input type="hidden" asp-for="StartDate" />
+                                        <input type="hidden" asp-for="EndDate" />
+
+                                        <input type="text" id="AppliedDaysList" name="AppliedDaysList" autocomplete="off" class="datepickershift form-control" data-date-start-date=@Model.StartDate data-date-end-date=@Model.EndDate data-date-multidate="true" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="p-2">
+                            <div class="form-group-sm">
+
+                                <button asp-action="ApplytoShift" asp-controller="Applicant" asp-route-id="@Model.ClientShift_ID" type="submit" class="btn btn-main">Pick</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+   
+
+</form>
+
+@section jsplugins{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/node_modules/jquery-timepicker/jquery.timepicker.js"></script>
+}
+@section scripts{
+    <script src="~/js/Applicant/AvailableShifts.js"></script>
+
+}
+@section cssplugins{
+
+    <link href="~/node_modules/jquery-timepicker/jquery.timepicker.css" rel="stylesheet" />
+
+}

@@ -1,0 +1,165 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.SearchViewModel
+@{ViewData["Title"] = "Contractors";
+}
+@section cssplugins{
+
+    <link href="~/node_modules/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/node_modules/daterangepicker/daterangepicker.css" rel="stylesheet" />
+}
+<form asp-action="Search">
+
+    <div class="  new-heading-background ">
+        <div class="new-heading  contentpad">
+            <h2 class="">@ViewData["Title"]</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-sm-12  mx-auto">
+            <div class="searchbackground contentpad">
+
+                <div class="d-flex  text-left flex-xl-row flex-column justify-content-between">
+                    <div class="p-2  text-xl-center text-lg-left">
+                        <div class="d-flex flex-column">
+                            <div class="p-2  text-lg-left">
+                                <div class="form-group">
+                                    <h6 class="text-weight-bold float-md-left distance"> @string.Format("Distance from Location {0}:", ViewBag.LocationName)</h6>
+                                </div>
+                            </div>
+                            <div class="p-2  text-lg-left">
+                                <div class="form-group rangesliderfixwidth">
+                                    <input id="range-slider-1" type="range" min="0" max="5000" asp-for="Search.Distance">
+                                    <h5 id="amount-label-1" class="text-weight-bold text-brand-color float-md-right"></h5>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-2 paddingp2 flex-grow-1"></div>
+                    <div class="p-2  text-lg-left">
+                        <div class="form-group-sm">
+                            <label class="control-label searchlabel">Location</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control selectpicker flat" id="Search_Location" title="Select Location" asp-items="@ViewBag.Locations" asp-for="Search.Location"></select>
+                        </div>
+                    </div>
+                    <div class="p-2 paddingp2 flex-grow-1"></div>
+
+                    <div class="p-2 text-lg-left">
+                        <div class="form-group-sm searchlabel">
+                            <label class="control-label">Specialty</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control selectpicker flat " multiple title="Select Specialty" asp-items="@ViewBag.Speciality" asp-for="Search.Specialities"></select>
+                        </div>
+                    </div>
+                    <div class="p-2 paddingp2 flex-grow-1"></div>
+                    <div class="p-2  text-lg-left">
+                        <div class="form-group-sm searchlabel">
+                            <label class="control-label">Date</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" asp-for="Search.Date" class="form-control datepicker searchinput  mx-auto" />
+                        </div>
+                    </div>
+
+                    <div class="p-2 paddingp2 flex-grow-1"></div>
+                    <div class="p-2  text-xl-right text-lg-left">
+
+                        <div class="form-group">
+                            <input class="btn btn-search" type="submit" value="Search" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" col-sm-12  mx-auto ">
+            <div id="ApplicantList" class="usercontainer contentpad">
+                @if (Model.Applicants != null)
+                {
+
+                    <div class="row">
+                        @for (int i = 0; i < Model.Applicants.Count; i++)
+                        {
+
+
+                            <div class="col-lg-4 col-md-6 col-sm-12 filter">
+
+                                @Html.Partial("_applicantdetailpartial", Model.Applicants[i])
+
+                            </div>
+                        }
+                    </div>
+                    <ul id="pagination" class="pagination-sm justify-content-center pagging paginationpadding"></ul>
+
+                }
+
+
+            </div>
+        </div>
+    </div>
+
+
+</form>
+<div class="modal fade right" id="InviteShift" tabindex="-1" role="dialog" aria-labelledby="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content shiftmodal">
+
+            <div class="modal-body shiftmodal">
+
+            </div>
+
+
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+<div class="modal  fade" id="AnswerModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h6 class="success">
+                    <span class="text-success">
+                        <i class="fal fa-check-circle"></i>
+
+                        Applicant Invited Successfully
+                    </span>
+                </h6>
+
+                <h6 class="danger" hidden>
+                    <span class="text-danger"><i class="fal fa-exclamation-circle"></i> </span>
+                </h6>
+            </div>
+        </div>
+    </div>
+</div>
+@section jsplugins{
+
+    <script src="~/node_modules/twbs-pagination/jquery.twbsPagination.min.js"></script>
+    <script src="~/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="~/node_modules/daterangepicker/daterangepicker.js"></script>
+}
+@section scripts{
+    <script src="~/js/client/Search.js"></script>
+    <script>
+        var visiblerows = 6;
+                var pagecount = @(Model.Applicants != null?Model.Applicants.Count % 6 == 0 ? Model.Applicants.Count / 6 : (Model.Applicants.Count / 6) + 1:0);
+
+
+       if(pagecount>1){
+        $('#pagination').twbsPagination({
+            totalPages: pagecount,
+            visiblePages: pagecount,
+            next: '',
+            prev: '',
+            first: '',
+            last: '',
+            onPageClick: function (event, page) {
+                //fetch content and render here
+                $('#shiftlist').find('.filter').not("hidden").prop("hidden", true);
+                $('#shiftlist').find('.filter').slice((page - 1) * visiblerows, page * visiblerows).prop("hidden", false);
+                                            }
+                                            });
+        };
+
+    </script>
+}

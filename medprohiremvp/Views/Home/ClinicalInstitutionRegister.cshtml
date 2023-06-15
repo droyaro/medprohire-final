@@ -1,0 +1,100 @@
+﻿@using medprohiremvp.Service.IServices
+@inject ICommonServices commonservices
+@model medprohiremvp.Models.Home.ClinicalInstitutionModel
+<form asp-action="ClinicalInstitutionRegister" id="ClinicalInstitutionRegister" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <div class="containerbackground paddingbottom">
+        <div class=" container text-center">
+
+            <div class="heading-1">
+                <div class="d-inline-block">
+                    <hr class="before" />
+                    <h2 class=""> Institution Details</h2>
+                    <hr class="after" />
+                </div>
+            </div>
+
+            <div class="col-lg-7 col-sm-9 col-xs-12  mx-auto ">
+                <div class="background">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group text-left">
+                        <div class="row ">
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label asp-for="InstitutionType_ID" class="control-label ">Institution Type</label>
+                                    <div class="form-group-sm">
+                                        <select class="form-control selectpicker flat registerselect" title=" " asp-items="@ViewBag.InstitutionTypes" asp-for="InstitutionType_ID"></select>
+                                    </div>
+                                    <span asp-validation-for="InstitutionType_ID" class="text-danger"></span>
+
+                                </div>
+                         
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="form-group">
+                                    <label asp-for="Logo" class="control-label">Logo Image</label>
+                                    <input asp-for="Logo" type="file" class="form-control flat animation" id="logo" accept=".png, .jpg, .jpeg" />
+                                    <span asp-validation-for="Logo" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="InstitutionDescription" class="control-label ">Description</label>
+                            <textarea asp-for="InstitutionDescription" class="form-control flat animation" maxlength="2000" onkeyup="AutoGrowTextArea(this)"></textarea>
+                            <span asp-validation-for="InstitutionDescription" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PreferredSpecialites" class="control-label ">Which of these providers will you be staffing? Select all that apply</label>
+                            <div class="row  pr-4 pl-4">
+                                @{
+
+                                    var specialites = commonservices.GetSpecialities().ToList();
+                                    if (specialites != null)
+                                    {
+                                <div class="form-group">
+                                    <div class=" d-flex flex-wrap mlr_05rem">
+                                        @foreach (var speciality in specialites)
+                                        {
+                                            <div class="p-2">
+                                                <label for="@speciality.SpecialityName" class="checkboxovallabel ">@speciality.SpecialityName</label>
+                                                <input type="checkbox" name="@speciality.SpecialityName" id="@speciality.SpecialityName" value="@speciality.Speciality_ID" class="Specialty_Types" />
+                                                <label></label>
+                                            </div>
+
+                                        }
+                                    </div>
+                                    <input type="hidden" asp-for="PreferredSpecialites" />
+                                    <span asp-validation-for="PreferredSpecialites" class="text-danger"></span>
+                                </div>
+                                    }
+
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="paddingp">
+                <input type="submit" value="Submit" class="btn btn-main" id="create" />
+            </div>
+        </div>
+
+
+    </div>
+</form>
+
+
+@section jsplugins{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+}
+@section scripts{
+    <script src="~/js/home/Registration.js"></script>
+
+}

@@ -1,0 +1,169 @@
+﻿@model medprohiremvp.Models.Applicant.AcceptedShiftViewModel
+@{
+    ViewData["Title"] = "Confirmed Shift(s)";
+}
+
+<form asp-action="ConfirmedShifts">
+    <div class=" u-nav-v1-2 contentpad">
+        <div class="new-heading search_heading">
+            <h2 class="">@ViewData["Title"]</h2>
+        </div>
+    </div>
+    <div class="searchbackground   contentpad">
+        <div class="d-flex flex-column flex-xl-row">
+            <div class="d-xl-inline-flex flex-lg-row input-daterange p-2 flex-grow-1">
+                <div class="p-2">
+
+                    <div class="form-group-sm">
+                        <label class="control-label searchlabel">Start Date</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="StartDate" value="@(Model.nearbyshifts.Count>0?Model.nearbyshifts.Select(x=>x.WorkingDay).Min().ToString("MM/dd/yyyy"):"")" placeholder="Pick Start Date">
+                    </div>
+                </div>
+
+                <div class="p-2 paddingp2 flex-grow-1"></div>
+                <div class="p-2">
+                    <div class="form-group-sm">
+                        <label class="control-label searchlabel">End Date</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="EndDate"  value="@(Model.nearbyshifts.Count>0?Model.nearbyshifts.Select(x=>x.WorkingDay).Max().ToString("MM/dd/yyyy"):"")" placeholder="Pick End Date">
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="p-2 paddingp2 flex-grow-1"></div>
+            <div class="p-2">
+                <div class="form-group-sm">
+                    <label class="control-label searchlabel">Client</label>
+                </div>
+                <div class="form-group">
+                    <select asp-items=@ViewBag.Clinical id="Clincal" name="Clincal" data-style="btn-new" class="form-control selectpicker flat">
+                        <option value=" ">Select All</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="p-2 paddingp2 flex-grow-1"></div>
+            <div class="p-2">
+                <div class="form-group-sm">
+                    <label class="control-label searchlabel">Location</label>
+                </div>
+                <div class="form-group">
+                    <select asp-items=@ViewBag.Location id="Locations" name="Locations" data-style="btn-new" class="form-control selectpicker flat">
+                        <option value=" ">Select All</option>
+                    </select>
+                </div>
+            </div>
+            <div class="p-2 paddingp2 flex-grow-1"></div>
+            <div class="p-2  text-xl-right text-lg-left">
+
+                <div class="form-group">
+                    <input class="btn btn-search " type="button" id="SearchShifts" value="Search" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="shiftlist" class="usercontainer contentpad">
+        @using Microsoft.AspNetCore.Identity
+        @using medprohiremvp.DATA.IdentityModels
+        @inject UserManager<ApplicationUser> UserManager
+        @{
+            if (Model != null)
+            {
+
+
+                <div class="row ">
+                    @if (Model.ActiveShift == null)
+                    {
+                        @*<p>There is no Active shift now </p>*@
+                    }
+                    else
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-12  filtered activeshift">
+                            @Html.Partial("_acceptedshiftdetail", Model.ActiveShift)
+                        </div>
+
+                    }
+                   
+                    @if (Model.nearbyshifts.Count > 0)
+                    {
+
+                        {
+                            var clockin = Model.nearbyshifts.ToList();
+                            int paging = clockin.Count;
+                            for (int i = 0; i < paging; i++)
+                            {
+                                <div class="col-lg-4 col-md-6 col-sm-12 filter filtered">
+                                    <input type="hidden" id="cityid" value=@clockin[i].CityID>
+                                    <input type="hidden" id="workingday" value=@clockin[i].WorkingDay>
+                                    <input type="hidden" id="client" value=@clockin[i].Institution_ID>
+                                    @Html.Partial("_acceptedshiftdetail", Model.nearbyshifts[i])
+
+                                </div>
+
+                            }
+                        }
+
+
+                    }
+
+                                    </div>
+            }
+        }
+
+        <ul id="pagination" class="pagination-sm justify-content-center paginationpadding"></ul>
+    </div>
+
+
+
+
+</form>
+<div class="modal   fade" id="ClockinModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@section jsplugins{
+
+    <script src="~/node_modules/twbs-pagination/jquery.twbsPagination.min.js"></script>
+}
+
+
+@section scripts{
+    <script src="~/js/Applicant/Acceptedshift.js"></script>
+    <script>
+        
+            if (@Model.nearbyshifts.Count > 0) {
+                var count =@(Model.ActiveShift!=null? Model.nearbyshifts.Count+1: Model.nearbyshifts.Count);
+                var pagecount = count % 6 == 0 ? count / 6 : (count / 6) + 1;
+                $('#pagination').twbsPagination({
+                    totalPages: pagecount,
+                    visiblePages: 1,
+                    next: '<i class="far fa-angle-right"></i>',
+                    prev: '<i class="far fa-angle-left"></i>',
+                    first: '',
+                    last: '',
+
+                });
+        }
+        $(document).ready(function () {
+
+                $('.filtered').slice(6, count).attr("hidden", true);
+            });
+       
+    </script>
+
+
+}
+

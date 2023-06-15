@@ -1,0 +1,53 @@
+﻿@model medprohiremvp.Models.Applicant.Clockoutpartialviewmodel
+
+<div class="form-group">
+
+    <label asp-for="BranchName" class="control-label ">
+        <strong>
+            @Html.DisplayNameFor(m => m.BranchName):
+        </strong>
+        @Model.BranchName
+    </label>
+</div>
+<div class="form-group">
+    <label asp-for="SpecialitiesName" class="control-label ">
+        <strong> @Html.DisplayNameFor(m => m.SpecialitiesName):</strong>
+        @Model.SpecialitiesName
+    </label>
+</div>
+<div class="form-group">
+    <label asp-for="SelectedDay" class="control-label "><strong>@Html.DisplayNameFor(m => m.SelectedDay):</strong></label>
+    @Model.SelectedDay.ToString("MMMM dd")
+    <span asp-validation-for="SelectedDay" class="text-danger"></span>
+</div>
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label class="control-label ">@Html.DisplayNameFor(m => m.ClockinTime)</label>
+            <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker" asp-for="ClockinTime" value=@Model.ClockinTime.ToString("HH:mm") data-toggle="datetimepicker"/>
+             
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label class="control-label ">@Html.DisplayNameFor(m => m.ClockOutTime)</label>
+            <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" asp-for="ClockOutTime" value=@Model.ClockOutTime.ToString("HH:mm") data-toggle="datetimepicker"/>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+       
+        <div class="text-center">
+            <span hidden>@Model.clockin_id</span>
+            <a  id="clockinclockoutmanually" class="btn btn-main">Save</a>
+        </div>
+
+
+

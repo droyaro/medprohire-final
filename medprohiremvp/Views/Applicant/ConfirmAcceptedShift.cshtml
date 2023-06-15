@@ -1,0 +1,182 @@
+﻿@model List<medprohiremvp.Models.Applicant.AppliedShifts>
+@{
+    ViewData["Title"] = "Confirmed Shifts";
+}
+<div class=" u-nav-v1-2">
+    <div class="new-heading new-heading-background">
+        <h2 class="">@ViewData["Title"]</h2>
+    </div>
+</div>
+<form asp-action="ConfirmAcceptedShifts">
+    <div class="usercontainer  ">
+        <div class="backgroundlast">
+            <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+
+
+            <div id="shiftlist">
+                @{
+
+                    if (Model != null)
+                    {
+                        if (Model.Count == 0)
+                        {
+                            <p>There is no confirmed shifts from Administration</p>
+                        }
+                        else
+                        {
+                            for (int i = 0; i < Model.Count; i++)
+                            {
+                                <div class="d-flex justify-content-between bd-highlight mb-2 align-items-center flex-column  flex-lg-row">
+                                    <div class="p-2">
+                                        <div class="form-group text-left">
+                                            <div class="form-group-sm">
+                                                <label for="DateOfShift" class="control-label ">
+                                                    <strong>@Html.DisplayNameFor(m=>m[0].DateOfShift):</strong>
+                                                    @Model[i].DateOfShift.ToString("MMMM dd")
+                                                </label>
+
+                                            </div>
+                                   
+                                            <div class="form-group-sm">
+                                                <label class="control-label ">
+                                                    <strong>>@Html.DisplayNameFor(m => m[0].ShiftsDates):</strong>
+                                                    <a href="#" id="seeshiftdates" data-id="@Model[i].ClientShift_ID">
+                                                        @Model[i].StartDate.ToString("MMMM dd")- @Model[i].EndDate.ToString("MMMM dd")
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="form-group-sm">
+                                                <label for="ShiftLabel_ID" class="control-label ">
+                                                    <strong>@Html.DisplayNameFor(m => m[0].ShiftLabelName):</strong>
+                                                    @Model[i].ShiftLabelName
+                                                </label>
+                                            </div>
+                                            <div class="form-group-sm">
+                                                <label for="ClockInTime" class="control-label ">
+                                                    <strong> @Html.DisplayNameFor(m => m[0].ClockInTime):</strong>
+                                                    @Model[i].ClockInTime.ToShortTimeString()-@Model[i].ClockOutTime.ToShortTimeString()
+                                                </label>
+                                            </div>
+                                   
+                                            <div class="form-group-sm">
+                                                <label for="Occurrences" class="control-label ">
+                                                    <Strong>@Html.DisplayNameFor(m => m[0].Occurrences):</Strong>
+                                                    @Model[i].Occurrences
+                                                </label>
+                                            </div>
+                                            <div class="form-group-sm">
+                                                <label for="Specialities" class="control-label ">
+                                                    <strong>@Html.DisplayNameFor(m => m[0].SpecialitiesName):</strong>
+                                                    @Model[i].SpecialitiesName
+                                                </label>
+                                            </div>
+
+                                            <div class="form-group-sm">
+                                                <label for="Branch_ID" class="control-label ">
+                                                    <strong>
+                                                        @Html.DisplayNameFor(m => m[0].BranchName):
+                                                    </strong>
+                                                    @Model[i].BranchName
+                                                </label>
+                                            </div>
+                                            <div class="form-group-sm">
+                                                <label for="ShiftDescription" class="control-label">
+                                                    <strong>@Html.DisplayNameFor(m => m[0].ShiftDescription):</strong>
+                                                </label>
+                                                <div class="form-group-sm">
+                                                    <label> @Model[i].ShiftDescription</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group-sm">
+                                                <label for="Responsibility" class="control-label">
+                                                    <strong>
+                                                        @Html.DisplayNameFor(m => m[0].Responsibility):
+                                                    </strong>
+                                                </label>
+                                                <div class="form-group-sm">
+                                                    <label> @Model[i].Responsibility </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group-sm">
+                                                <label for="Responsibility" class="control-label">
+                                                    <strong>
+                                                        @Html.DisplayNameFor(m => m[0].Remarks):
+                                                    </strong>
+                                                </label>
+                                                <div class="form-group-sm">
+                                                    <label> @Model[i].Remarks </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group-sm">
+                                                <label for="AppliedDaysList" class="control-label">
+                                                    <strong> @Html.DisplayNameFor(m => m[0].AppliedDaysList):</strong>
+                                                </label>
+                                                <input type="hidden" class="applieddays" data-applieddates="@Model[i].AppliedDaysList" />
+
+                                                <div class="form-group_sm">
+                                                    <div class="d-flex ">
+                                                        <div class="applieddayslist" readonly data-date-multidate="true">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-2">
+                                        @if (!Model[i].Applied)
+                                        {
+                                            <a class="btn btn-big-main" href=@Url.Action("ConfirmShift", "Applicant", new { AppliedShift_ID = Model[i].AppliedShift_ID })> <i class="mdi mdi-check"></i> Confirm</a>
+                                        }
+                                    </div>
+                                </div>
+                                @if (i != Model.Count - 1)
+                                {
+                                    <hr />
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</form>
+<div class="modal  fade" id="ShiftDateModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="form-group-sm text-center">
+                    <label class="control-label">
+                        <strong>
+                            Shift Dates:
+                        </strong>
+                    </label>
+
+                    <input type="hidden" id="StartDate" />
+                    <input type="hidden" id="EndDate" />
+                    <input type="hidden" id="ShiftsDates" />
+                    <div class="form-group">
+                        <div class="d-flex ">
+                            <div class="shiftdatelist mx-auto" readonly data-date-multidate="true">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/Applicant/CompletedDismissedShift.js"></script>
+    <script src="~/js/Applicant/ShiftDates.js"></script>
+}

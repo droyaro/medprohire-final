@@ -1,0 +1,287 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.ApplicantDetailViewModel
+
+@{ViewData["Title"] = "Contractor Info";
+}
+@section cssplugins{
+
+    <link href="~/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+}
+<div class="new-heading new-heading-background ">
+    <h2 class="">@ViewData["Title"]</h2>
+</div>
+<div class="usercontainer ">
+    <div class="form-group text-left">
+        <a class="btn btn-info animation" asp-controller="ClinicalInstitution" asp-action="Search"><i class="fa fa-angle-left"></i> BACK</a>
+    </div>
+    <div class="background">
+        <div class="d-flex flex-column flex-xl-row">
+            <div class="p-2 mx-auto">
+                <div class="text-center">
+                    <div class="form-group">
+                        <img class="big-rounded-profile-circle img-fluid  " src="@(Model.Applicant.ImgSrc==""||Model.Applicant.ImgSrc==null?"/Upload/User.png":Model.Applicant.ImgSrc)" />
+                    </div>
+                    <div class="form-group">
+                        <label class="main-label">@string.Format("{0} {1}", Model.Applicant.FirstName, Model.Applicant.LastName)</label>
+                    </div>
+                </div>
+                <div class="list-group list-group-border-0 g-mb-50">
+                    <a class="list-group-item justify-content-between active" data-toggle="tab" href="#Profileview" role="tab" aria-selected="false">
+                        <span><i class="fal fa-user-circle"></i> Contractor Info</span>
+                    </a>
+                </div>
+            </div>
+            <div class="paddingp2"></div>
+            <div class="p-2  flex-grow-1">
+                <div id="Profileview" class="tab-pane  fade active show">
+                    <div class="d-flex flex-row flex-lg-column ">
+                        <div class="p-2">
+                            <div class="form-group">
+                                <ul class="nav u-nav-v1-1 u-nav-primary u-nav-profile flex-column flex-lg-row nowrap g-mb-30" role="tablist" data-target="nav-1-1-default-hor-left-rounded-underline" data-tabs-mobile-type="slide-up-down" data-btn-classes="btn btn-md btn-block u-btn-outline-primary g-mb-20">
+                                    <li class="nav-item flex-grow-1">
+                                        <a class="nav-link g-rounded-bottom-0 active show" data-toggle="tab" href="#Profile" role="tab" aria-selected="true"> <i class="fal fa-user-circle"></i>Full Info</a>
+                                    </li>
+                                    <li class="nav-item flex-grow-1">
+                                        <a class="nav-link g-rounded-bottom-0" data-toggle="tab" href="#specalities" role="tab" aria-selected="false"><i class="far fa-user-md"></i>  Specialties</a>
+                                    </li>
+                                    <li class="nav-item flex-grow-1">
+                                        <a class="nav-link g-rounded-bottom-0" data-toggle="tab" href="#workhistory" role="tab" aria-selected="false"><i class="mdi mdi-hospital-marker"></i>  Work History</a>
+                                    </li>
+                                    <li class="nav-item flex-grow-1">
+                                        <a class="nav-link g-rounded-bottom-0" data-toggle="tab" href="#certificates" role="tab" aria-selected="false"><i class="far fa-file-certificate"></i> Certificates</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="paddingp2"></div>
+                        <div class="p-2">
+                            <div class="tab-pane  fade active show" id="Profile">
+                                <div class="row ">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class=" form-group">
+                                            <label for="FirstName" class="control-label ">@(Html.DisplayNameFor(x => x.Applicant.FirstName))</label>
+                                            <div class=" form-group">
+                                                <label class="main-label">@Model.Applicant.FirstName</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="LastName" class="control-label ">@(Html.DisplayNameFor(x => x.Applicant.LastName))</label>
+                                            <div class="form-group">
+                                                <label class="main-label">@Model.Applicant.LastName</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="MiddleName" class="control-label ">@(Html.DisplayNameFor(x => x.Applicant.MiddleName))</label>
+                                            <div class="form-group">
+                                                <label class="main-label">@Model.Applicant.MiddleName</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Email" class="control-label ">@(Html.DisplayNameFor(x => x.Applicant.Email))</label>
+                                            <div class="form-group">
+                                                <label class="main-label"><i class="far fa-envelope"></i> @Model.Applicant.Email</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Email" class="control-label ">@(Html.DisplayNameFor(x => x.Applicant.PhoneNumber))</label>
+                                            <div class="form-group">
+                                                <label class="main-label"><i class="far fa-phone"></i> @Model.Applicant.PhoneNumber</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="Address" class="control-label ">@(Html.DisplayNameFor(x => x.Applicant.Address))</label>
+                                            <div class="form-group">
+                                                <label class="main-label">@Model.Applicant.Address</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ZipCode" class="control-label ">@(Html.DisplayNameFor(x => x.Applicant.ZipCode))</label>
+                                            <div class="form-group">
+                                                <label class="main-label">@Model.Applicant.ZipCode</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Availability_ID" class="control-label ">@(Html.DisplayNameFor(x => x.Applicant.AvailabilityString))</label>
+                                            <div class="form-group">
+                                                <label class="main-label">@Model.Applicant.AvailabilityString</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="VisaStatusString" class="control-label ">@(Html.DisplayNameFor(x => x.Applicant.VisaStatusString))</label>
+                                            <div class="form-group">
+                                                <label class="main-label">@Model.Applicant.VisaStatusString</label>
+                                            </div>
+                                        </div>
+                                        @if (Model.Applicant.VisaStatus_ID == 3)
+                                        {
+                                            <div class="form-group-sm text-left">
+                                                <div class="form-group-sm">
+                                                    <p>IsEligible</p>
+                                                </div>
+                                                <div class="form-group-sm">
+                                                    @if (Model.Applicant.IsEligible)
+                                                    {
+                                                        <label class="main-label">Yes</label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="main-label">No</label>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="specalities" class="tab-pane  fade">
+                                <table class="responsive specalities_datatable text-left nowrap table-hover">
+                                    @if (Model.specialities != null)
+                                    {
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    @(Html.DisplayNameFor(x => x.specialities[0].SpecialityName))
+                                                </th>
+                                                <th>
+                                                    @(Html.DisplayNameFor(x => x.specialities[0].License))
+                                                </th>
+                                                <th>
+                                                    @(Html.DisplayNameFor(x => x.specialities[0].LegabilityStates))
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bspecalities">
+                                            @{
+                                                var specialities = Model.specialities;
+                                                for (int i = 0; i < specialities.Count; i++)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            <label class="control-label">@Model.specialities[i].SpecialityName</label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="control-label">@Model.specialities[i].License</label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="control-label">@String.Join("; ", Model.specialities[i].LegabilityStates)</label>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    }
+
+                                </table>
+                            </div>
+
+                            <div id="workhistory" class="tab-pane  fade">
+                                <table class="responsive workhistory_datatable text-left nowrap  table-hover">
+                                    @if (Model.workHistories != null)
+                                    {
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    @(Html.DisplayNameFor(x => x.workHistories[0].PlaceName))
+                                                </th>
+                                                <th>
+                                                    @(Html.DisplayNameFor(x => x.workHistories[0].SpecialityName))
+                                                </th>
+                                                <th>
+                                                    @(Html.DisplayNameFor(x => x.workHistories[0].StartDate))
+                                                </th>
+                                                <th>
+                                                    @(Html.DisplayNameFor(x => x.workHistories[0].EndDate))
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bworkhistory">
+                                            @{
+                                                var workHistories = Model.workHistories;
+                                                @for (int i = 0; i < workHistories.Count; i++)
+                                                {
+                                            <tr>
+                                                <td>
+                                                    <label class="control-label"> @Model.workHistories[i].PlaceName</label>
+                                                </td>
+                                                <td>
+                                                    <label class="control-label">@Model.workHistories[i].SpecialityName</label>
+                                                </td>
+                                                <td>
+                                                    <label class="control-label"> @Model.workHistories[i].StartDate.GetValueOrDefault().ToString("MMM yyyy")</label>
+                                                </td>
+                                                <td>
+                                                    @if (Model.workHistories[i].UntilNow)
+                                                    {
+                                                    <label class="control-label">
+                                                        @(Html.DisplayNameFor(x => x.workHistories[0].UntilNow))
+                                                    </label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="control-label">
+                                                            @Model.workHistories[i].EndDate.GetValueOrDefault().ToString("MMM yyyy")
+                                                        </label>
+                                                    }
+                                                </td>
+                                            </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    }
+                                </table>
+                            </div>
+                            <div id="certificates" class="tab-pane nwtb fade">
+                                <table class="responsive certificates_datatable text-left nowrap table-hover">
+                                    @if (Model != null)
+                                    {
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    @(Html.DisplayNameFor(x => x.certificates[0].CertificateType))
+                                                </th>
+                                                <th>
+                                                    View Image
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bcertificates">
+                                            @for (int i = 0; i < Model.certificates.Count; i++)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label">@Model.certificates[i].CertificateType</label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="control-label">
+                                                            <a target="_blank" class="btn btn-link" asp-action="FileView" asp-controller="ClinicalInstitution" asp-route-Id="@Model.certificates[i].Certification_ID" asp-route-FileType="Certificate" asp-route-Applicant_ID="@Model.certificates[i].Applicant_ID">View Image</a>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    }
+                                    </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section jsplugins{
+    <script src="~/node_modules/peity/jquery.peity.min.js"></script>
+    <script src="~/node_modules/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/node_modules/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+}
+@section scripts{
+    <script src="~/js/client/Inproccessdetail.js"></script>
+
+}

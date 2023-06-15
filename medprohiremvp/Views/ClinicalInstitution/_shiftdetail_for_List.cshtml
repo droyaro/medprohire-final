@@ -1,0 +1,56 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.ClientShiftViewModel
+<div class="d-flex justify-content-between bd-highlight mb-2">
+    <div class="text-left p-2">
+        <div class="form-group-sm">
+            <label><strong>@Html.DisplayNameFor(model => model.ClientShift_ID):</strong> @Model.ClientShift_ID</label>
+        </div>
+        <div class="form-group-sm">
+            <label><strong>@Html.DisplayNameFor(model => model.Category_ID):</strong> @Model.Category_Name</label>
+        </div>
+        <div class="form-group-sm">
+            <label><strong>  @Html.DisplayNameFor(model => model.DateOfShift):</strong> @Model.DateOfShift.ToString("MMMM dd")</label>
+        </div>
+        <div class="form-group-sm">
+            <label><strong> @Html.DisplayNameFor(model => model.ContractorCount):</strong> @Html.DisplayFor(model => Model.ContractorCount)</label>
+        </div>
+        <div class="form-group-sm">
+            <label><strong>@Html.DisplayNameFor(model => model.ShiftsDates):</strong> <a href="#" id="seeshiftdates" data-id="@Model.ClientShift_ID"> @Model.StartDate.ToString("MMMM dd")- @Model.EndDate.ToString("MMMM dd")</a></label>
+        </div>
+       
+        <div class="form-group-sm">
+            <label><strong>@Html.DisplayNameFor(model => model.SpecialitiesName):</strong> @Html.DisplayFor(modelItem => Model.SpecialitiesName)</label>
+        </div>
+        <div class="form-group-sm">
+            <label><strong>@Html.DisplayNameFor(model => model.BranchName):</strong> @Html.DisplayFor(modelItem => Model.BranchName)</label>
+        </div>
+        <div class="form-group-sm">
+
+
+        </div>
+    </div>
+
+    <div class="p-2  text-left ">
+
+        <div class="p-2">
+            <a class="btn btn-link" href=@Url.Action("ShiftDetails", "ClinicalInstitution", new { ClientShift_ID = Model.ClientShift_ID })><i class="far fa-eye fa-1x"></i> View Details</a>
+        </div>
+        @if (Model.Category_ID == 1)
+        {
+            <div class="p-2">
+                <a class="btn btn-link" href=@Url.Action("EditShift", "ClinicalInstitution", new { ClientShift_ID = Model.ClientShift_ID })><i class="fas fa-edit"> </i> Edit</a>
+            </div>
+            <div class="p-2">
+                <a class="btn btn-link" href=@Url.Action("RemoveShift", "ClinicalInstitution", new { ClientShift_ID = Model.ClientShift_ID })><i class="fas fa-trash"></i> Remove</a>
+            </div>
+        }
+        else
+        {
+            if (Model.Category_ID == 2)
+            {
+                <div class="p-2">
+                    <a class="btn btn-link" href=@Url.Action("EditShiftContractorCount", "ClinicalInstitution", new { ClientShift_ID = Model.ClientShift_ID })><i class="fas fa-edit"> </i> Edit</a>
+                </div>
+            }
+        }
+    </div>
+</div>

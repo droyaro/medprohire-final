@@ -1,0 +1,164 @@
+﻿@model CMSmedprohiremvp.Models.Applicant.ApplicantAppliedShiftsViewModel
+<div class="mx-auto text-center">
+    <div class="heading-2">
+        <div class="d-inline-block">
+
+            <h3>Applied Shifts List</h3>
+
+        </div>
+    </div>
+</div>
+<div class="background">
+
+
+    <div class="row align-items-center">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group text-left">
+                <div class="form-group-sm">
+                    <label for="DateOfShift" class="control-label ">
+                        <strong>Insert Date:</strong>
+                        @Model.DateOfShift.ToString("MMMM dd")
+                    </label>
+
+                </div>
+                <div class="form-group-sm">
+                    <label for="ContractorCount" class="control-label ">
+                        <strong>Contractor Count:</strong>
+                        @Model.ContractorCount
+                    </label>
+                </div>
+
+                <div class="form-group-sm">
+                    <label class="control-label ">
+                        <strong>Shift Dates:</strong>
+                        <input type="hidden" id="seeshiftdates" data-shiftdates="@Model.ShiftsDates" />
+                    </label>
+                    <div class="form-group">
+                        <div class="d-flex ">
+                            <div class="shiftdatelist_@Model.AppliedShift_ID" readonly data-date-multidate="true">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group-sm">
+                    <label for="ShiftLabel_ID" class="control-label ">
+                        <strong>Shift Label:</strong>
+                        @Model.ShiftLabelName
+                    </label>
+                </div>
+                <div class="form-group-sm">
+                    <label for="ClockInTime" class="control-label ">
+                        <strong> Time:</strong>
+                        @Model.ClockInTime.ToShortTimeString()-@Model.ClockOutTime.ToShortTimeString()
+                    </label>
+                </div>
+                <div class="form-group-sm">
+                    <label for="HourlyRate" class="control-label ">
+                        <strong> Hourly Rate:</strong>
+                        @Model.HourlyRate
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group text-left">
+                <div class="form-group-sm">
+                    <label for="Occurrences" class="control-label ">
+                        <Strong>Occurrences:</Strong>
+                        @Model.Occurrences
+                    </label>
+                </div>
+       
+                <div class="form-group-sm">
+
+                    <label for="ShiftExpirationDate" class="control-label ">
+                        <strong>
+                            Shift Expiration Date:
+                        </strong>
+                        @Model.ShiftExpirationDate.ToString("MMMM dd")
+
+                    </label>
+                </div>
+                <div class="form-group-sm">
+                    <label for="Specialities" class="control-label ">
+                        <strong>Specalities:</strong>
+                        @Model.SpecialitiesName
+                    </label>
+                </div>
+
+                <div class="form-group-sm">
+                    <label for="Branch_ID" class="control-label ">
+                        <strong>
+                            Location:
+                        </strong>
+                        @Model.BranchName
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row text-left">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group-sm">
+                <label for="ShiftDescription" class="control-label">
+                    <strong>Description:</strong>
+                </label>
+                <div class="form-group-sm">
+                    <label> @Model.ShiftDescription</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group-sm">
+                <label for="Responsibility" class="control-label">
+                    <strong>
+                        Responsibility:
+                    </strong>
+                </label>
+                <div class="form-group-sm">
+                    <label> @Model.Responsibility </label>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group-sm">
+
+
+                <label for="AppliedAllDays" class="checkbox"> <Strong>Applicant Applied to Alldays:</Strong></label>
+
+                @{
+                    if (Model.AppliedAllDays)
+                    { @Html.Label("Yes")}
+                else
+                { @Html.Label("No")}
+
+                }
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group-sm">
+                <label for="AppliedDaysList" class="control-label">
+                    <strong>Applied Days:</strong>
+                </label>
+
+                <input type="hidden" id="StartDate" />
+                <input type="hidden" id="EndDate" />
+                <input type="hidden" id="ShiftsDates" />
+                <div class="form-group">
+                    <div class="d-flex ">
+                        <div class="shiftdatelist mx-auto" readonly data-date-multidate="true">
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>

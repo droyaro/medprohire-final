@@ -1,0 +1,157 @@
+﻿@{
+    string action = ViewContext.RouteData.Values["Action"].ToString().ToLower();
+    string controller = ViewContext.RouteData.Values["Controller"].ToString().ToLower();
+}
+
+
+
+
+
+@using Microsoft.AspNetCore.Identity
+@using medprohiremvp.DATA.IdentityModels
+@using medprohiremvp.DATA.Entity
+@using medprohiremvp.Service.IServices
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject ICommonServices CommonServices
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <nav id="nav" class="navbar navbar-expand">
+        <div class="menucontainer">
+            <!-- Nested Container Starts -->
+            <!-- Navbar Brand & Toggler Starts -->
+            <a asp-controller="Home" asp-action="Index" class="navbar-brand">
+                <img src="~/images/MedProHire_branding_logo.png" alt="Medprohire" class="logo img-fluid img-center-sm">
+            </a>
+            <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon fa fa-bars"></span>
+            </button>
+            <!-- Navbar Brand & Toggler Ends -->
+            <!-- Navbar Collapse Starts -->
+            <div class="navbar-collapse collapse text-lg-center text-xs-center">
+                <ul class="nav navbar-nav ml-auto align-items-center">
+
+                    @{
+                        List<Notifications> notifications = new List<Notifications>();
+
+                        notifications = CommonServices.GetUserNotifications(Guid.Parse(UserManager.GetUserId(User)));
+
+                        string rolename = "Applicant";
+                        var user = UserManager.GetUserAsync(User).Result;
+                        var roles = UserManager.GetRolesAsync(user).Result;
+                        string img = "/Upload/User.png";
+                        rolename = roles[0];
+                        @if (rolename != "Applicant")
+                        {
+                            ClinicalInstitutions client = CommonServices.FindClinicaByUserID(user.Id);
+                            if (client != null)
+                            {
+                                if (client.Logo != null && client.Logo != "")
+                                {
+                                    img = "/" + client.Logo.Replace("\\", "/");
+                                }
+                                @if ((controller == "home" && action == "index") || (controller == "home" && action == "findtalent"))
+                                {
+                                    <li class="nav-item  @((action == "dashboard") && (controller == "clinicalinstitution") ? "active" : "")"><a class="nav-link font-nunito" asp-controller="ClinicalInstitution" asp-action="Dashboard">DASHBOARD</a></li>
+                                }
+                                <li class="nav-item  @((action == "notifications") && (controller == "home") ? "active" : "")"><a class="nav-link font-nunito notification_ball" asp-controller="Home" asp-action="Notifications"><i class="mdi mdi-bell  @(notifications.Count > 0 ? "bell" : "")"></i><span class=" @(notifications.Count > 0 ? "notification" : "")"> @(notifications.Count > 0 ? notifications.Count.ToString() : "")</span></a></li>
+
+                                <li class="nav-item dropdown" id="notify-dropdown-menu">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"> <img alt="image" class="rounded-circle logofit" src=@img></a>
+
+                                    <ul class="dropdown-menu text-center">
+
+                                        <li class="nav-item "><a class="nav-link font-nunito" href="#"><img alt="image" class="big-rounded-circle logofit" src=@img></a></li>
+                                        <li class="nav-item profilename"><strong>@string.Format("{0}", client.InstitutionName)</strong></li>
+
+                                        <li class="nav-item  @((action == "support") && (controller == "account") ? "active" : "")"><a class="nav-link settings font-nunito" asp-controller="Account" asp-action="Support">Support</a></li>
+                                        <li class="menupadding"></li>
+                                        <li class="mt-auto"><hr /></li>
+                                        <li class="mt-auto nav-item @((action == "logout") && (controller == "home") ? "active" : "")">
+                                            <a class="nav-link signout font-nunito" asp-controller="Home" asp-action="Logout"> <i class="fal fa-power-off"></i> Sign out</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+
+
+                        }
+                        else
+                        {
+
+                            Applicants app = CommonServices.FindApplicantByUserID(user.Id);
+                            if (app != null)
+                            {
+                                if (app.ProfileImage != null && app.ProfileImage != "")
+                                {
+                                    img = "/" + app.ProfileImage.Replace("\\", "/");
+                                }
+                                @if ((controller == "home" && action == "index") || (controller == "home" && action == "findtalent"))
+                                {
+                                    <li class="nav-item  @((action == "dashboard") && (controller == "applicant") ? "active" : "")"><a class="nav-link font-nunito " asp-controller="Applicant" asp-action="Dashboard">DASHBOARD</a></li>
+                                }
+                                <li class="nav-item  @((action == "notifications") && (controller == "home") ? "active" : "")"><a class="nav-link font-nunito notification_ball" asp-controller="Home" asp-action="Notifications"><i class="mdi mdi-bell  @(notifications.Count > 0 ? "bell" : "")"></i><span class=" @(notifications.Count > 0 ? "notification" : "")"> @(notifications.Count > 0 ? notifications.Count.ToString() : "")</span></a></li>
+
+                                <li class="nav-item dropdown" id="notify-dropdown-menu">
+                                    <a class="nav-link dropdown-toggle font-nunito" data-toggle="dropdown" href="#"> <img alt="image" class="rounded-circle" src=@img></a>
+
+                                    <ul class="dropdown-menu text-center">
+
+                                        <li class="nav-item "><a class="nav-link font-nunito" href="#"><img alt="image" class="big-rounded-circle" src=@img></a></li>
+                                        <li class="nav-item profilename font-nunito"><strong>@string.Format("{0} {1}", app.FirstName, app.LastName)</strong></li>
+
+                                        <li class="nav-item  @((action == "support") && (controller == "account") ? "active" : "")"><a class="nav-link settings font-nunito" asp-controller="Account" asp-action="Support">Support</a></li>
+                                        <li class="menupadding"></li>
+                                        <li class="mt-auto"><hr /></li>
+                                        <li class="mt-auto nav-item @((action == "logout") && (controller == "home") ? "active" : "")">
+                                            <a class="nav-link signout font-nunito" asp-controller="Home" asp-action="Logout"> <i class="fal fa-power-off"></i> Sign out</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                        }
+                    }
+
+                </ul>
+            </div>
+
+            <!-- Navbar Collapse Ends -->
+        </div>
+        <!-- Nested Container Ends -->
+    </nav>
+
+                        }
+                        else
+                        {
+  
+    <nav id="nav" class="navbar navbar-expand-md justify-content-between">
+        <div class="container">
+            <!-- Nested Container Starts -->
+            <!-- Navbar Brand & Toggler Starts -->
+            <a asp-controller="Home" asp-action="Index" class="navbar-brand">
+                <img src="~/images/MedProHire_branding_logo.png" alt="Medprohire" class="logo img-fluid img-center-sm">
+            </a>
+            <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon fa fa-bars"></span>
+            </button>
+            <!-- Navbar Brand & Toggler Ends -->
+            <!-- Navbar Collapse Starts -->
+            <div class="navbar-collapse collapse text-lg-center text-xs-center">
+                <ul class="nav navbar-nav ml-auto">
+
+                    <li class="nav-item  @((action == "about") && (controller == "home") ? "active" : "")"><a class="nav-link font-nunito" href="~/Home/#about">ABOUT US</a></li>
+                    <li class="nav-item  @((action == "to-find-job") && (controller == "home") ? "active" : "")"><a class="nav-link font-nunito" href="~/Home/#to-find-job">TO FIND A JOB</a></li>
+                    <li class="nav-item  @((action == "findtalent") && (controller == "home") ? "active" : "")"><a class="nav-link font-nunito" href="~/Home/FindTalent/1">FIND TALENT</a></li>
+
+                    <li class="nav-item @((action == "register") && (controller == "home") ? "active" : "")"><a class="nav-link font-nunito" asp-controller="Home" asp-action="Register" id="Register">SIGN UP</a></li>
+                    <li class="nav-item @((action == "login") && (controller == "home") ? "active" : "")"><a class="nav-link font-nunito" asp-controller="Home" asp-action="Login">LOG IN</a></li>
+                </ul>
+            </div>
+
+            <!-- Navbar Collapse Ends -->
+        </div>        <!-- Nested Container Ends -->
+    </nav>
+  
+                        }
+

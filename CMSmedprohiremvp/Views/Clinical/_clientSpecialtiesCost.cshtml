@@ -1,0 +1,80 @@
+﻿@*@model List<CMSmedprohiremvp.Models.Clinical.ClientSpecialtiesCost>
+<div id="specalities" >
+
+    <form asp-action="GenerateSpecialityCosts" id="GenerateSpecialityCosts" asp-controller="Clinical" method="post" enctype="multipart/form-data">
+
+       
+            <div class="nwtb mb-3">
+
+                <table class="table dataTable">
+                    <thead>
+                            <tr>
+                                <th>
+                                    <h2 class="header text-center">Provider</h2>
+                                </th>
+                            </tr>
+                        </thead>
+                    <tbody class="bprovider">
+
+                        @{
+                            if (Model != null)
+                            {
+                                @for (int i = 0; i < Model.Count; i++)
+
+                                {
+                                    var shiftLabelCost = Model[i].Cost;
+                                    <tr>
+                                        <td class="">
+
+
+                                            <div class="row">
+
+                                                <div class="col-12">
+                                                    <h4 class="header text-center mt-3 mb-5">@Model[i].SpecialtyName</h4>
+                                                </div>
+
+                                                @for (int j = 0; j < shiftLabelCost.Count; j++)
+                                                {
+
+                                                    <div class="col-lg-3 col-md-6 col-sm-12">
+
+                                                        <div class="form-group">
+                                                            <label class="main-label">@shiftLabelCost[j].ShiftLabelName Rate</label>
+                                                            <input type="text" hidden asp-for="@Model[i].Cost[j].ShiftLabel_ID" class="form-control" value="@shiftLabelCost[j].ShiftLabel_ID" />
+                                                           
+
+                                                        </div>
+                                                        <div class="form-group align-self-end">
+                                                            <input type="number" asp-for="@Model[i].Cost[j].Cost" class="form-control" placeholder="Cost" value="@shiftLabelCost[j].Cost" />
+                                                        </div>
+                                                    </div>
+
+
+                                                }
+
+
+                                                <div class="form-group mr-3">
+
+                                                    <input type="text" asp-for="@Model[i].Specialty_ID" class="form-control" value="@Model[i].Specialty_ID" hidden />
+                                                </div>
+
+                                            </div>
+
+
+
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+              
+                </table>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-main animation" id="GeterateContract"> Generate </button>
+            </div>
+        
+    </form>
+
+</div>*@

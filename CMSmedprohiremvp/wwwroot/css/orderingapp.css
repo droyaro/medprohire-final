@@ -1,0 +1,22 @@
+﻿#show {
+    border: 1px black solid;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    padding: 10px
+}
+
+.inputid {
+    border: none;
+    border-width: 0;
+    box-shadow: none;
+    color: red;
+    background-color: #f3f3f4;
+}
+
+p {
+    margin-left: 5px;
+}
+
+.dizayn {
+   display:flex;
+   margin-bottom: 0px;
+}

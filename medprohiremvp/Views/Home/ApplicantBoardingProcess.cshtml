@@ -1,0 +1,201 @@
+﻿@model medprohiremvp.Models.Home.ApplicantAdditionalRegisterModel
+@{
+    ViewData["Title"] = "ONBOARDING PROCESS";
+}
+<div class="containerbackground">
+    @*<div class="new-heading new-heading-background ">
+        <h2 class="">@ViewData["Title"]</h2>
+    </div>*@
+    <div class=" usercontainer">
+
+        <form asp-action="ApplicantBoardingProcess" id="ApplicantBoardingProcess" asp-controller="Home" method="post" enctype="multipart/form-data">
+
+            @*<div class="text-justify">
+                <p>To complete the onboarding process please fill out fields below. Please provide at least 3 reference contacts. Use this <a class="downloadlink" target="_blank" href="~/Upload/i-9.pdf">link</a> to download the i-9 form and fill it out. On your first day at work, you will need to bring it together with the the requested documentation on the form's instructions. </p>
+            </div>
+            <div class="background marginbottomcontent">
+                <div asp-validation-summary="ModelOnly" class="text-danger text-left "></div>
+                <div class="form-group text-left">
+                    <div class="d-flex flex-column flex-sm-row flex-fill">
+
+
+                        <div class="p-2 flex-grow-1">
+                            <label asp-for="SSN" class="control-label "></label>
+                            <input asp-for="SSN" class="form-control flat animation SSN" />
+                            <span asp-validation-for="SSN" class="text-danger"></span>
+                        </div>
+                        <div class="input-group-append mx-auto  boardingor"><span class="input-group-text">OR</span></div>
+                        <div class="p-2 flex-grow-1">
+                            <label asp-for="TIN" class="control-label "></label>
+                            <input asp-for="TIN" class="form-control flat animation" />
+                            <span asp-validation-for="TIN" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>*@
+
+            <div class="spacer-extra-large"></div>
+
+            <div class="heading-2">
+                <div class="d-inline-block">
+
+                    <h3>Reference checks</h3>
+
+                </div>
+            </div>
+            <div class="background marginbottomcontent">
+
+                <table>
+                    <tbody id="breferences">
+
+                        @if (Model != null)
+                        {
+                            @for (int i = 0; i < Model.References.Count; i++)
+                            {
+
+                                <tr>
+
+                                    <td>
+                                        <div class="row text-left">
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class=" form-group">
+                                                    <label asp-for="References[i].Company" class="control-label ">Company</label>
+                                                    <input class="form-control flat animation" type="text" asp-for="References[i].Company">
+                                                    <span asp-validation-for="References[i].Company" class="text-danger"></span>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class=" form-group">
+                                                    <label asp-for="References[i].Position" class="control-label ">Position</label>
+                                                    <input class="form-control flat animation" type="text" asp-for="References[i].Position">
+                                                    <span asp-validation-for="References[i].Position" class="text-danger"></span>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class=" form-group">
+
+                                                    <label asp-for="References[i].ContactName" class="control-label ">Contact Name</label>
+                                                    <input class="form-control flat animation" type="text" asp-for="References[i].ContactName">
+                                                    <span asp-validation-for="References[i].ContactName" class="text-danger"></span>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class=" form-group">
+                                                    <div class="form-group afterphonenumber">
+                                                        <label asp-for="References[i].PhoneNumber" class="control-label applicantnames">Phone Number</label>
+                                                        <div class="text-left">
+                                                            <input type="text" class="form-control flat animation phonenumber" asp-for="References[i].PhoneNumber" />
+                                                            <label class="phonenumbercode">+1</label>
+                                                        </div>
+                                                        <span asp-validation-for="References[i].PhoneNumber" class="text-danger"></span>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class=" form-group">
+                                                    <label asp-for="References[i].Email" class="control-label ">Email</label>
+                                                    <input class="form-control flat animation" type="text" asp-for="References[i].Email">
+                                                    <span asp-validation-for="References[i].Email" class="text-danger"></span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+
+                                <td>
+                                    <div class="row text-left">
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class=" form-group">
+                                                <label asp-for="References[0].Company" class="control-label ">Company</label>
+                                                <input class="form-control flat animation" type="text" asp-for="References[0].Company">
+                                                <span asp-validation-for="References[0].Company" class="text-danger"></span>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class=" form-group">
+                                                <label asp-for="References[0].Position" class="control-label ">Position</label>
+                                                <input class="form-control flat animation" type="text" asp-for="References[0].Position">
+                                                <span asp-validation-for="References[0].Position" class="text-danger"></span>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class=" form-group">
+                                                <label asp-for="References[0].ContactName" class="control-label ">Contact Name</label>
+                                                <input class="form-control flat animation" type="text" asp-for="References[0].ContactName">
+                                                <span asp-validation-for="References[0].ContactName" class="text-danger"></span>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class=" form-group">
+                                                <div class="afterphonenumberforspan">
+                                                    <label asp-for="References[0].PhoneNumber" class="control-label applicantnames">Phone Number</label>
+                                                    <div class="text-left">
+                                                        <input type="text" class="form-control flat animation phonenumber" asp-for="References[0].PhoneNumber" />
+                                                        <label class="phonenumbercode">+1</label>
+                                                    </div>
+
+                                                </div>
+                                                <span asp-validation-for="References[0].PhoneNumber" class="text-danger"></span>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class=" form-group">
+                                                <label asp-for="References[0].Email" class="control-label ">Email</label>
+                                                <input class="form-control flat animation" type="text" asp-for="References[0].Email">
+                                                <span asp-validation-for="References[0].Email" class="text-danger"></span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>  <div class="align-middle"><a id="trash" class=" btn btn-info"><i class="fa fa-trash"></i></a></div></td>
+                            </tr>
+
+
+
+
+                        }
+                    </tbody>
+                    <tfoot class="text-right">
+                        <tr>
+                            <td>
+                                <button type="button" id="add-reference" class="btn btn-main "><i class="fa fa-plus"></i> Add Reference</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+            <div class="marginbottomcontent text-center">
+                <input type="submit" value="Submit" class="btn btn-main" id="boardingprocess" />
+            </div>
+        </form>
+
+    </div>
+</div>
+@section jsplugins{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/node_modules/jquery-input-mask-phone-number/dist/jquery-input-mask-phone-number.min.js"></script>
+    <script src="~/node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+}
+@section scripts{
+    <script src="~/js/Applicant/OnBoardingRegister.js"></script>
+
+}

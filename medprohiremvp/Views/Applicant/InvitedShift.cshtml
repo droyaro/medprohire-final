@@ -1,0 +1,256 @@
+﻿@model medprohiremvp.Models.Applicant.AppliedShifts
+@{
+    ViewData["Title"] = "Invited Shift";
+}
+<div class="new-heading new-heading-background ">
+    <h2 class="">@ViewData["Title"]</h2>
+</div>
+<div class="usercontainer ">
+
+    <form>
+
+        <div class=" text-left">
+            <div class="d-inline-block">
+                <h6>Client Info</h6>
+            </div>
+        </div>
+        <div class="backgroundmodal marginbottomcontent">
+            <div class="form-group text-left">
+                <div class="form-group-sm">
+                    <label asp-for="Branch_ID" class="control-label ">
+                        <strong>
+                            @(Html.DisplayNameFor(m=>m.InstitutionName)):
+                        </strong>
+                        @Model.InstitutionName
+                    </label>
+                </div>
+                <div class="form-group-sm">
+                    <label asp-for="BranchName" class="control-label ">
+                        <strong>
+                            @(Html.DisplayNameFor(m => m.BranchName)):
+                        </strong>
+                        @Model.BranchName
+                    </label>
+                </div>
+                <div class="form-group-sm">
+                    <label asp-for="Location" class="control-label ">
+                        <strong>
+                            @(Html.DisplayNameFor(m => m.Location)):
+                        </strong>
+                        @Model.Location
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class=" text-left">
+            <div class="d-inline-block">
+                <h6>Shift</h6>
+            </div>
+        </div>
+        <div class="backgroundmodal marginbottomcontent">
+
+            <div class="row text-left">
+                <div class="col-md-12">
+                    @*<div class="form-group-sm">
+                            <label asp-for="ContractorCount" class="control-label ">
+                                <strong>Contractor Count:</strong>
+                                @Model.ContractorCount
+                            </label>
+                        </div>*@
+
+                    <div class="form-group-sm">
+                        <label class="control-label ">
+                            <strong>   @(Html.DisplayNameFor(m => m.ShiftsDates)):</strong>
+                            <a href="#" id="seeshiftdates" data-id="@Model.ClientShift_ID"> @Model.StartDate.ToString("MMMM dd")- @Model.EndDate.ToString("MMMM dd")</a>
+</label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label asp-for="ShiftLabel_ID" class="control-label ">
+                            <strong>   @(Html.DisplayNameFor(m => m.ShiftLabelName)):</strong>
+                            @Model.ShiftLabelName
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label asp-for="ClockInTime" class="control-label ">
+                            <strong>    @(Html.DisplayNameFor(m => m.ClockInTime)):</strong>
+                            @Model.ClockInTime.ToShortTimeString()-@Model.ClockOutTime.ToShortTimeString()
+                        </label>
+                    </div>
+               
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group-sm">
+                        <label asp-for="Occurrences" class="control-label ">
+                            <Strong>   @(Html.DisplayNameFor(m => m.Occurrences)):</Strong>
+                            @Model.Occurrences
+                        </label>
+                    </div>
+                  
+          
+                    <div class="form-group-sm">
+                        <label asp-for="Specialities" class="control-label ">
+                            <strong>   @(Html.DisplayNameFor(m => m.SpecialitiesName)):</strong>
+                            @Model.SpecialitiesName
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-left">
+                <div class="col-12">
+                    <div class="form-group-sm">
+                        <label asp-for="ShiftDescription" class="control-label">
+                            <strong>   @(Html.DisplayNameFor(m => m.ShiftDescription)):</strong>
+                        </label>
+                        <div class="form-group-sm">
+                            <label> @Model.ShiftDescription</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-left">
+                <div class="col-12">
+                    <div class="form-group-sm">
+                        <label asp-for="Responsibility" class="control-label">
+                            <strong>
+                                @(Html.DisplayNameFor(m => m.Responsibility)):
+                            </strong>
+
+                        </label>
+                        <div class="form-group-sm">
+                            <label> @Model.Responsibility </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-left">
+                <div class="col-12">
+                    <div class="form-group-sm">
+                        <label asp-for="Remarks" class="control-label ">
+                            <strong>
+                                @(Html.DisplayNameFor(m => m.Remarks)):
+                            </strong>
+
+
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        @Model.Remarks
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if(!Model.Applied)
+        { 
+        <div class="mx-auto ">
+            <div class=" text-left">
+                <div class="d-inline-block">
+                    <h6>Pick the Shift</h6>
+                </div>
+            </div>
+            <div class="backgroundmodal">
+                <div class="d-flex justify-content-between">
+
+                    @if (Model.inviedDays != null)
+                    {
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Day
+                                    </th>
+                                    <th>
+                                        Start Time
+                                    </th>
+                                    <th>
+                                        End Time
+                                    </th>
+                                    <th>
+                                        Duration
+                                    </th>
+                                    <th>
+                                        Select
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int j = 0; j < Model.inviedDays.Count(); j++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <input type="text" readonly class="form-control datetimepicker-input" data-target="#datetimepicker" name="invitedday[@j].Day" id="invitedday_@(j)__Day" data-toggle="datetimepicker" autocomplete="off" value="@Model.inviedDays[j].Day.ToString("MM/dd/yyyy")" />
+
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker" name="invitedday[@j].StartTime" id="invitedday_@(j)__StartTime" data-toggle="datetimepicker" autocomplete="off" value=" @Model.inviedDays[j].StartTime.ToShortTimeString()" />
+
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker" name="invitedday[@j].EndTime" id="invitedday_@(j)__EndTime" data-toggle="datetimepicker" autocomplete="off" value=" @Model.inviedDays[j].EndTime.ToShortTimeString()" />
+
+                                        </td>
+                                        <td>
+                                            @((Model.inviedDays[j].EndTime - Model.inviedDays[j].StartTime).TotalHours) hrs
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="form-group text-left">
+                                                <input type="checkbox" for="invitedday" name="invitedday[@j].Invited" id="invitedday_@(j)__Invited" checked value="True" />
+                                                <label for="invitedday_@(j)__Invited"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+
+                    <div class="p-2">
+
+                        <div class="form-group">
+
+                            <button asp-action="AcceptInvitation" asp-controller="Applicant" asp-route-id="@Model.AppliedShift_ID" type="submit" class="btn btn-main">Accept</button>
+                        </div>
+                        <div class="form-group">
+
+                            <button asp-action="RejectInvitation" asp-controller="Applicant" asp-route-id="@Model.AppliedShift_ID" type="submit" class="btn btn-main">Reject</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </form>
+</div>
+<div class="modal  fade" id="ShiftDateModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="form-group-sm text-center">
+                    <label class="control-label">
+                        <strong>
+                            Shift Dates:
+                        </strong>
+                    </label>
+
+                    <input type="hidden" id="StartDate" />
+                    <input type="hidden" id="EndDate" />
+                    <input type="hidden" id="ShiftsDates" />
+                    <div class="form-group">
+                        <div class="d-flex ">
+                            <div class="shiftdatelist mx-auto" readonly data-date-multidate="true">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    @section scripts{
+        <script src="~/js/Applicant/InvitedShift.js"></script>
+        <script src="~/js/Applicant/ShiftDates.js"></script>
+
+    }

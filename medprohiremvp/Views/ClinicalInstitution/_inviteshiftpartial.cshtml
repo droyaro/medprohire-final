@@ -1,0 +1,217 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.InviteShiftViewModel
+<div class=" d-flex flex-column mr-auto">
+    <div class="text-left">
+        <div class="row m-b-lg">
+            <div class="col-lg-5 col-md-12 text-center">
+
+                <div class="form-group-sm">
+                    <h4>@String.Format("{0} {1}", Model.Applicant.LastName, Model.Applicant.FirstName) </h4>
+                </div>
+                <div class="m-b-sm ">
+                    <img class="big-rounded-circle" src="@Model.Applicant.Imgsrc" />
+                </div>
+
+            </div>
+
+            <div class="col-lg-7 col-md-12">
+                <div class="form-group-sm">
+                    <label for="PhoneNumber" class="control-label ">
+
+                        @(Html.DisplayNameFor(x=>x.Applicant.PhoneNumber)):
+                    </label>
+                    <div class="form-group-sm">
+                        <label class="main-label"><i class="far fa-phone"></i> @Model.Applicant.PhoneNumber </label>
+                    </div>
+                </div>
+                <div class="form-group-sm">
+                    <label for="SpecialitiesString" class="control-label ">
+
+                        @(Html.DisplayNameFor(x => x.Applicant.SpecialitiesString)):
+                    </label>
+                    <div class="form-group-sm">
+                        <label class="main-label">@Model.Applicant.SpecialitiesString </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class=" text-center marginbottomcontent">
+                        <a class="btn btn-full btn-little" asp-action="ApplicantDetails" asp-route-Applicant_ID="@Model.Applicant.Applicant_ID">Read More</a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+@if (Model.ClientShift != null)
+{
+    if (Model.ClientShift.Count > 0)
+    {
+       
+        <div class=" text-left">
+            <div class="d-inline-block">
+                <h6 class="inproccessheader">Available Shifts</h6>
+            </div>
+        </div>
+        <div class="d-flex flex-column">
+            <div class="p-2">
+                <select class="registerselect form-control text-weight-bold" id="shifts_select"  >
+                        @for (int i = 0; i < Model.ClientShift.Count; i++)
+                        {
+                    <option class="nav-item text-weight-bold" value="@Model.ClientShift[i].ClientShift_ID" >
+                     @String.Format("REQ ID {0}",Model.ClientShift[i].ClientShift_ID)
+                    </option>
+                        }
+                </select>
+            </div>
+
+            <div class="p-2 paddingp"></div>
+            <div class="p-2">
+
+                @if (Model.ClientShift != null)
+                {
+                    for (int i = 0; i < Model.ClientShift.Count; i++)
+                    {
+                        <div id="@(Model.ClientShift[i].ClientShift_ID)" class="tab-pane shift_tab_pane  fade @(i == 0 ? "active show" : "") ">
+                            <div class=" text-left">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group-sm">
+                                            <label for="Date" class="control-label">
+                                                @(Html.DisplayNameFor(x => x.ClientShift[0].BranchName)):
+                                            </label>
+                                            <div class="form-group-sm">
+                                                <label class="main-label">@(Model.ClientShift[i].BranchName)</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group-sm">
+                                            <label for="Date" class="control-label">
+                                                @(Html.DisplayNameFor(x => x.ClientShift[0].ShiftsDates)):
+                                            </label>
+                                            <div class="form-group-sm">
+                                                <label class="main-label">  @Model.ClientShift[i].StartDate.ToString("MMMM dd")- @Model.ClientShift[i].EndDate.ToString("MMMM dd") </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group-sm">
+                                            <label for="ClockInTime" class="control-label">
+                                                Time:
+                                            </label>
+                                            <div class="form-group-sm">
+                                                <label class="main-label">  @Model.ClientShift[i].ClockInTime.ToShortTimeString()-@Model.ClientShift[i].ClockOutTime.ToShortTimeString()</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group-sm">
+                                            <label for="Occurrences" class="control-label">
+                                                @(Html.DisplayNameFor(x => x.ClientShift[0].Occurrences)):
+                                            </label>
+                                            <div class="form-group-sm">
+                                                <label class="main-label">@Model.ClientShift[i].Occurrences</label>
+                                            </div>
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            <form asp-action="InviteApplicant" method="post">
+                                <input type="hidden" name="Applicant_ID"  id="Applicant_ID" value="@Model.Applicant.Applicant_ID" />
+                                <input type="hidden" name="ClientShift_ID"  id="ClientShift_ID" value="@Model.ClientShift[i].ClientShift_ID" />
+                                <div class="form-group-sm">
+                                    <label for="Pickdays_@(Model.ClientShift[i].ClientShift_ID)" class="control-label">
+                                        Invite the shift:
+                                    </label>
+
+                                    <div class="form-group-sm">
+                                        <div class="Pickdays">
+                                            <input id="shift_id" data-id="@(Model.ClientShift[i].ClientShift_ID)" hidden />
+
+                                            <span id="pickeddays_@(Model.ClientShift[i].ClientShift_ID)"></span>
+                                        </div>
+                                    </div>
+                                    @if (Model.ClientShift[i].applicantAvailables != null)
+                                    {
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Day
+                                                    </th>
+                                                    <th>
+                                                        Start Time
+                                                    </th>
+                                                    <th>
+                                                        End Time
+                                                    </th>
+                                                    <th>
+                                                        Duration
+                                                    </th>
+                                                    <th>
+                                                        Select
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (int j = 0; j < Model.ClientShift[i].applicantAvailables.Count(); j++)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" readonly class="form-control datetimepicker-input" data-target="#datetimepicker" name="invitedday[@j].Day" id="invitedday_@(j)__Day" data-toggle="datetimepicker" autocomplete="off" value="@Model.ClientShift[i].applicantAvailables[j].AvailableDay.ToString("MM/dd/yyyy")" />
+                                                         
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker" name="invitedday[@j].StartTime" id="invitedday_@(j)__StartTime" data-toggle="datetimepicker" autocomplete="off" value=" @Model.ClientShift[i].applicantAvailables[j].StartTime.ToShortTimeString()" />
+                                                           
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker" name="invitedday[@j].EndTime" id="invitedday_@(j)__EndTime" data-toggle="datetimepicker" autocomplete="off" value=" @Model.ClientShift[i].applicantAvailables[j].EndTime.ToShortTimeString()" />
+                                                          
+                                                        </td>
+                                                        <td>
+                                                            @((Model.ClientShift[i].applicantAvailables[j].EndTime - Model.ClientShift[i].applicantAvailables[j].StartTime).TotalHours) hrs
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <div class="form-group text-left">
+                                                                <input type="checkbox" for="invitedday" name="invitedday[@j].Invited" id="invitedday_@(j)__Invited" checked   value="True" />
+                                                                <label for="invitedday_@(j)__Invited"></label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                </div>
+                                <div class="form-group">
+                                    <label for="ClockInTime" class="control-label">
+                                        Remarks:
+                                    </label>
+                                    <div class="form-group-sm">
+                                        <textarea id="Remarks" class="form-control flat animation" maxlength="2000" onkeyup="AutoGrowTextArea(this)" name="Remarks"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group text-center">
+                                    <a class="btn btn-main invite" >Invite</a>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    }
+                }
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <div class=" text-center marginbottomcontent">
+                <a class="btn btn-full btn-little" asp-action="NewClientShift" asp-controller="ClinicalInstitution">Create New Shift</a>
+            </div>
+        </div>
+    }
+}

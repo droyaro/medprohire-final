@@ -1,0 +1,186 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.InProcessShiftViewModel
+<div class="inproccessshiftdetail">
+  
+    <div class="text-left">
+        <div class="row m-b-lg">
+            <div class="col-lg-5 text-center">
+
+                <div class="form-group-sm">
+                    <h4>@String.Format("{0} {1}", Model.LastName, Model.FirstName) </h4>
+                </div>
+                <div class="m-b-sm ">
+                    <img class="big-rounded-circle" src="@Model.Img" />
+                </div>
+
+            </div>
+
+            <div class="col-lg-7">
+                <div class="form-group-sm">
+                    <label for="PhoneNumber" class="control-label ">
+
+                        @(Html.DisplayNameFor(m=>m.PhoneNumber)):
+                    </label>
+                    <div class="form-group-sm">
+                        <label class="main-label"><i class="far fa-phone"></i> @Model.PhoneNumber </label>
+                    </div>
+                </div>
+                <div class="form-group-sm">
+                    <label for="SpecialitiesString" class="control-label ">
+
+                        @(Html.DisplayNameFor(m => m.SpecialitiesString)):
+                    </label>
+                    <div class="form-group-sm">
+                        <label class="main-label">@Model.SpecialitiesString </label>
+                    </div>
+                </div>
+                <div class=" text-center marginbottomcontent">
+                    <button value="Read More" class="btn btn-full btn-little" asp-action="InProccessShiftDetail" asp-route-Applicant_ID="@Model.Applicant_ID" asp-route-ClientShift_ID="@Model.ClientShift_ID">Read More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.ClockinClockOutTimes != null)
+    {
+
+        var clockins = Model.ClockinClockOutTimes.Where(x => x.ClockInTime != DateTime.MinValue).ToList();
+        if (clockins != null)
+        {
+            if (clockins.Count > 0)
+            {
+                <div class=" text-left">
+                    <div class="d-inline-block">
+                        <h6 class="inproccessheader">Last Activity</h6>
+                    </div>
+                </div>
+
+                <ul class="list-unstyled listunderline">
+
+                    @for (int i = 0; i < (clockins.Count > 5 ? 5 : clockins.Count); i++)
+                    {
+                        <li>
+                            <div class="d-flex">
+                                <div class="p-2">
+                                    <label for="WorkingDay" class="control-label ">
+                                        @clockins[i].WorkingDay.ToString("MMMM dd")
+                                    </label>
+
+                                </div>
+                                <div class="p-2 ml-auto">
+                                    <label class="control-label">
+                                        @String.Format("{0}-{1}", clockins[i].ClockInTime.ToString("HH:mm tt"), clockins[i].ClockOutTime.ToString("HH:mm tt"))
+
+                                    </label>
+
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <div class="marginbottomcontent"></div>
+            }
+        }
+    }
+    <div class=" text-left">
+        <div class="d-inline-block">
+            <h6 class="inproccessheader">Activity</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group-sm">
+                <label for="NumberofShift" class="control-label ">
+
+                    @(Html.DisplayNameFor(m => m.NumberofShift)):
+                </label>
+                <div class="form-group-sm">
+                    <label class="main-label"> @Model.NumberofShift </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group-sm">
+                <label for="NumberofShift" class="control-label ">
+
+                    @(Html.DisplayNameFor(m => m.CompletedNumberofShift)):
+                </label>
+                <div class="form-group-sm">
+                    <label class="main-label"> @Model.CompletedNumberofShift </label>
+                </div>
+            </div>
+        </div>
+        @if (Model.NumberofShift != 0)
+        {
+            <div class="col-sm-12 col-md-6">
+                <div class="form-group-sm">
+                    <label for="NumberofShift" class="control-label ">
+
+                        Percentage Complete:
+                    </label>
+                    <div class="form-group-sm">
+
+                        <label class="main-label"> @((((float)Model.CompletedNumberofShift / Model.NumberofShift) * 100).ToString("0"))%</label>
+
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group-sm">
+                <label for="WorkedHours" class="control-label ">
+
+                    @(Html.DisplayNameFor(m => m.WorkedHours)):
+                </label>
+                <div class="form-group-sm">
+
+                    <label class="main-label"> @Model.WorkedHours</label>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="marginbottomcontent"></div>
+    <div class=" text-left">
+        <div class="d-inline-block">
+            <h6 class="inproccessheader">Shift Info</h6>
+        </div>
+    </div>
+    <div class="text-left">
+        <div class="d-flex flex-row">
+            <div class="p-2 flex-grow-1">
+
+                <div class="form-group-sm">
+                    <label for="LocationName" class="control-label ">
+                        @(Html.DisplayNameFor(m => m.LocationName)):
+
+                    </label>
+
+                    <div class="form-group-sm ">
+                        <label class="main-label">@Model.LocationName </label>
+                    </div>
+                </div>
+
+
+                <div class="form-group-sm">
+                    <label for="Date" class="control-label ">
+
+                        @(Html.DisplayNameFor(m => m.Shift.ShiftsDates)):
+                    </label>
+                    <div class="form-group-sm">
+                        <label class="main-label"><a href="#" id="seeshiftdates" data-id="@Model.Shift.ClientShift_ID">@String.Format("{0}-{1}", Model.Shift.StartDate.ToString("MMMM dd"), Model.Shift.EndDate.ToString("MMMM dd"))</a> </label>
+                    </div>
+                </div>
+                <div class="form-group-sm">
+                    <label for="SpecialitiesString" class="control-label ">
+
+                        Time:
+                    </label>
+                    <div class="form-group-sm">
+                        <label class="main-label">@String.Format("{0}-{1}", Model.Shift.ClockInTime.ToString("hh:mm tt"), Model.Shift.ClockOutTime.ToString("hh:mm tt")) </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

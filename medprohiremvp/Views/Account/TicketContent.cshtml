@@ -1,0 +1,176 @@
+﻿@model medprohiremvp.Models.Account.TicketViewModel
+@{
+    ViewData["Title"] = "Ticket Content";
+}
+@section cssplugins{
+
+    <link href="~/node_modules/summernote/dist/summernote.css" rel="stylesheet" />
+    <link href="~/node_modules/summernote/dist/summernote-bs4.css" rel="stylesheet" />
+    <link href="~/node_modules/jquery-bar-rating/dist/themes/fontawesome-stars.css" rel="stylesheet" />
+}
+    <div class="d-flex justify-content-between  new-heading-background containersize">
+        <div class="p-2 flex-grow-1 nowrap">
+            <div class="ticket-heading">
+                <h2 class="">@ViewData["Title"]</h2>
+            </div>
+        </div>
+        @if (Model.TicketType < 3)
+        {
+        <div class="p-2 ml-auto  nowrap align-self-center ">
+            <input type="button" id="Complete" class="btn btn-main smalltext" value="Complete Ticket" />
+        </div>
+        }
+        </div>
+            <div class="containersize ">
+                <div class="form-group text-left">
+                    <a class="btn btn-info animation" asp-controller="Account" asp-action="Support"><i class="fa fa-angle-left"></i> BACK</a>
+                </div>
+                <div class="background">
+                    <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+                    <div class="form-group text-left">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="TicketCategoryName" class="control-label "></label>
+                                    <input asp-for="TicketCategoryName" class="form-control flat animation" type="text" readonly />
+                                    <span asp-validation-for="TicketCategoryName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Subject" class="control-label "></label>
+                                    <input asp-for="Subject" class="form-control flat animation" type="text" readonly />
+                                    <span asp-validation-for="Subject" class="text-danger"></span>
+                                </div>
+                                @if (Model.TicketType < 3)
+                                {
+                                    <div hidden id="answerarea">
+                                        <div class="form-group">
+                                            <label asp-for="Answer" class="control-label "></label>
+                                            <textarea asp-for="Answer" class="summernote"></textarea>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="button" id="AddTicketContent" class="btn btn-main" value="Reply" data-id="@Model.Ticket_ID" />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <input type="button" id="AddAnswer" class="btn btn-main" value="Reply" />
+                                    </div>
+                                }
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            @{
+                if (Model.TicketContents != null)
+                {
+                    <div class="usercontainer ">
+                        <div class="form-group text-right">
+                            <ul id="pagination" class="pagination-sm"></ul>
+                        </div>
+                        @for (int i = 0; i < Model.TicketContents.Count; i++)
+                        {
+                            <div class="filter">
+                                <div class="TicketContentHeader">
+                                    <div class="d-flex justify-content-between bd-highlight mb-2 justify-content-center">
+                                        <div class="p-2 text-left ">
+                                            @{
+                                                string firstname = @Model.TicketContents[i].UserName;
+                                                string lastname = @Model.TicketContents[i].UserName;
+                                            }
+                                            <h6><strong>@Model.TicketContents[i].UserName</strong></h6>
+                                        </div>
+                                        <div class="p-2 text-right">
+                                            <span>@Model.TicketContents[i].InsertDate.ToString("MMMM dd yyyy")</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="TicketContent">
+                                    <div class="form-group text-left">
+                                        @Html.Raw(Model.TicketContents[i].TicketContent)
+                                    </div>
+                                </div>
+                                </div>
+
+                        }
+                    </div>
+                }
+            }
+            @if (Model.TicketType < 3)
+            {
+                <div class="modal  fade" id="CompleteTicket" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog ">
+                        <div class="modal-content ">
+                            <div class="modal-header">
+                                <div class="d-flex justify-content-between">
+                                    <div class="p-2 flex-grow-1">
+                                        <h2 class="">Complete Ticket</h2>
+                                    </div>
+                                    <div class="p-2">
+                                        <a class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="modal-body">
+                                <input type="hidden" id="formid" />
+                                <p>
+                                    Are you sure you want to complete ticket?
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button type="button" id="acceptticketcomplete" class="btn btn-main smalltext" data-ticket_id="@Model.Ticket_ID">Yes</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="button" class="btn btn-main smalltext" data-dismiss="modal" id="dismissmodal">No</button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @section jsplugins{
+                <script src="~/node_modules/twbs-pagination/jquery.twbsPagination.min.js"></script>
+                <script src="~/node_modules/summernote/dist/summernote.min.js"></script>
+                <script src="~/node_modules/summernote/dist/summernote-bs4.min.js"></script>
+                <script src="~/node_modules/jquery-bar-rating/jquery.barrating.js"></script>
+            }
+            @section scripts{
+                <script src="~/js/home/TicketContent.js"></script>
+                <script>
+        var pagecount = @(Model.TicketContents!= null? Model.TicketContents.Count % 5 == 0 ? Model.TicketContents.Count / 5 : (Model.TicketContents.Count / 5) + 1:0);
+
+       if(pagecount!=0){
+        $('#pagination').twbsPagination({
+                                            totalPages: pagecount,
+            visiblePages: 1,
+            next: '<i class="far fa-angle-right"></i>',
+            prev: '<i class="far fa-angle-left"></i>',
+            first: '',
+            last: '',
+            onPageClick: function (event, page) {
+                //fetch content and render here
+                $('.filter').not("hidden").prop("hidden", true);
+                $('.filter').slice((page - 1) * 5, page * 5).prop("hidden", false);
+                                            }
+                                            });
+        };
+        $(document).ready(function () {
+$(document).find('.filter').slice(5,@(Model.TicketContents != null? Model.TicketContents.Count:0)).prop("hidden");
+
+                                    });
+
+                </script>
+            }

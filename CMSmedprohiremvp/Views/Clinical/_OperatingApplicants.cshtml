@@ -1,0 +1,159 @@
+﻿@model List<CMSmedprohiremvp.Models.Applicant.OperatingApplicantsViewModel>
+
+@{
+    ViewData["Title"] = "_OperatingApplicants";
+}
+<link href="~/css/orderingapp.css" rel="stylesheet" />
+<div>
+    <hr style="border: 2px black solid;" />
+
+    @if(Model != null)
+    {
+    @for(int i = 0; i < Model.Count; i++)
+     {
+    <form asp-controller="Home" asp-action="OperatingApplicants" method="post">
+        <div class="media">
+            @if (@Model[i].Imgsrc == null || @Model[i].Imgsrc == "")
+            {
+
+               <img alt="image" class="rounded-circle mr-3" src="/Upload/User.png">
+            }
+            else
+            {
+                <img alt="image" class="rounded-circle mr-3" src="/@Model[i].Imgsrc">
+            }
+
+            @if (Model[i].Category_ID > 1)
+            {
+            <div class="media-body" id="show">
+                <input hidden="hidden" type="text" asp-for="@Model[i].ClientShift_Id" name="ClientShift_Id" />
+                <input hidden="hidden" type="text" asp-for="@Model[i].Applicant_ID" name="Applicant_ID" />
+
+
+                <div style="background-color:lightgray">
+                    <div class="col-md-6 col-sm-12">
+                        <div class=" form-group dizayn">
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => Model[i].FirstName)) :
+                            </strong>
+                            <p> @Model[i].FirstName</p>
+                            <input hidden="hidden" readonly class="form-control flat animation inputid" type="text" asp-for="@Model[i].FirstName" name="FirstName">
+                            <span asp-validation-for="@Model[i].FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group dizayn">
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => Model[i].LastName)):
+                            </strong>
+                            <p> @Model[i].LastName</p>
+                            <input hidden="hidden" readonly class="form-control flat animation inputid" type="text" asp-for="@Model[i].LastName" name="LastName">
+                            <span asp-validation-for="@Model[i].LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class=" form-group dizayn">
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => Model[i].City)):
+                            </strong>
+                            <p> @Model[i].City</p>
+                            <input hidden="hidden" readonly class="form-control flat animation" type="text" asp-for="@Model[i].City" name="City">
+                            <span asp-validation-for="@Model[i].City" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class=" form-group dizayn">
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => Model[i].State)):
+                            </strong>
+                            <p> @Model[i].State</p>
+                            <input hidden="hidden" readonly class="form-control flat animation" type="text" asp-for="@Model[i].State" name="State">
+                            <span asp-validation-for="@Model[i].State" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="text-right mt-auto p-2">
+                        <button disabled="disabled" type="submit" class="btn btn-main btn-small ReadMore btn btn-info animation">
+                            Submit
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            }
+            else
+            {
+            <div class="media-body" id="show">
+                <input hidden="hidden" type="text" asp-for="@Model[i].ClientShift_Id" name="ClientShift_Id" />
+                <input hidden="hidden" type="text" asp-for="@Model[i].Applicant_ID" name="Applicant_ID" />
+
+
+                <div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group dizayn" data-col=@Model[i].Category_ID>
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => Model[i].FirstName)) :
+                            </strong>
+                            <p> @Model[i].FirstName</p>
+                            <input hidden="hidden" readonly class="form-control flat animation inputid" type="text" asp-for="@Model[i].FirstName" name="FirstName">
+                            <span asp-validation-for="@Model[i].FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class=" form-group dizayn">
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => Model[i].LastName)):
+                            </strong>
+                            <p> @Model[i].LastName</p>
+                            <input hidden="hidden" readonly class="form-control flat animation inputid" type="text" asp-for="@Model[i].LastName" name="LastName">
+                            <span asp-validation-for="@Model[i].LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class=" form-group dizayn">
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => Model[i].City)):
+                            </strong>
+                            <p> @Model[i].City</p>
+                            <input hidden="hidden" readonly class="form-control flat animation" type="text" asp-for="@Model[i].City" name="City">
+                            <span asp-validation-for="@Model[i].City" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class=" form-group dizayn">
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => Model[i].State)):
+                            </strong>
+                            <p> @Model[i].State</p>
+                            <input hidden="hidden" readonly class="form-control flat animation" type="text" asp-for="@Model[i].State" name="State">
+                            <span asp-validation-for="@Model[i].State" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="text-right mt-auto p-2">
+                        <button type="submit" class="btn btn-main btn-small ReadMore btn btn-info animation">
+                            Submit
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+           }
+
+           
+
+        </div>
+    </form>
+               <p></p>
+        }
+
+    }
+
+</div>
+

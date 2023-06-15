@@ -1,0 +1,100 @@
+﻿@using medprohiremvp.Service.IServices
+@using medprohiremvp.DATA.Entity
+@inject ICommonServices commonservices
+@model List<medprohiremvp.Models.ClinicalInstitution.SpecialtiesCosts>
+@{ViewData["Title"] = "On Boarding Process";
+}
+<div class="new-heading new-heading-background ">
+    <h2 class="">@ViewData["Title"]</h2>
+</div>
+<form asp-action="ClientBoardingProcess" asp-controller="ClinicalInstitution" method="post" >
+    <div class="usercontainer">
+        <div asp-validation-summary="ModelOnly" class="text-danger text-left "></div>
+        <div class="nwtb mb-3">
+
+            <table class="table dataTable">
+                <thead>
+                    <tr>
+                        <th>
+                            <h2 class="header text-center">Provider</h2>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bprovider">
+
+                    @{
+                        @using Microsoft.AspNetCore.Identity
+                        @using medprohiremvp.DATA.IdentityModels
+
+                        @inject UserManager<ApplicationUser> UserManager
+                        var user = UserManager.GetUserAsync(User).Result;
+                        ClinicalInstitutions clinical = commonservices.FindClinicaByUserID(user.Id);
+                
+                        var specialties = commonservices.GetSpecialities().Where(x=> clinical.Specialties.Split(";").Contains(x.Speciality_ID.ToString())).ToList();
+                        var shiftlabels = commonservices.GetShiftLabels();
+                        @for (int i = 0; i < specialties.Count; i++)
+
+                        {
+                            <tr>
+                                <td class="">
+
+
+                                    <div class="row">
+
+                                        <div class="col-12">
+                                            <h4 class="header text-center mt-3 mb-5">@specialties[i].SpecialityName</h4>
+                                        </div>
+
+                                        @for (int j = 0; j < shiftlabels.Count; j++)
+                                        {
+                                            <div class="col-lg-3 col-md-6 col-sm-12">
+
+                                                <div class="form-group">
+                                                    <label class="main-label">@shiftlabels[j].ShiftLabelName Bill Rate</label>
+                                                    <input type="text" hidden asp-for="@Model[i].Cost[j].ShiftLabel_ID" class="form-control" value="@shiftlabels[j].ShiftLabel_ID" />
+                                                    <input type="number" asp-for="@Model[i].Cost[j].Cost" class="form-control" placeholder="Cost" />
+
+                                                </div>
+                                            </div>
+
+
+                                        }
+
+
+                                        <div class="form-group mr-3">
+
+                                            <input type="text" asp-for="@Model[i].Specialty_ID" class="form-control" value="@specialties[i].Speciality_ID" hidden />
+                                        </div>
+
+                                    </div>
+
+
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-right">
+                            <button type="button" id="add-provider" class="btn btn-main "><i class="fa fa-plus"></i> Add Provider</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="marginbottomcontent text-center">
+            <input type="submit" value="Submit" class="btn btn-main" id="boardingprocess" formnovalidate />
+        </div>
+    </div>
+</form>
+@section jsplugins{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+ 
+}
+@section scripts{
+   
+    <script src="~/js/client/boarding.js"></script>
+}

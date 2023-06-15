@@ -1,0 +1,472 @@
+﻿@model medprohiremvp.Models.Home.ApplicantModel
+
+
+<form asp-action="ApplicantRegister" id="ApplicantRegister" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <div class="containerbackground">
+        <div class=" container  text-center">
+
+            <div class="heading-1">
+                <div class="d-inline-block">
+                    <hr class="before" />
+                    <h2 class="">QUALIFICATIONS</h2>
+                    <hr class="after" />
+                </div>
+            </div>
+
+            <div class="col-lg-7 col-sm-9 col-xs-12  mx-auto ">
+                <div class="background marginbottomcontent">
+                    <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+                    <div class="form-group text-left ">
+                        <div class="row justify-content-center">
+                            @*<div class="col-md-6 col-sm-12">*@
+                            @*<div class=" form-group">
+                                    <label asp-for="FirstName" class="control-label "></label>
+                                    <input asp-for="FirstName" class="form-control flat animation" />
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="LastName" class="control-label "></label>
+                                    <input asp-for="LastName" class="form-control flat animation" />
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="MiddleName" class="control-label "></label>
+                                    <input asp-for="MiddleName" class="form-control flat animation" />
+                                    <span asp-validation-for="MiddleName" class="text-danger"></span>
+                                </div>*@
+
+                            @*<div class="checkboxes">
+                                <div class="form-group">
+                                    <input type="checkbox" asp-for="WorkAuth">
+                                    <label class="checkbox" for="WorkAuth">WorkAuth</label>
+
+                                </div>*@
+                            @*<div class="form-group">
+                                    <input class="checkbox" type="checkbox" asp-for="CEU">
+                                    <label for="CEU">CEU</label>
+                                </div>*@
+                            @*</div>*@
+
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label asp-for="VisaStatus_ID" class="control-label "></label>
+                                    <div class="form-group-sm">
+                                        <select class="form-control selectpicker registerselect flat" title=" " asp-items="@ViewBag.VisaStatus" asp-for="VisaStatus_ID"></select>
+                                    </div>
+                                    <span asp-validation-for="VisaStatus_ID" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group-sm text-center" hidden id="othervisa">
+                                    <div class="form-group-sm">
+                                        <p>Are you authorized to work in the US?</p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 text-right">
+                                            <input type="radio" value="true" asp-for="IsEligible" id="yes">
+                                            <label for="yes" class="radio-inline">
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="col-6 text-left">
+                                            <input type="radio" value="false" asp-for="IsEligible" id="no" />
+                                            <label for="no" class="radio-inline">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Availability_ID" class="control-label ">Availability</label>
+                                    <div class="form-group-sm">
+                                        <select class="form-control selectpicker flat registerselect" title=" " asp-items="@ViewBag.Availability" asp-for="Availability_ID"></select>
+                                    </div>
+                                    <span asp-validation-for="Availability_ID" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Resume" class="control-label "></label>
+                                    <input type="file" asp-for="Resume" class="form-control flat animation" accept=".pdf, .doc, .docx, .rtf" />
+                                    <span asp-validation-for="Resume" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ProfileImage" class="control-label "></label>
+                                    <input type="file" asp-for="ProfileImage" class="form-control flat animation" accept=".png, .jpg, .jpeg" />
+                                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="spacer-extra-large"></div>
+            <div class="col-lg-7 col-sm-9 col-xs-12  mx-auto ">
+                <div class="heading-2">
+                    <div class="d-inline-block">
+
+                        <h3>Licensure</h3>
+
+                    </div>
+                </div>
+                <div class="background marginbottomcontent">
+
+                    <table>
+                        <tbody id="bspecalities">
+
+                            @if (Model != null)
+                            {
+                                @for (int i = 0; i < Model.specialities.Count; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="row text-left">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class=" form-group">
+                                                        <label asp-for="specialities[i].Speciality_ID" class="control-label ">License</label>
+                                                        <div class=" form-group">
+                                                            <select class="form-control selectpicker flat registerselect" title="" asp-items="@ViewBag.Speciality" asp-for="specialities[i].Speciality_ID"></select>
+                                                        </div>
+                                                        <span asp-validation-for="specialities[i].Speciality_ID" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class=" form-group">
+                                                        <label asp-for="specialities[i].License" class="control-label ">License Number</label>
+                                                        <input class="form-control flat animation " type="text" placeholder="License" asp-for="specialities[i].License">
+                                                        <span asp-validation-for="specialities[i].License" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class=" form-group">
+                                                        <label asp-for="specialities[i].LegabilityStates" class="control-label ">Licensure States</label>
+                                                        <div class=" form-group">
+                                                            <select class="form-control selectpicker flat registerselect" data-size="15" title=" " asp-items="@ViewBag.States" asp-for="specialities[i].LegabilityStates"></select>
+                                                        </div>
+                                                        <span asp-validation-for="specialities[i].LegabilityStates" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class=" form-group">
+                                                        <label asp-for="specialities[i].IssueDate" class="control-label "></label>
+                                                        <input class="form-control flat animation datepickerday-issue" type="text" asp-for="specialities[i].IssueDate">
+                                                        <span asp-validation-for="specialities[i].IssueDate" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>  <div class="align-middle"><a id="trash" class=" btn btn-info"><i class="fa fa-trash"></i></a></div></td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="row text-left">
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class=" form-group">
+                                                    <label asp-for="specialities[0].Speciality_ID" class="control-label ">License</label>
+                                                    <div class=" form-group">
+                                                        <select class="form-control selectpicker registerselect flat" title=" " asp-items="@ViewBag.Speciality" asp-for="specialities[0].Speciality_ID"></select>
+                                                    </div>
+                                                    <span asp-validation-for="specialities[0].Speciality_ID" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class=" form-group">
+                                                    <label asp-for="specialities[0].License" class="control-label "> License Number</label>
+                                                    <input class="form-control flat animation" type="text" asp-for="specialities[0].License">
+                                                    <span asp-validation-for="specialities[0].License" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class=" form-group">
+                                                    <label asp-for="specialities[0].LegabilityStates" class="control-label ">Licensure States</label>
+                                                    <div class=" form-group">
+                                                        <select class="form-control selectpicker registerselect flat" data-size="15" title=" " asp-items="@ViewBag.States" asp-for="specialities[0].LegabilityStates"></select>
+                                                    </div>
+                                                    <span asp-validation-for="specialities[0].LegabilityStates" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class=" form-group">
+                                                    <label asp-for="specialities[0].IssueDate" class="control-label "></label>
+                                                    <input class="form-control flat animation datepickerday-issue" type="text" asp-for="specialities[0].IssueDate">
+                                                    <span asp-validation-for="specialities[0].IssueDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                  
+                                    </td>
+                                    <td>  <div class="align-middle"><a id="trash" class=" btn btn-info"><i class="fa fa-trash"></i></a></div></td>
+                                </tr>
+                            }
+
+                        </tbody>
+                        <tfoot class="text-right">
+                            <tr>
+                                <td>
+                                    <button type="button" id="add-speciality" class="btn btn-main "><i class="fa fa-plus"></i> ADD License</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </div>
+            <div class="spacer-extra-large"></div>
+            <div class="col-lg-7 col-sm-9 col-xs-12  mx-auto ">
+                <div class="heading-2">
+                    <div class="d-inline-block">
+                        <h3>Work History</h3>
+                    </div>
+                </div>
+                <div class="background marginbottomcontent">
+                    <table>
+
+                        <tbody id="bworkhistory">
+
+                            @if (Model != null)
+                            {
+                                @for (int i = 0; i < Model.workHistories.Count; i++)
+                                {
+
+                                    <tr>
+                                        <td>
+                                            <div class="row text-left">
+
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label asp-for="workHistories[i].StartDate" class="control-label ">Start Date</label>
+                                                        <input class="datepickerday flat animation" type="text" asp-for="workHistories[i].StartDate" data-val-required="The StartDate field is required.">
+                                                        <span asp-validation-for="workHistories[i].StartDate" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label asp-for="workHistories[i].EndDate" class="control-label ">End Date</label>
+                                                        <input class="datepickerday flat animation" type="text" asp-for="workHistories[i].EndDate" data-val-required="The EndDate field is required.">
+                                                        <span asp-validation-for="workHistories[i].EndDate" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group-sm" id="untilnow_checkbox">
+                                                        <input type="checkbox" asp-for="workHistories[i].UntilNow" class="until" data-val-required="The EndDate field is required.">
+                                                        <label class="checkbox" asp-for="workHistories[i].UntilNow">To Date</label>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label asp-for="workHistories[i].PlaceName" class="control-label ">Employer</label>
+                                                        <input class="form-control flat animation" asp-for="workHistories[i].PlaceName" data-val-required="The Employer field is required.">
+                                                        <span asp-validation-for="workHistories[i].PlaceName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label asp-for="workHistories[i].JobTitle" class="control-label ">Job Title</label>
+                                                            <input class="form-control flat animation" asp-for="workHistories[i].JobTitle" data-val-required="The Job Title field is required.">
+                                                        <span asp-validation-for="workHistories[i].JobTitle" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td>  <div class="align-middle"><a id="trash" class=" btn btn-info"><i class="fa fa-trash"></i></a></div></td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="row text-left">
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label asp-for="workHistories[0].PlaceName" class="control-label ">Employer</label>
+                                                    <input class="form-control flat animation" asp-for="workHistories[0].PlaceName" data-val-required="The Employer field is required.">
+                                                    <span asp-validation-for="workHistories[0].PlaceName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label asp-for="workHistories[0].JobTitle" class="control-label ">Job Title</label>
+                                                    <input class="form-control flat animation" asp-for="workHistories[0].JobTitle" data-val-required="The Job Title field is required.">
+                                                    <span asp-validation-for="workHistories[0].JobTitle" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label asp-for="workHistories[0].StartDate" class="control-label ">Start Date</label>
+                                                    <input class="datepickerday flat animation" type="text" asp-for="workHistories[0].StartDate" data-val-required="The StartDate field is required.">
+                                                    <span asp-validation-for="workHistories[0].StartDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+
+                                                <div class="form-group">
+                                                    <label asp-for="workHistories[0].EndDate" class="control-label ">End Date</label>
+                                                    <input class="datepickerday flat animation" type="text" asp-for="workHistories[0].EndDate" data-val-required="The EndDate field is required.">
+                                                    <span asp-validation-for="workHistories[0].EndDate" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group-sm" id="untilnow_checkbox">
+                                                    <input type="checkbox" asp-for="workHistories[0].UntilNow" class="until" data-val-required="The EndDate field is required.">
+                                                    <label class="checkbox" asp-for="workHistories[0].UntilNow">To Date</label>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td>  <div class="align-middle"><a id="trash" class=" btn btn-info"><i class="fa fa-trash"></i></a></div></td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+                        <tfoot class="text-right">
+                            <tr>
+                                <td>
+                                    <button type="button" id="add-workhistory" class="btn btn-main animation"><i class="fa fa-plus"></i> Add Work History</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </div>
+            <div class="spacer-extra-large"></div>
+            <div class="col-lg-7 col-sm-9 col-xs-12  mx-auto ">
+                <div class="heading-2">
+                    <div class="d-inline-block">
+                        <h3>Professional Certifications</h3>
+                    </div>
+                </div>
+                <div class="background marginbottomcontent">
+                    <table>
+
+                        <tbody id="bcertificates">
+
+                            @if (Model != null)
+                            {
+                                @for (int i = 0; i < Model.certificates.Count; i++)
+                                {
+
+                                    <tr>
+                                        <td>
+                                            <div class="row text-left">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label asp-for="certificates[i].CertificateType" class="control-label ">Certificate Type</label>
+                                                        <input class="form-control  flat animation" asp-for="certificates[i].CertificateType" data-val-required="Certificate Type is required" />
+                                                        <span asp-validation-for="certificates[i].CertificateType" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label asp-for="certificates[i].CeritifcationImg" class="control-label ">Image (Optional)</label>
+                                                        <input class="form-control flat animation" type="file" asp-for="certificates[i].CeritifcationImg" accept=".png, .jpg, .jpeg, .pdf" data-val-required="Certificate Image is required">
+                                                        <span asp-validation-for="certificates[i].CeritifcationImg" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label asp-for="certificates[i].StartDate" class="control-label ">Issue Date</label>
+                                                        <input class="datepickercert flat animation" type="text" asp-for="certificates[i].StartDate" data-val-required="The Issue Date field is required.">
+                                                        <span asp-validation-for="certificates[i].StartDate" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label asp-for="certificates[i].EndDate" class="control-label ">Expiration Date</label>
+                                                        <input class="datepickercert flat animation" type="text" asp-for="certificates[i].EndDate" data-val-required="The Expiration Date field is required.">
+                                                        <span asp-validation-for="certificates[i].EndDate" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                </div>
+</td>
+                                        <td>  <div class="align-middle"><a id="trash" class=" btn btn-info"><i class="fa fa-trash"></i></a></div></td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="row text-left">
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label asp-for="certificates[0].CertificateType" class="control-label ">Certificate Type</label>
+                                                    <input class="form-control flat animation" asp-for="certificates[0].CertificateType" data-val-required="Certificate Type is required" />
+                                                    <span asp-validation-for="certificates[0].CertificateType" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="d-flex flex-column">
+                                                    <label asp-for="certificates[0].CeritifcationImg" class="control-label ">Image (Optional)</label>
+                                                    <div class="form-group-sm">
+                                                        <input class="form-control flat animation" type="file" asp-for="certificates[0].CeritifcationImg" accept=".png, .jpg, .jpeg, .pdf" data-val-required="Certificate Image is required">
+                                                        <span asp-validation-for="certificates[0].CeritifcationImg" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label asp-for="certificates[0].StartDate" class="control-label ">Issue Date</label>
+                                                    <input class="datepickercert flat animation" type="text" asp-for="certificates[0].StartDate" data-val-required="The Issue Date field is required.">
+                                                    <span asp-validation-for="certificates[0].StartDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label asp-for="certificates[0].EndDate" class="control-label ">Expiration Date</label>
+                                                    <input class="datepickercert flat animation" type="text" asp-for="certificates[0].EndDate" data-val-required="The Expiration Date field is required.">
+                                                    <span asp-validation-for="certificates[0].EndDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>  <div class="align-middle"><a id="trash" class=" btn btn-info"><i class="fa fa-trash"></i></a></div></td>
+                                </tr>
+
+                            }
+                        </tbody>
+                        <tfoot class="text-right">
+                            <tr>
+                                <td>
+                                    <button type="button" id="add-certificate" class="btn btn-main animation"><i class="fa fa-plus"></i> Add Certificate</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </div>
+            <div class="paddingbottom">
+                <button type="submit" class="btn btn-main animation"> Submit </button>
+            </div>
+
+        </div>
+    </div>
+
+</form>
+
+
+
+@section jsplugins{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+}
+@section scripts{
+    <script src="~/js/home/ApplicantRegister.js"></script>
+
+}

@@ -1,0 +1,23 @@
+﻿@model medprohiremvp.DATA.Entity.NotificationTemplates
+@{
+    ViewData["Title"] = "Your Employment Agreement Has Been Successfully Signed";
+}
+<div class=" u-nav-v1-2">
+    <div class="new-heading ">
+        <h2 class="">@ViewData["Title"]</h2>
+    </div>
+</div>
+<form>
+    <div class="usercontainer text-center ">
+        <div class="background">
+          
+            @if (Model != null)
+            {
+                @if (Model.NotificationAction != null)
+                {
+                    <p> You can go back to   <a asp-controller="Applicant" asp-action=@string.Format("{0}",Model.NotificationAction) style="color:blue;"><strong> @Model.NotificationTitle</strong></a> to download your file</p>
+                }
+            }
+        </div>
+    </div>
+</form>

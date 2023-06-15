@@ -1,0 +1,55 @@
+﻿@model List<medprohiremvp.Models.Applicant.AppliedShifts>
+@if (Model != null)
+{
+
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+<div class="text-left filter">
+    <div class="form-group">
+        <div class="text-center text-uppercase">
+
+            <h6> @Model[i].InstitutionName</h6>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Branch_ID" class="control-label ">
+
+            @Html.DisplayNameFor(m => m[0].BranchName):
+        </label>
+        <div class="form-group">
+            <label class="main-label  text-capitalize">@Model[i].BranchName </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Location" class="control-label">
+
+            @Html.DisplayNameFor(m => m[0].Location):
+        </label>
+            <div class="form-group">
+                <label class="main-label">  @Model[i].Location</label>
+            </div>
+      
+    </div>
+
+    <div class="form-group">
+        <label for="ClockInTime" class="control-label ">
+            @Html.DisplayNameFor(m => m[0].ClockInTime):
+        </label>
+        <div class="form-group">
+            <label class="main-label">@Model[i].ClockInTime.ToShortTimeString()-@Model[i].ClockOutTime.ToShortTimeString()</label>
+</div>
+        </div>
+
+    <div class="text-right">
+        <a href="#" id="" class="btn btn-link dashboardReadMore" data-id="@Model[i].ClientShift_ID">Read More</a>
+    </div>
+        @if (i < Model.Count - 1)
+        {
+            <hr />
+        }
+    </div>
+
+    }
+    
+}

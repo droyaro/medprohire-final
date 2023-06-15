@@ -1,0 +1,35 @@
+﻿@model medprohiremvp.Models.SignModel
+@{
+    ViewData["Title"] = "Sign Document";
+}
+<div class="main-container-1 container text-xs-center text-sm-center text-md-left">
+    <!-- Heading Starts -->
+    <h3 class="heading-1 text-xs-center text-sm-center text-md-left"><strong>Send Document to Sign</strong></h3>
+
+    <div class="spacer"></div>
+    <form asp-action="GeneratePdf" id="GeneratePdf" asp-controller="SignDocument" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label asp-for="EmailAddress" class="control-label sr-only"></label>
+                    <input asp-for="EmailAddress" class="form-control flat animation"  placeholder="EmailAddress"  />
+                    <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label sr-only"></label>
+                    <input asp-for="LastName" class="form-control flat animation"  placeholder="LastName"  />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-main" value="Generate!" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

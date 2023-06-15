@@ -1,0 +1,52 @@
+﻿@model List<CMSmedprohiremvp.Models.Applicant.ApplicantSpecialitisViewModel>
+
+    <div class="heading-2 text-center">
+        <div class="d-inline-block">
+
+            <h3>Specialities</h3>
+
+        </div>
+    </div>
+    <div class="background ">
+
+        <table>
+            <tbody id="bspecalities">
+
+                @if (Model != null)
+                {
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <div class="row text-left">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class=" form-group">
+                                            <label class="control-label "><strong>Speciality:</strong>@Model[i].AppSpeciality</label>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class=" form-group">
+                                            <label class="control-label "><strong>License number:</strong>@Model[i].License</label>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class=" form-group">
+                                            <label class="control-label "><strong>Legability States:</strong> @Model[i].LegabilityStates</label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                }
+
+
+            </tbody>
+
+        </table>
+
+    </div>

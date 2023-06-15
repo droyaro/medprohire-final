@@ -1,0 +1,157 @@
+﻿@model CMSmedprohiremvp.Models.Clinical.ClientShiftViewModel
+
+    <link href="~/css/orderingapp.css" rel="stylesheet" />
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <h2>Shift View</h2>
+                <form style="border:2px solid">
+                    <div class="ibox-content">
+                        <div class="row align-items-center">
+
+                            <div class="col-md-9 col-sm-12">
+
+                                <div class="form-group text-left">
+                                    <div class="form-group-sm">
+                                        <label for="DateOfShift" class="control-label ">
+                                            <strong>Insert Date:</strong>
+                                            @Model.DateOfShift.ToString("MMMM dd")
+                                        </label>
+
+                                    </div>
+                                    <div class="form-group-sm">
+                                        <label for="ContractorCount" class="control-label ">
+                                            <strong>Contractor Count:</strong>
+                                            @Model.ContractorCount
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group-sm">
+                                        <label class="control-label ">
+                                            <strong>Date:</strong>
+                                            @Model.StartDate.ToString("MMMM dd")- @Model.EndDate.ToString("MMMM dd")
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group-sm">
+                                        <label for="ShiftLabel_ID" class="control-label ">
+                                            <strong>Shift Label:</strong>
+                                            @Model.ShiftLabelName
+                                        </label>
+                                    </div>
+                                    <div class="form-group-sm">
+                                        <label for="ClockInTime" class="control-label ">
+                                            <strong> Time:</strong>
+                                            @Model.ClockInTime.ToShortTimeString()-@Model.ClockOutTime.ToShortTimeString()
+                                        </label>
+                                    </div>
+                                    <div class="form-group-sm">
+                                        <label for="HourlyRate" class="control-label ">
+                                            <strong> Hourly Rate:</strong>
+                                            @Model.HourlyRate
+                                        </label>
+                                    </div>
+                                    <div class="form-group-sm">
+                                        <label for="Occurrences" class="control-label ">
+                                            <Strong>Occurrences:</Strong>
+                                            @Model.Occurrences
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group-sm">
+
+                                        <label for="ShiftExpirationDate" class="control-label ">
+                                            <strong>
+                                                Shift Expiration Date:
+                                            </strong>
+                                            @Model.ShiftExpirationDate.ToString("MMMM dd")
+
+                                        </label>
+                                    </div>
+                                    <div class="form-group-sm">
+                                        <label for="Specialities" class="control-label ">
+                                            <strong>Specalities:</strong>
+                                            @Model.SpecialitiesName
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group-sm">
+                                        <label for="Branch_ID" class="control-label ">
+                                            <strong>
+                                                Location:
+                                            </strong>
+                                            @Model.BranchName
+                                        </label>
+                                    </div>
+                                    <div class="form-group-sm">
+                                        <label for="ShiftDescription" class="control-label">
+                                            <strong>Description:</strong>
+                                        </label>
+                                        <div class="form-group-sm">
+                                            <label> @Model.ShiftDescription</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-sm">
+                                        <label for="Responsibility" class="control-label">
+                                            <strong>
+                                                Responsibility:
+                                            </strong>
+                                        </label>
+                                        <div class="form-group-sm">
+                                            <label> @Model.Responsibility </label>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group-sm">
+                                        <input type="hidden" id="ShiftsDates" value="@Model.ShiftsDates" />
+                                        <label for="ShifdDates" class="control-label">
+                                            <strong>
+                                                ShiftDates:
+                                            </strong>
+                                        </label>
+                                        <div class="form-group-sm">
+                                            <div id="calendarview" readonly data-date-start-date=@Model.StartDate data-date-end-date=@Model.EndDate data-date-multidate="true" data-date-format="mm/dd/yyyy"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group text-left">
+                                        <a class="btn btn-info animation" asp-controller="Home" asp-action="ShiftsList"><i class="fa fa-angle-left"></i> BACK</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <p></p>
+                <div class="form-group-sm from-group text-left" id="show">
+                    <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+                    <h2>Applicants</h2>
+                    @Html.Partial("_OperatingApplicants", Model.OperatingApplicants)
+                </div>
+                <p></p>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var shiftdates = $('#ShiftsDates').val();
+            if (shiftdates != "") {
+                var shiftdateslist = shiftdates.split(',');
+
+
+                $('#calendarview').datepicker({
+                    beforeShowDay: function () {
+                        return false;
+                    }
+
+                }).datepicker("setDates", shiftdateslist);
+            }
+        });
+    </script>
+}

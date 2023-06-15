@@ -1,0 +1,97 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.LocationViewModel
+@{ViewData["Title"] = "New Location";
+}
+<div class="new-heading new-heading-background ">
+    <h2 class="">@ViewData["Title"]</h2>
+</div>
+<div class="usercontainer ">
+    <form asp-action="NewLocation">
+
+        <div class="form-group text-left">
+            <a class="btn btn-info animation" asp-controller="ClinicalInstitution" asp-action="LocationListView"><i class="fa fa-angle-left"></i> BACK</a>
+        </div>
+        <div class="background marginbottomcontent">
+            <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+            <div class="form-group text-left">
+                <div class="row">
+
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label ">Location Name</label>
+                            <input asp-for="Name" class="form-control flat animation" type="text" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ContactName" class="control-label ">Contact Person Name</label>
+                            <input asp-for="ContactName" class="form-control flat animation" />
+                            <span asp-validation-for="ContactName" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group">
+                            <div class="afterphonenumberforspan">
+                                <label asp-for="PhoneNumber" class="control-label applicantnames">Contact Person Phone Number</label>
+                                <div class="text-left">
+                                    <input type="text" class="form-control flat animation phonenumber" asp-for="PhoneNumber" />
+                                    <label class="phonenumbercode">+1</label>
+                                </div>
+
+                            </div>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label ">Email Address</label>
+                                <input asp-for="Email" type="tel" class="form-control flat animation" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="State_ID" class="control-label ">State</label>
+                                <div class="form-group-sm">
+                                    <select id="State_ID" name="State_ID" asp-for="State_ID" asp-items="@ViewBag.States" class="form-control selectpicker flat registerselect" title="Select State"></select>
+                                </div>
+                                <span asp-validation-for="State_ID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="City_ID" class="control-label ">City</label>
+                                <div class="form-group-sm">
+                                    <select id="City_ID" name="City_ID" asp-for="City_ID" class="form-control selectpicker flat registerselect" title="Select City"></select>
+                                </div>
+                                <span asp-validation-for="City_ID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Address" class="control-label ">Address</label>
+                                <input asp-for="Address" class="form-control flat animation" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <input type="hidden" asp-for="Latitude" />
+                            <input type="hidden" asp-for="Longitude" />
+                            <div class="form-group">
+                                <label asp-for="ZipCode" class="control-label ">ZipCode</label>
+                                <input asp-for="ZipCode" class="form-control flat animation" />
+                                <span asp-validation-for="ZipCode" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+            </div>
+
+        </div>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-main animation">Create</button>
+        </div>
+
+    </form>
+</div>
+
+    @section jsplugins{
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    }
+    @section scripts{
+        <script src="~/js/home/Registration.js"></script>
+
+    }
+

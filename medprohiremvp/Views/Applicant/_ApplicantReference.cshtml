@@ -1,0 +1,58 @@
+﻿@model int
+
+<tr>
+
+    <td>
+  
+        <div class="row text-left">
+            <div class="col-md-6 col-sm-12">
+                <div class=" form-group">
+                    <label for=@string.Format("References_{0}__Company",Model) class="control-label ">ContactName</label>
+                    <input class="form-control flat animation" type="text" data-val="true" data-val-required="The Company field is required." id=@string.Format("References_{0}__Company",Model) name="References[@Model].Company" value="">
+                    <span class="text-danger field-validation-valid" data-valmsg-for="References[@Model].Company" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class=" form-group">
+                    <label for=@string.Format("References_{0}__Position",Model) class="control-label ">Position</label>
+                    <input class="form-control flat animation" type="text" data-val="true" data-val-required="The Position field is required." id=@string.Format("References_{0}__Position",Model) name="References[@Model].Position" value="">
+                    <span class="text-danger field-validation-valid" data-valmsg-for="References[@Model].Position" data-valmsg-replace="true"></span>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                  
+                        <label for=@string.Format("References_{0}__ContactName",Model) class="control-label ">Contact Name</label>
+                        <input class="form-control flat animation" type="text" data-val="true" data-val-required="The ContactName field is required." id=@string.Format("References_{0}__ContactName",Model) name="References[@Model].ContactName" value="">
+                        <span class="text-danger field-validation-valid" data-valmsg-for="References[@Model].ContactName" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+          
+
+
+            <div class="col-md-6 col-sm-12">
+                <div class=" form-group">
+                    <div class="afterphonenumberforspan">
+                        <label for=@string.Format("References_{0}__PhoneNumber",Model) class="control-label ">Phone Number</label>
+                        <div class="text-left">
+                            <input type="text" class="form-control flat animation phonenumber" data-val="true" data-val-phone="The Phone Number field is not a valid phone number." data-val-regex="Phone Number is not valid" data-val-regex-pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" data-val-required="The Phone Number field is required." id=@string.Format("References_{0}__PhoneNumber",Model) name="References[@Model].PhoneNumber" value="" maxlength="14" aria-required="true" aria-invalid="false" aria-describedby=@string.Format("References_{0}__PhoneNumber-error",Model)>
+                            <label class="phonenumbercode">+1</label>
+                        </div>
+                    </div>
+                        <span class="text-danger field-validation-valid" data-valmsg-for="References[@Model].PhoneNumber" data-valmsg-replace="true"></span>
+
+                    </div>
+                </div>
+            <div class="col-md-6 col-sm-12">
+                <div class=" form-group">
+                    <label for=@string.Format("References_{0}__Email",Model) class="control-label ">Email</label>
+                    <input class="form-control flat animation" type="email" data-val="true" data-val-required="The Email field is required." id=@string.Format("References_{0}__Email",Model) name="References[@Model].Email" value="">
+                    <span class="text-danger field-validation-valid" data-valmsg-for="References[@Model].Email" data-valmsg-replace="true"></span>
+
+                </div>
+            </div>
+        </div>
+    </td>
+    <td>  <div class="align-middle"><a id="trash" class=" btn btn-info"><i class="fa fa-trash"></i></a></div></td>
+</tr>

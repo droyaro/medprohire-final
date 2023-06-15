@@ -1,0 +1,122 @@
+﻿@model List<medprohiremvp.Models.Applicant.AppliedShifts>
+@{
+    ViewData["Title"] = "Picked Shifts";
+}
+<div class="backgroundlast">
+    <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+
+
+    <div id="shiftlist">
+        @{
+
+            if (Model != null)
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="d-flex bd-highlight align-items-center">
+                        <div class="p-2">
+                            <div class="text-left">
+                                <div class="form-group-sm">
+                                    <label><strong>   @(Html.DisplayNameFor(m => m[0].BranchName)): @Html.DisplayFor(modelItem => Model[i].BranchName)</strong></label>
+                                </div>
+                                <div class="form-group-sm">
+                                    <label><strong>   @(Html.DisplayNameFor(m => m[0].Location)):</strong> @Html.DisplayFor(modelItem => Model[i].Location)</label>
+                                </div>
+                                <div class="form-group-sm">
+                                    <label><strong>   @(Html.DisplayNameFor(m => m[0].StartDate)):</strong> @Model[i].StartDate.ToString("MMMM dd")</label>
+                                </div>
+                                <div class="form-group-sm">
+                                    <label><strong> @(Html.DisplayNameFor(m => m[0].EndDate)):</strong> @Model[i].EndDate.ToString("MMMM dd")</label>
+                                </div>
+                                <div class="form-group-sm">
+                                    <label><strong>@Html.DisplayNameFor(model => model[0].ShiftExpirationDate):</strong>   @Model[i].ShiftExpirationDate.ToString("MMMM dd") </label>
+                                </div>
+                                @{
+                                    if (Model[i].AppliedAllDays)
+                                    {
+                                        <div class="form-group-sm">
+                                            <label for="AppliedAllDays" class="control-label">
+                                                <strong>
+                                                    @(Html.DisplayNameFor(m => m[0].AppliedAllDays)):
+                                                </strong>
+                                                <span>Yes</span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group-sm">
+                                            <label for="AppliedDaysList" class="control-label">
+                                                <strong>
+                                                    @(Html.DisplayNameFor(m => m[0].AppliedDaysList)):
+                                                </strong>
+                                                @Model[i].StartDate.ToString("MMM dd")-@Model[i].EndDate.ToString("MMM dd")
+                                            </label>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group-sm">
+                                            <label for="AppliedDaysList" class="control-label">
+                                                <strong>
+                                                    @(Html.DisplayNameFor(m => m[0].AppliedDaysList)):
+                                                </strong>
+
+                                                @{
+                                                    string[] days = Model[i].AppliedDaysList.Split(",");
+                                                    string applieddays = "";
+                                                    foreach (string day in days)
+                                                    {
+                                                        applieddays += Convert.ToDateTime(day).ToString("dd MMMM") + "; ";
+                                                    }
+                                                    if (applieddays.Length > 2)
+                                                    {
+                                                        applieddays = applieddays.Substring(0, applieddays.Length - 2);
+                                                    }
+                                                    <span>@applieddays</span>
+                                                }
+                                            </label>
+                                        </div>
+                                    }
+
+                                }
+
+                                <div class="form-group-sm">
+
+                                    <a class="btn btn-link" href="#" data-clientid="@Model[i].AppliedShift_ID" id="ReadMore">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    @if (i != Model.Count - 1)
+                    {
+                        <hr />
+                    }
+
+                }
+
+            }
+        }
+    </div>
+</div>
+<div class="modal fade right" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content shiftmodal">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">Picked Shift Detail</h4>
+            </div>
+
+            <div class="modal-body shiftmodal">
+
+            </div>
+
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+@section scripts{
+    <script src="~/js/Applicant/PickedShifts.js"></script>
+
+}

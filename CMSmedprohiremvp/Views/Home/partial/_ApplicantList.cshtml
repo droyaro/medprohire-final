@@ -1,0 +1,43 @@
+﻿@model List<ApplicantViewModel>
+
+<table class="table table-striped table-bordered table-hover dataTable">
+
+    @{
+
+        if (Model != null)
+        {
+            <thead>
+                <tr>
+                    <th>Modify date</th>
+                    <th>Aplicant</th>
+                    <th>DrugScreen</th>
+                    <th></th>
+                    <th>BoardingProccess</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+
+                <tr>
+                    @*<td class="client-avatar"><img alt="img" src="@Model[i].Imgsrc"> </td>*@
+                    <td>@Model[i].DateModified.GetValueOrDefault().ToString("MMMM dd yyyy")</td>
+                    <td><a href="#contact-1" class="client-link">@String.Format("{0} {1}", Model[i].LastName, Model[i].FirstName)</a></td>
+                    <td> @Model[i].Drugscreen</td>
+                    <td> @Model[i].DrugscreenStatus</td>
+                    <td> <span class="label @(Model[i].BoardingProcess != 0 ? "label-primary" : "label-danger")">  @Model[i].BoardingProcess</span></td>
+                    <td><span class="label @(Model[i].Status=="active"?"label-primary":"label-danger")"> @Model[i].Status</span></td>
+                    <td>
+                        <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
+                        <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                    </td>
+                </tr>
+
+
+                }
+            </tbody>
+        }
+    }
+</table>

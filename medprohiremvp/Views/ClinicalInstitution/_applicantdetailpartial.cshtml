@@ -1,0 +1,62 @@
+﻿@model medprohiremvp.Models.Home.ApplicantModel
+<div class="availbleshiftdetail d-flex flex-column mx-auto">
+    <div class="text-left p-2">
+        <div class="form-group">
+            <div class="text-center">
+
+                <h6>@string.Format("{0} {1}", Model.FirstName, Model.LastName) </h6>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="SpecialitiesString" class="control-label">
+                @(Html.DisplayNameFor(m => m.SpecialitiesString)):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">  @Model.SpecialitiesString</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="CertificatiesString" class="control-label ">
+
+                @(Html.DisplayNameFor(m => m.CertificatiesString)):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">@Model.CertificatiesString </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="VisaStatus" class="control-label ">
+
+                @(Html.DisplayNameFor(m => m.ApplicantAvailableDays)):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">@{
+                    if(Model.availability!=null)
+                    {
+                        foreach(var available in Model.availability)
+                        {
+                    <span class="pickday tooltips py-5px">@available.AvailableDay.ToString("MM/dd/yyyy") <span class="tooltiptext"> @String.Format("{0}-{1}",available.StartTime.ToShortTimeString(),available.EndTime.ToShortTimeString()) </span></span>
+                        }
+                    }
+                }</label>
+            </div>
+        </div>
+        @*
+        <div class="form-group">
+            <label for="Availability" class="control-label ">
+                @(Html.DisplayNameFor(m => m.Availability)):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">@Model.Availability </label>
+            </div>
+        </div>*@
+    </div>
+    @{ if (Model.IsAvailable)
+        {
+    <div class="text-right mt-auto p-2">
+        <a href="#" id="" class="btn btn-little ReadMore" data-id="@Model.Applicant_ID">Invite</a>
+    </div>
+            }
+        }
+</div>

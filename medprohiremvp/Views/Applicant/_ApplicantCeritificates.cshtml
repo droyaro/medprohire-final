@@ -1,0 +1,42 @@
+﻿@model int
+
+<tr>
+    <td>
+     
+        <div class="row text-left">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for=@string.Format("certificates_{0}__CertificateType",Model) class="control-label ">Certification Name</label>
+                    <input class="form-control  flat animation" required data-val="true" data-val-required="Certificate Type is required" id=@string.Format("certificates_{0}__CertificateType",Model) name="certificates[@Model].CertificateType" />
+
+                    <span class="text-danger field-validation-error" data-valmsg-for="certificates[@Model].CertificateType_ID" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="d-flex flex-column">
+                    <label for=@string.Format("certificates_{0}__CeritifcationImg",Model) class="control-label ">Image (Optional)</label>
+                    <div class="form-group-sm">
+                        <input class="form-control flat animation" required data-val="true" type="file" id="imageUpload" accept=".png, .jpg, .jpeg, .pdf" data-val-required="Certificate Image is required" name="certificates[@Model].CeritifcationImg">
+                    </div>
+                    <span class="text-danger field-validation-error" data-valmsg-for="certificates[@Model].CeritifcationImg" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for=@string.Format("certificates_{0}__StartDate", Model) class="control-label ">Issue Date</label>
+                    <input class="hasdatepicker flat animation" data-val="true" data-val-required="The Issue Date field is required." id="@string.Format("certificates_{0}__StartDate", Model)" name="certificates[@Model].StartDate" value="" type="text">
+                    <span class="text-danger field-validation-error" data-valmsg-for="certificates[@Model].StartDate" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for=@string.Format("certificates_{0}__EndDate", Model) class="control-label ">Expiration Date</label>
+                    <input class="hasdatepicker flat animation" data-val="true" data-val-required="The Expiration Date field is required." id="@string.Format("certificates_{0}__EndDate", Model)" name="certificates[@Model].EndDate" value="" type="text">
+                    <span class="text-danger field-validation-error" data-valmsg-for="certificates[@Model].EndDate" data-valmsg-replace="true"></span>
+                </div>
+                
+            </div>
+        </div>
+    </td>
+    <td>  <div class="align-middle"><a id="trash" class=" btn btn-info"><i class="fa fa-trash"></i></a></div></td>
+</tr>

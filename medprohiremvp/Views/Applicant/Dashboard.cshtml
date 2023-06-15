@@ -1,0 +1,388 @@
+﻿@model medprohiremvp.Models.Applicant.AppDashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+@section cssplugins{
+
+    <link href="~/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/node_modules/jquery-timepicker/jquery.timepicker.css" rel="stylesheet" />
+}
+<div class="">
+    <div class="dashboard-heading new-heading-background">
+        <h2 class="">@ViewData["Title"]</h2>
+    </div>
+    <div class=" text-center">
+
+        <div class="usercontainer">
+            <div class="tb-teading-statistic text-left mb-3">
+                <h4 class="">Quick Links</h4>
+            </div>
+            <div class="d-flex flex-column flex-xl-row justify-content-between mb-3 ">
+
+                <div class="p-2 countrow mb-3 mr-40" @*data-href="AvailableShifts"*@>
+                    <div class="d-flex  justify-content-between align-items-center h-100 pl-5 pr-5 pt-3 pb-3 dashborad-list-count">
+                        <div class="p-2 text-left mt-auto">
+                            <div class="form-group-sm mb-2 text-center">
+                                <span class="dashboardcount completed text-center">
+                                    @(Model.Shifts != null ? Model.Shifts.Count : 0)
+                                </span>
+                            </div>
+                            <div class="form-group-sm">
+                                <span class="text-left dashboard-list-text">
+                                    Available Shifts
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-2 ">
+                            @*<a class="" asp-controller="Applicant" asp-action="Applicant_ShiftSearch">
+                                       <i class="fal fa-clipboard-list completed" title="Pick a Shift"></i>
+                             </a>
+                             <a class="nav-link mt-auto dashboard_link" asp-controller="Applicant" asp-action="Applicant_ShiftSearch"> Pick a Shift</a>*@
+                            @if (Model.CheckPickedShift)
+                            {
+                                <a class="" asp-controller="Applicant" asp-action="Applicant_ShiftSearch">
+                                    <i class="fal fa-clipboard-list completed" title="Pick a Shift"></i>
+                                </a>
+                                <a class="nav-link dashboard_link mt-auto" asp-controller="Applicant" asp-action="Applicant_ShiftSearch">Pick a Shift</a>
+                            }
+                            else
+                            {
+                                <i class="fal fa-clipboard-list completed" title="Pick a Shift"></i>
+                                <a class="nav-link mt-auto dashboard_link" disabled="disabled" href="#"> Pick a Shift</a>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="p-2 countrow mb-3 mr-40" data-href="ConfirmedShifts">
+                    <div class="d-flex  justify-content-between align-items-center h-100 pl-5 pr-5 pt-3 pb-3 dashborad-list-count">
+                        <div class="p-2 text-left mt-auto">
+                            <div class="form-group-sm mb-2 text-center">
+                                <span class="dashboardcount confirmed text-center">
+                                    @(Model.Shifts != null ? Model.Shifts.Count : 0)
+                                </span>
+                            </div>
+                            <div class="form-group-sm">
+                                <span class="text-left dashboard-list-text">
+                                    Confirmed Shifts
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            <a class="" asp-controller="Applicant" asp-action="ConfirmedShifts">
+                                <i class="fal fa-history confirmed"></i>
+                            </a>
+                            <a class="nav-link dashboard_link mt-auto" asp-controller="Applicant" asp-action="ConfirmedShifts">Report Time</a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="p-2 countrow mb-3 availabledates">
+                    <div class="d-flex  justify-content-between align-items-center h-100 pl-5 pr-5 pt-3 pb-3 dashborad-list-count">
+                        <div class="p-2 text-left mt-auto">
+                            <div class="form-group-sm mb-2 text-center">
+                                <span class="dashboardcount picked text-center">
+                                   @Model.AvailableDays
+                                </span>
+                            </div>
+                            <div class="form-group-sm">
+                                <span class="text-left dashboard-list-text">
+                                    Days Available
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            <a href="#">
+                                <i class="fal fa-thumbs-up picked"></i>
+                            </a>
+                            <a href="#" class="nav-link mt-auto dashboard_link">Avail Myself</a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-12 col-xl-8 pr-20">
+
+
+                    <div class="justifing_content">
+
+                        <div class="tb-teading text-left mb-3">
+                            <h4 class="">Current Shift information</h4>
+                        </div>
+                        <table class="table responsive datatable text-left nowrap">
+                            <thead class="">
+                                <tr>
+                                    <th><span>Shift N</span></th>
+                                    <th>Name</th>
+                                    <th>Location</th>
+                                    <th>Shift Start Time</th>
+                                    <th>Shift End Time</th>
+                                    <th class="none">Shift count</th>
+                                    <th class="none">Completed Shift</th>
+                                    <th class="none">Complete</th>
+                                    <th class="none">Hours Worked</th>
+                                    <th data-priority="1" class="lasttd">View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model.WorkedShiftTable != null)
+                                    {
+                                        for (int i = 0; i < Model.WorkedShiftTable.Count; i++)
+                                        {
+                                            <tr class="border">
+                                                <td>@Model.WorkedShiftTable[i].AppliedShift_ID</td>
+                                                <td>@Model.WorkedShiftTable[i].InstitutionName </td>
+                                                <td>@Model.WorkedShiftTable[i].BranchName</td>
+                                                <td>
+                                                    @Model.WorkedShiftTable[i].ClockOutTime.ToShortTimeString()
+                                                </td>
+                                                <td>
+                                                    @Model.WorkedShiftTable[i].ClockInTime.ToShortTimeString()
+                                                </td>
+                                                <td>
+                                                    @Model.WorkedShiftTable[i].NumberofShift
+                                                </td>
+                                                @if (Model.WorkedShiftTable[i].CompletedNumberofShift == @Model.WorkedShiftTable[i].NumberofShift)
+                                                {
+                                                    <td><i class="fas fa-check"></i></td>
+                                                }
+                                                else
+                                                {
+                                                    if (Model.WorkedShiftTable[i].CompletedNumberofShift == 0)
+                                                    {
+                                                        <td>@Model.WorkedShiftTable[i].CompletedNumberofShift</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>
+                                                            <span class="pie col-md-offset-0" style="display: none;">@Model.Shifts[i].CompletedNumberofShift/@Model.Shifts[i].NumberofShift</span>
+                                                        </td>
+                                                    }
+                                                }
+                                                @if (Model.WorkedShiftTable[i].NumberofShift != 0)
+                                                {
+                                                    string percent = "0%";
+                                                    percent = (((float)Model.WorkedShiftTable[i].CompletedNumberofShift / Model.WorkedShiftTable[i].NumberofShift) * 100).ToString("0") + "%";
+                                                    <td>@percent</td>
+
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        0%
+                                                    </td>
+                                                }
+
+                                                <td>@Model.WorkedShiftTable[i].Numberofworkedhours.ToString("0")</td>
+                                                @*@{
+                                                        var paid = "";
+                                                        switch (Model.Shifts[i].Paid)
+                                                        {
+                                                            case 0:
+                                                                paid = "";
+                                                                break;
+                                                            case 1:
+                                                                paid = "Partialy Paid";
+                                                                break;
+                                                            case 2:
+                                                                paid = "Paid in full";
+                                                                break;
+                                                        }
+                                                    }
+                                                    <td>@paid</td>*@
+
+                                                <td><a target="_blank" data-id="@Model.WorkedShiftTable[i].AppliedShift_ID" class="btn btn-link activeshiftview" href="#" id="activeshiftview"><i class="fal fa-eye"></i></a></td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tb-teading text-left mb-3">
+                        <h4 class="">View PayCheck</h4>
+                    </div>
+
+                    <div class="justifing_content ">
+                        @Html.Partial("_paycheckView", Model.PayChecks)
+                    </div>
+
+                </div>
+
+                <div class="col-lg-12 col-xl-4 ml-auto pl-20">
+                    <div class="backgroundlast mg-t" id="dashboarduser">
+
+                        <ul class="nav u-nav-v1-1 u-nav-primary nav-justified justify-content-center  g-brd-bottom--md g-brd-primary g-mb-20 mx-auto align-items-center flex-nowrap" role="tablist" data-target="nav-1-1-default-hor-left-rounded-underline" data-tabs-mobile-type="slide-up-down" data-btn-classes="btn btn-md btn-block u-btn-outline-primary g-mb-20">
+                            <li class="nav-item">
+                                <a class="nav-link g-rounded-bottom-0 mx-auto active show" data-toggle="tab" href="#shiftlist" role="tab" aria-selected="true">
+                                    @*<i class="mdi mdi-check"></i>*@
+
+                                    confirmed
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link g-rounded-bottom-0 mx-auto" data-toggle="tab" href="#pickedlist" role="tab" aria-selected="false">@*<i class="fal fa-calendar-check picked"></i>*@ Picked</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link g-rounded-bottom-0 mx-auto" data-toggle="tab" href="#rejectedlist" role="tab" aria-selected="false">@*<i class="mdi mdi-window-close"></i>*@ Rejected</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="shiftlist" class="tab-pane container active show">
+
+                                @Html.Partial("_shiftlist", Model.Shifts)
+                                <ul id="pagination" class="pagination-sm"></ul>
+                            </div>
+                            <div id="pickedlist" class="tab-pane container fade">
+
+                                @Html.Partial("_shiftlist", Model.PickedShifts)
+                                <ul id="paginationpicked" class="pagination-sm"></ul>
+                            </div>
+                            <div id="rejectedlist" class="tab-pane container fade">
+                                @Html.Partial("_shiftlist", Model.RejectedShifts)
+                                <ul id="paginationrejected" class="pagination-sm"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade right" id="ShiftModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content shiftmodal-content">
+            <div class="modal-body shiftmodal">
+
+            </div>
+
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+<div class="modal" id="ActiveShiftModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content ">
+            <div class="modal-body ">
+
+            </div>
+
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+<div class="modal" id="AvailableDays" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content ">
+            <div class="modal-body ">
+
+            </div>
+
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+<div class="modal  fade" id="ShiftDateModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="form-group-sm text-center">
+                    <label class="control-label">
+                        <strong>
+                            Shift Dates:
+                        </strong>
+                    </label>
+
+                    <input type="hidden" id="StartDate" />
+                    <input type="hidden" id="EndDate" />
+                    <input type="hidden" id="ShiftsDates" />
+                    <div class="form-group">
+                        <div class="d-flex ">
+                            <div class="shiftdatelist mx-auto" readonly data-date-multidate="true">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section jsplugins{
+
+    <script src="~/node_modules/twbs-pagination/jquery.twbsPagination.min.js"></script>
+    <script src="~/node_modules/peity/jquery.peity.min.js"></script>
+    <script src="~/node_modules/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/node_modules/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/node_modules/jquery-timepicker/jquery.timepicker.js"></script>
+
+}
+@section scripts{
+    <script src="~/js/Applicant/AppDashboard.js"></script>
+    <script src="~/js/Applicant/ShiftDates.js"></script>
+
+    <script>
+        var pagecount = @(Model.Shifts != null?Model.Shifts.Count % 5 == 0 ? Model.Shifts.Count / 5 : (Model.Shifts.Count / 5) + 1:0);
+        var pagecountpicked = @(Model.PickedShifts != null ? Model.PickedShifts.Count%5==0? Model.PickedShifts.Count /5: (Model.PickedShifts.Count / 5) +1:0);
+        var pagecountreject = @(Model.RejectedShifts != null ? Model.RejectedShifts.Count%5==0? Model.RejectedShifts.Count /5: (Model.RejectedShifts.Count / 5) +1:0);
+       if(pagecount!=0){
+        $('#pagination').twbsPagination({
+                                            totalPages: pagecount,
+            visiblePages: 1,
+            next: '<i class="far fa-angle-right"></i>',
+            prev: '<i class="far fa-angle-left"></i>',
+            first: '',
+            last: '',
+            onPageClick: function (event, page) {
+                //fetch content and render here
+                $('#shiftlist').find('.filter').not("hidden").prop("hidden", true);
+                $('#shiftlist').find('.filter').slice((page - 1) * 5, page * 5).prop("hidden", false);
+                                            }
+                                            });
+        };
+        if(pagecountpicked!=0){
+         $('#paginationpicked').twbsPagination({
+                                        totalPages: pagecountpicked,
+            visiblePages: 1,
+             next: '<i class="far fa-angle-right"></i>',
+             prev: '<i class="far fa-angle-left"></i>',
+            first: '',
+            last: '',
+            onPageClick: function (event, page) {
+                //fetch content and render here
+                $('#paginationpicked').find('.filter').not("hidden").prop("hidden", true);
+                $('#paginationpicked').find('.filter').slice((page - 1) * 5, page * 5).prop("hidden", false);
+                                            }
+                                        });
+        };
+         if(pagecountreject!=0){
+         $('#paginationrejected').twbsPagination({
+                                    totalPages: pagecountreject,
+            visiblePages: 1,
+             next: '<i class="far fa-angle-right"></i>',
+             prev: '<i class="far fa-angle-left"></i>',
+            first: '',
+            last: '',
+            onPageClick: function (event, page) {
+                //fetch content and render here
+                $('#paginationrejected').find('.filter').not("hidden").prop("hidden", true);
+                $('#paginationrejected').find('.filter').slice((page - 1) * 5, page * 5).prop("hidden", false);
+                                        }
+                                    });
+        }
+        $(document).ready(function () {
+$('#shiftlist').find('.filter').slice(5,@(Model.Shifts != null? Model.Shifts.Count:0)).prop("hidden");
+        $('#pickedlist').find('.filter').slice(5,@(Model.PickedShifts != null? Model.PickedShifts.Count:0)).prop("hidden");
+       $('#rejectedlist').find('.filter').slice(5,@(Model.RejectedShifts!=null? Model.RejectedShifts.Count:0)).prop("hidden");
+                                    });
+
+    </script>
+
+}

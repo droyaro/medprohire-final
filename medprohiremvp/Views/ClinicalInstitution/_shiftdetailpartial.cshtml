@@ -1,0 +1,95 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.ClientShiftViewModel
+<form>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="text-left">
+                <div class="form-group">
+                    <label for="BranchName" class="control-label">
+                        <i class="far fa-map-marker-alt"></i>   @(Html.DisplayNameFor(x => x.BranchName)):
+                    </label>
+                    <div class="form-group">
+                        <label class="main-label"> @Model.BranchName</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Date" class="control-label">
+                        <i class="far fa-calendar-check"></i>  Date:
+                    </label>
+                    <div class="form-group">
+                        <label class="main-label">  @Model.StartDate.ToString("MMMM dd")- @Model.EndDate.ToString("MMMM dd")</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ClockInTime" class="control-label">
+                        <i class="far fa-clock"></i> Time:
+                    </label>
+                    <div class="form-group">
+                        <label class="main-label">  @Model.ClockInTime.ToShortTimeString()-@Model.ClockOutTime.ToShortTimeString()</label>
+                    </div>
+                </div>
+     
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class=" text-left">
+
+                <div class="form-group">
+                    <label for="ContractorCount" class="control-label">
+                        <i class="far fa-users"></i>  @(Html.DisplayNameFor(x => x.ContractorCount)):
+                    </label>
+                    <div class="form-group">
+                        <label class="main-label">  @Model.ContractorCount</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Occurrences" class="control-label">
+                        @(Html.DisplayNameFor(x => x.Occurrences)):
+                    </label>
+                    <div class="form-group">
+                        <label class="main-label">@Model.Occurrences</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Description" class="control-label">
+                    @(Html.DisplayNameFor(x => x.ShiftDescription)):
+                </label>
+                <div class="form-group">
+                    <label class="main-label">  @Model.ShiftDescription</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Responsibility" class="control-label">
+                    @(Html.DisplayNameFor(x => x.Responsibility)):
+                </label>
+                <div class="form-group">
+                    <label class="main-label">  @Model.Responsibility</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group-sm">
+                <label asp-for="ShiftsDates" class="control-label">
+                    <strong>
+                        @(Html.DisplayNameFor(x => x.ShiftsDates)):
+                    </strong>
+                </label>
+                <input type="hidden" id="StartDate" value="@Model.StartDate" />
+                <input type="hidden" id="EndDate" value="@Model.EndDate" />
+                <input type="hidden" id="ShiftsDates" value="@Model.ShiftsDates" />
+                <div class="shiftdatelist" readonly data-date-start-date=@Model.StartDate data-date-end-date=@(Model.EndDate) data-date-multidate="true">
+
+                </div>
+            </div>
+        </div>
+    </div>
+  
+
+</form>

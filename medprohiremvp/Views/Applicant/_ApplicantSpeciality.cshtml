@@ -1,0 +1,55 @@
+﻿@model int
+@*<tr >
+        <td>
+            <select class="form-control flat" title="Specality" required data-val="true" asp-items="ViewBag.Speciality" data-val-required="The Speciality_ID field is required." id="@string.Format("specialities_{0}__Speciality_ID", Model)" name="specialities[@Model].Speciality_ID" aria-required="true"  aria-describedby=@String.Format("specialities_{0}__Speciality_ID-error",Model)>
+
+            </select>
+            <span class="text-danger field-validation-error" data-valmsg-for="specialities[@Model].Speciality_ID" data-valmsg-replace="true"></span>
+        </td>
+        <td>
+            <input class="form-control flat animation" required data-val="true" data-val-required="The License field is required." id=@string.Format("specialities_{0}__License",Model) name="specialities[@Model].License" value="" type="text" aria-required="true" placeholder="License" aria-describedby=@String.Format("specialities_{0}__License-error",Model)>
+            <span class="text-danger field-validation-error" data-valmsg-for="specialities[@Model].License" data-valmsg-replace="true"></span>
+        </td>
+    </tr>*@
+<tr>
+    <td>
+  
+        <div class="row text-left">
+            <div class="col-md-6 col-sm-12">
+                <div class=" form-group">
+                    <label for=@string.Format("specialities_{0}__Speciality_ID",Model) class="control-label">License</label>
+                    <div class=" form-group">
+                        <select class="form-control flat registerselect" title=" " required data-val="true" asp-items="ViewBag.Speciality" data-val-required="The Specialty field is required." id="@string.Format("specialities_{0}__Speciality_ID", Model)" name="specialities[@Model].Speciality_ID" aria-required="true" aria-describedby=@String.Format("specialities_{0}__Speciality_ID-error",Model)></select>
+                    </div>
+                    <span class="text-danger field-validation-error" data-valmsg-for="specialities[@Model].Speciality_ID" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 col-sm-12">
+                <div class=" form-group">
+                    <label for=@string.Format("specialities_{0}__License",Model) class="control-label"> License Number</label>
+                    <input class="form-control flat animation" required data-val="true" data-val-required="The License Number field is required." id=@string.Format("specialities_{0}__License",Model) name="specialities[@Model].License" value="" type="text" aria-required="true" aria-describedby=@String.Format("specialities_{0}__License-error",Model)>
+                    <span class="text-danger field-validation-error" data-valmsg-for="specialities[@Model].License" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class=" form-group">
+                    <label for=@string.Format("specialities_{0}__LegabilityStates",Model) class="control-label">Licensure States</label>
+                    <div class=" form-group">
+                        <select class="form-control flat registerselect" data-size="15" title=" " required data-val="true" asp-items="ViewBag.States" data-val-required="Legability States field is required." multiple id="@string.Format("specialities_{0}__LegabilityStates", Model)" name="specialities[@Model].LegabilityStates" aria-required="true" aria-describedby=@String.Format("specialities_{0}__LegabilityStates-error",Model)></select>
+                    </div>
+                    <span class="text-danger field-validation-error" data-valmsg-for="specialities[@Model].LegabilityStates" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class=" form-group">
+                    <label for=@string.Format("specialities_{0}__IssueDate",Model) class="control-label">Issued Date</label>
+                    <input class="form-control flat animation datepickerday-issue" required data-val="true" data-val-required="The Issued Date field is required." id=@string.Format("specialities_{0}__IssueDate",Model) name="specialities[@Model].IssueDate" value="" type="text" aria-required="true" aria-describedby=@String.Format("specialities_{0}__IssueDate-error",Model)>
+                    <span class="text-danger field-validation-error" data-valmsg-for="specialities[@Model].IssueDate" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+        </div>
+    </td>
+    <td>  <div class="align-middle"><a id="trash" class=" btn btn-info"><i class="fa fa-trash"></i></a></div></td>
+</tr>

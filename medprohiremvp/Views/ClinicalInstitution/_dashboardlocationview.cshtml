@@ -1,0 +1,35 @@
+﻿@model List<medprohiremvp.Models.ClinicalInstitution.LocationCounViewModel>
+<div class="nwtb">
+    @{
+        if (Model != null)
+        {
+            <table class="table  dataTable">
+                <thead>
+                    <tr>
+
+                        <th>@(Html.DisplayNameFor(m => m[0].LocationName))</th>
+                        <th>@(Html.DisplayNameFor(m => m[0].ActiveShiftsCount))</th>
+                        <th>@(Html.DisplayNameFor(m => m[0].CompletedShiftsCount))</th>
+                        <th>@(Html.DisplayNameFor(m => m[0].CreatedShiftsCount))</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                    <tr>
+
+                        <td>@Model[i].LocationName</td>
+                        <td>@Model[i].ActiveShiftsCount</td>
+                        <td>@Model[i].CompletedShiftsCount</td>
+                        <td>@Model[i].CreatedShiftsCount</td>
+
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
+    }
+</div>

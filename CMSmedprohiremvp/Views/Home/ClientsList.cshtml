@@ -1,0 +1,206 @@
+﻿@model List<ClinicalInstitutionViewModel>
+@using medprohiremvp.DATA.Entity
+
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <h2>Clients</h2>
+
+                <div class="ibox-content">
+                    <div class="d-flex flex-column flex-md-row flex-fill justify-content-between">
+                        <div class="p-2 my-auto m-b-xs">
+                            <ul class="list-unstyled ">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                        Notifications <span class="label label-primary">@Model.Where(x => x.BoardingProcess == 0 || x.BoardingProcess == 2 || x.BoardingProcess == 4).ToList().Count</span>
+                                    </a>
+                                    <ul class="dropdown-menu dw clients-search-list">
+                                        <li>
+                                            <a href="#" data-id="Activate Boarding">
+                                                <div class=" row align-items-center">
+                                                    <i class="fa fa-user-md fa-2x fa-fw"></i> <span class="labelnot label-danger">@Model.Where(x => x.BoardingProcess == 0).ToList().Count</span> New Users
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="#" data-id="Generate Contract">
+                                                <div class="row align-items-center">
+                                                    <i class="fa fa-pencil-square fa-2x fa-fw "></i><span class="labelnot label-danger">@Model.Where(x => x.BoardingProcess == 2).ToList().Count</span> Generate Contract
+
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="#" data-id="Generate New Contract">
+                                                <div class="row align-items-center">
+                                                    <i class="fa fa-pencil-square fa-2x fa-fw "></i><span class="labelnot label-danger">@Model.Where(x => x.BoardingProcess == 4).ToList().Count</span> Generate New Contract
+
+                                                </div>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p-2 m-b-xs">
+                            <div class="row">
+                                <div class="col m-b-xs">
+                                    <input class="form-control flat animation datepicker" id="insertdate" type="text" placeholder="Modify Date" />
+                                </div>
+                                <div class="input-group-append mx-auto"><span class="input-group-text m-b-xs">to</span></div>
+                                <div class="col m-b-xs">
+                                    <input class="form-control flat animation datepicker" placeholder="EndDate" id="enddate" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            <div class="input-group">
+                                <input placeholder="Search" type="text" class="form-control form-control-sm" id="searchtext"> <span class="input-group-append">
+                                    <button type="button" class="btn btn-sm btn-primary">
+                                        Go!
+                                    </button>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane active">
+                            <div class="full-height-scroll">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Modify Date</th>
+                                                <th>Instituion Name</th>
+                                                <th>City</th>
+                                                <th>Contact(title:name)</th>
+                                                <th>BoardingProccess</th>
+                                                <th></th>
+                                                <th>Email</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                if (Model != null)
+                                                {
+
+                                                    for (int i = 0; i < Model.Count; i++)
+                                                    {
+                                            <tr>
+                                                <td>@Model[i].DateModified.GetValueOrDefault().ToString("MMM dd yyyy")</td>
+                                                @*<td class="client-avatar"><img src="@Model[i].Logo" /></td>*@
+                                                <td><a href="#company-1" class="client-link">@Model[i].InstitutionName</a></td>
+                                                <td>@Model[i].CityName</td>
+                                                <td>@string.Format("{0}:{1}", Model[i].ContactTitle, Model[i].ContactPerson)</td>
+                                                @{
+                                                    var status = "";
+
+                                                    switch (Model[i].BoardingProcess)
+                                                    {
+                                                        case 0:
+                                                            status = "Not Started";
+                                                            break;
+                                                        case 1:
+                                                            status = "Waiting for user";
+                                                            break;
+                                                        case 2:
+                                                            status = "Under review";
+                                                            break;
+                                                        case 3:
+                                                            status = "Completed";
+                                                            break;
+                                                        case 4:
+                                                            status = "Made Cost Changes";
+                                                            break;
+
+
+                                                    }
+                                                }
+                                                <td> <span class="label @(Model[i].Status)">@status</span></td>
+                                                <td>
+                                                    @if (Model[i].BoardingProcess == 0)
+                                                    {
+                                                        <button data-id="@Model[i].User_ID" data-address="@Model[i].Address" id="boarding_client" @(Model[i].BoardingProcess == 0 ? "" : "disabled")>Activate Boarding</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        @if (Model[i].BoardingProcess == 2)
+                                                        {
+                                                        <button data-id="@Model[i].User_ID" id="completeboarding_client">Generate Contract</button>
+                                                        }
+                                                        else
+                                                        {
+                                                            if (Model[i].BoardingProcess == 4)
+                                                            {
+                                                                <button data-id="@Model[i].User_ID" id="completeboarding_client">Generate New Contract</button>
+                                                            }
+                                                        }
+                                                    }
+                                                </td>
+                                    
+                                                <td>
+                                                    <button data-userid="@Model[i].User_ID" id="ComposeMail"><i class="fa fa-envelope-open-o"></i> Email</button>
+                                                </td>
+                                            </tr>
+                                                    }
+                                                }
+                                            }
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="modal   fade" id="ModalBoarding" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
+
+            </div>
+            <div class=""></div>
+
+            <div class="modal-body">
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script src="~/js/Datatable.js"></script>
+    <script src="~/js/client/clientlist.js"></script>
+    <script>
+     $("#sendemail").on('click', function () {
+        $.ajax({
+            url: "/Home/SendEmail",
+            type: "POST",
+            data: { model: '@Model' },
+            success: function (response) {
+
+                location.reload();
+
+            }
+        });
+    });
+    </script>
+}

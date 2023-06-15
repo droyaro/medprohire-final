@@ -1,0 +1,70 @@
+﻿
+@model medprohiremvp.Models.Home.LoginViewModel
+
+@{
+    ViewData["PageTitle"] = "Sign In";
+    var returnUrl =Context.Request.Query["ReturnUrl"];
+}
+<div class="containerbackground">
+    <div class="paddingbottom">
+        <form asp-controller="Home" asp-action="Login" method="post" id="SignInForm" asp-route-ReturnUrl="@returnUrl">
+
+            <div class="container text-center ">
+                <div class="heading-1 registration">
+                    <div class="d-inline-block">
+                        <hr class="before" />
+                        <h2 class="">Log in</h2>
+                        <hr class="after" />
+                    </div>
+                </div>
+                <div class=" col-lg-5 col-sm-9 col-xs-12  mx-auto active-fileds">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+                    <input type="hidden" asp-for="ReturnUrl" />
+                    <div class="form-group text-left">
+
+                        <label asp-for="UserName" class="control-label"></label>
+                        <input type="text" class="form-control flat animation login-username" id="login-username" asp-for="UserName" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group text-left">
+
+                        <label asp-for="Password" class="control-label"></label>
+                        <input type="password" id="login-password" class="form-control flat animation login-password" asp-for="Password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+
+                    </div>
+
+
+                    <div class="form-group text-left">
+                        <input type="checkbox" asp-for="RememberMe" />
+                        <label asp-for="RememberMe"></label>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-main" type="submit"> Log in</button>
+                    </div>
+                    <hr class="mt-4 mb-4 pl-4" />
+                    <div class="form-group">
+                        <a asp-controller="Account" asp-action="ForgotPassword" formnovalidate>
+                            Forgot Password
+                        </a>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+@section jsplugins{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}
+@section scripts{
+    <script src="~/js/home/Login.js"></script>
+
+}

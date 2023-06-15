@@ -1,0 +1,34 @@
+﻿@model List<medprohiremvp.Models.Applicant.PayCheckViewModel>
+
+@{
+    if (Model != null)
+    {
+        <table class="table  display responsive nowrap paycheckdatatable text-left " style="width:100%">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m[0].PayCheckDate)</th>
+                    <th>@Html.DisplayNameFor(m => m[0].PayBeginDate)</th>
+                    <th>@Html.DisplayNameFor(m => m[0].PayEndDate)</th>
+                    <th>@Html.DisplayNameFor(m => m[0].Net_pay)</th>
+                    <th data-priority="1">View</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                <tr>
+                    <td>@Model[i].PayCheckDate.ToString("MMMM dd")</td>
+                    <td>@Model[i].PayBeginDate.ToString("MMMM dd")</td>
+                    <td>@Model[i].PayEndDate.ToString("MMMM dd")</td>
+                    <td>@Model[i].Net_pay</td>
+
+                    <td><a target="_blank" class="btn btn-link" asp-action="FileView" asp-controller="Applicant" asp-route-Id=" @Model[i].Paycheck_ID" asp-route-FileType="PayCheck"><i class="fal fa-eye"></i></a></td>
+                </tr>
+                }
+              
+            </tbody>
+        </table>
+    }
+}

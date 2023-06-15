@@ -1,0 +1,402 @@
+﻿@model medprohiremvp.Models.Home.RegistrationViewModel
+@{
+    ViewData["PageTitle"] = "Sign Up";
+}
+
+<div class="containerbackground paddingbottom h-fix">
+
+    <form asp-action="Register" id="Registration" asp-controller="Home" method="post">
+
+        <div class=" container  text-center">
+
+            <div class="heading-1 registration">
+                <div class="d-inline-block">
+                    <hr class="before" />
+                    <h2 class="">Sign Up</h2>
+                    <hr class="after" />
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-sm-9 col-xs-12  mx-auto ">
+                <div class=" ">
+                    <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+                    <div class="form-group">
+                        <h2 class="active-fileds-text FirstStep-text active">
+                            <span class="applicantnames">Applicant Name</span> 
+                            <span class="clinicalnames">Organizations Name</span>
+                        </h2>
+                    </div>
+
+                    <div id="FirstStep" class="active-fileds ">
+
+                        <input type="hidden" id="tempdata" value="@(TempData["user"]!=null?TempData["user"].ToString():"")" />
+                        @{
+                            string tempdata = TempData["user"] != null ? TempData["user"].ToString() : "";
+                            if (tempdata == "Applicant")
+                            {
+                                <div class="form-group" hidden>
+                                    <div class="row">
+                                        <div class="col-6 text-left">
+
+                                            <input type="radio" value="0" id="applicant" asp-for="Ishirer" readonly checked class="Ishirer" />
+                                            <label for="applicant" class="radio-inline">
+                                                Applicant
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            }
+                            else
+                            {
+                                if (tempdata == "Clinical")
+                                {
+                                    <div class="form-group" hidden>
+                                        <div class="row">
+
+                                            <div class="col-6 text-left">
+                                                <input type="radio" value="1" id="clinical" checked readonly asp-for="Ishirer" class="Ishirer" />
+                                                <label for="clinical" class="radio-inline">
+                                                    Medical Facility
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-6 text-right">
+                                                <label class="before-radio">
+                                                    Applicant
+                                                </label>
+                                                <input type="radio" value="0" id="applicant" asp-for="Ishirer" checked class="Ishirer" />
+                                                <label for="applicant" class="radio-inline"></label>
+                                            </div>
+                                            <div class="col-6 text-left">
+                                                <input type="radio" value="1" id="clinical" asp-for="Ishirer" class="Ishirer" />
+                                                <label for="clinical" class="radio-inline">
+                                                    Medical Facility
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                }
+                            }
+                        }
+
+
+                        <div class="row form-group text-left">
+                            <div class=" col-sm-12 clinicalnames">
+
+                                <div class=" form-group">
+                                    <label asp-for="InstitutionName" class="control-label ">Organization or Corporate Name</label>
+                                    <input asp-for="InstitutionName" class="form-control flat animation" />
+                                    <span asp-validation-for="InstitutionName" class="text-danger"></span>
+                                </div>
+                            </div>
+                         
+                            <div class=" col-sm-12 applicantnames">
+                                <div class=" form-group">
+                                    <label asp-for="FirstName" class="control-label "></label>
+                                    <input asp-for="FirstName" class="form-control flat animation firststep" />
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 applicantnames">
+
+                                <div class="form-group">
+                                    <label asp-for="LastName" class="control-label "></label>
+                                    <input asp-for="LastName" class="form-control flat animation firststep" />
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class=" col-sm-12 applicantnames">
+
+                                <div class="form-group">
+                                    <label asp-for="MiddleName" class="control-label "></label>
+                                    <input asp-for="MiddleName" class="form-control flat animation firststep not-reuqired" />
+                                    <span asp-validation-for="MiddleName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <a data-link="States" data-lastlink="FirstStep" class="navigation btn btn-main " formnovalidate="formnovalidate">Next <i class="fal fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                  
+                    <h2 class="active-fileds-text States-text " hidden>
+                        <span class="applicantnames">What is your address?</span>
+                        <span class="clinicalnames">What facilities do you operate from?</span>
+                    </h2>
+                    <div id="States" hidden class="active-fileds " data-lastlink="FirstStep">
+
+                        <div class="row form-group text-left">
+
+                            <div class=" col-sm-12">
+                                <div class="form-group">
+                                    <label asp-for="State_ID" class="control-label ">State</label>
+                                    <div class="form-group-sm">
+                                        <select id="State_ID" name="State_ID" asp-for="State_ID" data-style="btn-new" data-size="15" asp-items="@ViewBag.States" class=" form-control selectpicker flat fullwidth registerselect" title=" "></select>
+                                    </div>
+                                    <span asp-validation-for="State_ID" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class=" col-sm-12">
+                                <div class="form-group">
+                                    <label asp-for="City_ID" class="control-label ">City</label>
+                                    <div class="form-group-sm">
+                                        <select id="City_ID" name="City_ID" asp-for="City_ID" asp-items="@ViewBag.Cities" class="  selectpicker flat fullwidth registerselect" data-size="15" title=" "></select>
+                                    </div>
+                                    <span asp-validation-for="City_ID" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-sm-12">
+                                <div class="form-group">
+                                    <label asp-for="Address" class="control-label"></label>
+                                    <input asp-for="Address" class="form-control flat animation " />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-12 ">
+
+                                <div class="form-group">
+                                    <label asp-for="Address2" class="control-label"></label>
+                                    <input asp-for="Address2" class="form-control flat animation not-reuqired" />
+                                    <span asp-validation-for="Address2" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class=" col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label asp-for="ZipCode" class="control-label "></label>
+                                        <input asp-for="ZipCode" class="form-control flat animation " />
+                                        <span asp-validation-for="ZipCode" class="text-danger field-validation-error"></span>
+                                    </div>
+                                    <input type="hidden" asp-for="Longitude" />
+                                    <input type="hidden" asp-for="Latitude" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mx-5">
+                            <div class=" col-md-6 col-sm-12 form-group">
+                                <a data-link="FirstStep" data-lastlink="States" class="lastnavigation btn btn-main FirstStep-back" formnovalidate="formnovalidate" hidden><i class="fal fa-angle-left"></i> Back</a>
+                            </div>
+                            <div class="col-md-6 col-sm-12 form-group">
+                                <a data-link="UserFileds" data-lastlink="States" class="navigation btn btn-main" formnovalidate="formnovalidate">Next <i class="fal fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                       
+                    </div>
+                    <h2 class="active-fileds-text UserFileds-text " hidden>
+                        <span class="applicantnames"> What do you want for your login credentials?</span>
+                        <span class="clinicalnames">What are your preferred login credentials</span>
+                       
+                    </h2>
+                    <div id="UserFileds" hidden class="active-fileds " data-lastlink="States">
+
+                        <div class="row form-group text-left">
+                            <div class=" col-sm-12 applicantnames">
+                                <div class="form-group">
+                                    <label asp-for="EmailAddress" class="control-label applicantnames">Email Address</label>
+
+                                    <input asp-for="EmailAddress" class="form-control flat animation" />
+                                    <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class=" col-sm-12">
+                                <div class="form-group">
+                                    <label asp-for="UserName" class="control-label "></label>
+                                    <input asp-for="UserName" class="form-control flat animation" />
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class=" col-sm-12">
+                                <div class="form-group">
+                                    <label asp-for="Password" class="control-label "></label>
+                                    <input asp-for="Password" class="form-control flat animation" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class=" col-sm-12">
+                                <div class="form-group">
+                                    <label asp-for="ConfirmPassword" class="control-label "></label>
+                                    <input asp-for="ConfirmPassword" class="form-control flat animation" />
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mx-5">
+                            <div class=" col-md-6 col-sm-12 form-group">
+                                <a data-link="States" data-lastlink="UserFileds" class="lastnavigation btn btn-main States-back" formnovalidate="formnovalidate" hidden><i class="fal fa-angle-left"></i> Back</a>
+                               
+                            </div>
+                            <div class="col-md-6 col-sm-12 form-group">
+                                <a data-link="PhoneFields" data-lastlink="UserFileds" class="navigation btn btn-main" formnovalidate="formnovalidate">Next <i class="fal fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                   
+                    <h2 class="active-fileds-text PhoneFields-text " hidden>
+                       
+                        <span class="applicantnames">  What's your phone number?</span>
+                        <span class="clinicalnames">Who is your contact person?</span>
+                    </h2>
+                    <div id="PhoneFields" hidden class="active-fileds " data-lastlink="UserFileds">
+                       
+                        <div class="row ">
+                            <div class=" col-sm-12 clinicalnames text-left">
+                                <div class="form-group">
+                                
+                                    <label asp-for="ContactEmailAddress" class="control-label clinicalnames">Contact Person Email Address</label>
+                                    <input asp-for="ContactEmailAddress" class="form-control flat animation" />
+                                    <span asp-validation-for="ContactEmailAddress" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 clinicalnames text-left">
+
+                                <div class="form-group">
+                                    <label asp-for="ContactPerson" class="control-label ">Contact Person</label>
+                                    <input asp-for="ContactPerson" class="form-control flat animation" />
+                                    <span asp-validation-for="ContactPerson" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 clinicalnames text-left">
+
+                                <div class="form-group">
+                                    <label asp-for="ContactTitle" class="control-label ">Contact Person Position</label>
+                                    <input asp-for="ContactTitle" class="form-control flat animation" />
+                                    <span asp-validation-for="ContactTitle" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class=" col-sm-12 text-left">
+
+                                <div class="form-group ">
+                                    <label asp-for="Phone" class="control-label applicantnames">Phone</label>
+                                    <label asp-for="Phone" class="control-label clinicalnames">Contact Person Mobile Number</label>
+                                    <div class="afterphonenumberforspan">
+                                        <div class="text-left">
+                                            <input asp-for="Phone" type="tel" class="form-control flat animation phonenumber" />
+                                            <label class="phonenumbercode">+1</label>
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 col-sm-12 float-right">
+                                <div class="row mx-5">
+                                   
+                                    <div class="col-md-6 col-sm-12 form-group">
+                                        <button type="submit" class="btn btn-main animation" hidden id="submit">Next <i class="fal fa-angle-right"></i>  </button>
+                                    </div>
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                        <div class="row text-center" id="verifying">
+
+                            <div class="col-sm-12 form-group">
+
+                                <a data-link="UserFileds" data-lastlink="PhoneFields" class="lastnavigation btn btn-main UserFileds-back" formnovalidate="formnovalidate" hidden><i class="fal fa-angle-left"></i> Back</a>
+                            </div>
+                            @*<div class=" col-sm-12 ">
+                                <p>Please verify account by SMS</p>
+                            </div>*@
+                            @*<div class="col-sm-12 form-group text-center">
+                                <button type="button" class="btn btn-main smalltext" id="sendsms">
+                                    Verify
+                                </button>
+                            </div>*@
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <button type="button" id="verify" class="btn btn-main smalltext">Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @*<div id="notvalid" hidden>
+                        <span class="text-danger"> Cant send sms, please check your phone number</span><hr />
+                    </div>
+                    <div id="valid" hidden>
+                        <div class="form-group">
+                            <span class="text-success"> Thank you for verification! We are redirecting to next registration step</span>
+                        </div>
+                        <div class="form-group"><span>Loading <i class="fa fa-spinner fa-spin  fa-fw"></i></span></div>
+
+                    </div>
+
+                    <div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog ">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="p-2 flex-grow-1">
+                                            <h2 class="">Verification</h2>
+                                        </div>
+                                        <div class="p-2">
+                                            <a class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+
+                                                <p>
+                                                    Please insert 6 - digit code
+                                                </p>
+
+                                                <input id="verifykey" type="number" class="form-control flat animation" placeholder="XXXXXX" size="6" />
+                                                <input type="hidden" id="key" />
+                                            </div>
+
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <button type="button" id="verify" class="btn btn-main smalltext">Verify & Continue</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+@section jsplugins{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/node_modules/jquery-input-mask-phone-number/dist/jquery-input-mask-phone-number.min.js"></script>
+
+}
+@section scripts{
+    <script src="~/js/home/Registration.js"></script>
+    <script src="~/js/conditional-validation.js"></script>
+}
+
+

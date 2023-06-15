@@ -1,0 +1,102 @@
+﻿@{
+    string action = ViewContext.RouteData.Values["Action"].ToString().ToLower();
+    string controller = ViewContext.RouteData.Values["Controller"].ToString().ToLower();
+}
+@using Microsoft.AspNetCore.Identity
+@using medprohiremvp.DATA.IdentityModels
+@using medprohiremvp.DATA.Entity
+@using medprohiremvp.Service.IServices
+@inject UserManager<ApplicationUser> UserManager
+@inject ICommonServices CommonServices
+@{
+    var user = UserManager.GetUserAsync(User).Result;
+    var roles = UserManager.GetRolesAsync(user).Result;
+    string rolename = roles[0];
+
+    if (rolename == "Applicant")
+    {
+        
+            <div class="userleft-menu">
+
+                <nav class="nav navbar-light   navbar-expand-lg navbar-expand-md ">
+                    <button class="navbar-toggler navbar-toggler-center" type="button" data-toggle="collapse" data-target="#navbarleft" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse flex-wrap" id="navbarleft">
+
+                        @{
+                            Applicants app = CommonServices.FindApplicantByUserID(user.Id);
+                            if (app != null)
+                            {
+
+                                @*if (app.Employment_agreement != null)
+                                {
+                                    <div class="form-group text-left">
+                                        <a class="nav-link @((action == "dashboard") && (controller == "applicant") ? "active" : "")" asp-controller="Applicant" asp-action="Dashboard"><i class="mdi mdi-view-dashboard-outline"></i> Dashboard</a>
+                                    </div>
+                                }*@
+                                <div class="form-group text-left">
+                                    <a class="nav-link @((action == "dashboard") && (controller == "applicant") ? "active" : "")" asp-controller="Applicant" asp-action="Dashboard"><i class="mdi mdi-view-dashboard-outline"></i> Dashboard</a>
+                                </div>
+                                <div class="form-group text-left">
+
+                                    <a class="nav-link @(((action == "profile") && (controller == "applicant")) || ((action == "changepassword")) ? "active" : "")" asp-controller="Applicant" asp-action="Profile"><i class="fal fa-user-md"></i> Profile</a>
+                                </div>
+                                @if (app.BoardingProcess == 1)
+                                {
+                                    <div class="form-group text-left">
+
+                                        <a class="nav-link @((action == "applicantboardingprocess") && (controller == "home") ? "active" : "")" asp-controller="Home" asp-action="ApplicantBoardingProcess"><i class="far fa-tasks"></i> Boarding Process</a>
+
+                                    </div>
+                                }
+                                @if (app.BoardingProcess == 0)
+                                {
+                                    <div class="form-group text-left">
+                                        <a class="nav-link @((action == "notifications") && (controller == "home") || ((action == "invitedshift" || action == "confirmacceptedshift" || action == "dismissedshifts" || action == "employment_agreement") && (controller == "applicant")) ? "active" : "")" asp-controller="Account" asp-action="RegistrationSuccess"> <i class="fal fa-bell"></i> Notifications</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group text-left">
+                                        <a class="nav-link @((action == "notifications") && (controller == "home") || ((action == "invitedshift" || action == "confirmacceptedshift" || action == "dismissedshifts" || action == "employment_agreement") && (controller == "applicant")) ? "active" : "")" asp-controller="Home" asp-action="Notifications"> <i class="fal fa-bell"></i> Notifications</a>
+                                    </div>
+                                }
+
+
+                                if (app.Employment_agreement != null)
+                                {
+                                    <div class="form-group text-left">
+                                        <a class="nav-link @((action == "applicant_shiftsearch" || action == "pickedshifts") && (controller == "applicant") ? "active" : "")" asp-controller="Applicant" asp-action="Applicant_ShiftSearch"><i class="fal fa-clipboard-list"></i> Available Shifts</a>
+                                    </div>
+                                }
+
+                                @if (CommonServices.GetApplicantAppliedShifts(user.Id).Where(x => x.Accepted == true && x.Status == 1).ToList().Count > 0)
+                                {<div class="form-group text-left">
+                                        <a class="nav-link  @((action == "confirmedshifts") && (controller == "applicant") ? "active" : "")" asp-controller="Applicant" asp-action="ConfirmedShifts"> <i class="fal fa-clipboard-list-check "></i>Confirmed Schedule</a>
+                                    </div>
+                                }
+                                @if (CommonServices.GetApplicantAppliedShifts(user.Id).Where(x => x.Accepted == true && x.Status == 2).ToList().Count > 0)
+                                {
+                                    <div class="form-group text-left">
+                                        <a class="nav-link  @((action == "completedshifts") && (controller == "applicant") ? "active" : "")" asp-controller="Applicant" asp-action="CompletedShifts"><i class="fal fa-clipboard-check"></i>Completed Shifts</a>
+                                    </div>
+                                }
+                            }
+                            <div class="form-group text-left">
+                                <a class="nav-link  @((action == "support"  || action=="newticket" || action=="ticketcontent") && (controller == "account") ? "active" : "")" asp-controller="Account" asp-action="Support"><i class="mdi mdi-headset"></i> Support</a>
+
+                            </div>
+
+                        }
+
+                    </div>
+
+                </nav>
+            </div>
+
+
+                                }
+                            }
+
+

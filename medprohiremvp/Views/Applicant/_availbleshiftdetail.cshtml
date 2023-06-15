@@ -1,0 +1,52 @@
+﻿@model medprohiremvp.Models.Applicant.AppliedShifts
+<div class="availbleshiftdetail d-flex flex-column ">
+    <div class="text-left p-2">
+        <div class="form-group">
+            <div class="text-center text-uppercase mb-5">
+
+                <h6> @Model.InstitutionName</h6>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Speciality" class="control-label">
+                @Html.DisplayNameFor(m=>m.SpecialitiesName):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">  @Model.SpecialitiesName</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Branch_ID" class="control-label ">
+
+                @Html.DisplayNameFor(m => m.BranchName):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">@Model.BranchName </label>
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <label for="Date" class="control-label">
+                @Html.DisplayNameFor(m => m.ShiftsDates):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label"><a href="#" id="seeshiftdates" data-id="@Model.ClientShift_ID">  @Model.StartDate.ToString("MMMM dd")- @Model.EndDate.ToString("MMMM dd")</a></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ClockInTime" class="control-label">
+                @Html.DisplayNameFor(m => m.ClockInTime):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">  @Model.ClockInTime.ToShortTimeString()-@Model.ClockOutTime.ToShortTimeString()</label>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="text-right mt-auto p-2">
+        <a href="#" id="" class="btn btn-main btn-small ReadMore" data-id="@Model.ClientShift_ID">Select</a>
+    </div>
+</div>

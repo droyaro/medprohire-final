@@ -1,0 +1,150 @@
+﻿@model medprohiremvp.Models.Applicant.AppliedShifts
+
+
+    <div class=" text-left">
+        <div class="d-inline-block">
+            <h6 class="shiftheader">Client Info</h6>
+        </div>
+    </div>
+    <div class="text-left">
+        <div class="form-group-sm">
+            <label for="InstitutionName" class="control-label ">
+                @Html.DisplayNameFor(m=>m.InstitutionName):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">@Model.InstitutionName </label>
+            </div>
+        </div>
+
+        <div class="form-group-sm">
+            <label for="Branch_ID" class="control-label ">
+
+                @Html.DisplayNameFor(m => m.BranchName):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">@Model.BranchName </label>
+            </div>
+        </div>
+        <div class="form-group-sm">
+            <label for="Location" class="control-label">
+
+                @Html.DisplayNameFor(m => m.Location):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">  @Model.Location</label>
+            </div>
+
+        </div>
+        <div class="form-group-sm">
+            <label for="ContactPerson" class="control-label">
+                @Html.DisplayNameFor(m => m.ContactPerson):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">  @Model.ContactPerson</label>
+            </div>
+
+        </div>
+        <div class="form-group-sm">
+            <label for="PhoneNumber" class="control-label">
+
+                @Html.DisplayNameFor(m => m.PhoneNumber):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">  @Model.PhoneNumber</label>
+            </div>
+
+        </div>
+    </div>
+    <hr />
+
+    <div class=" text-left">
+        <div class="d-inline-block">
+            <h6 class="shiftheader">Shift Detail</h6>
+        </div>
+    </div>
+
+
+    <div class=" text-left">
+        <div class="form-group-sm">
+            <label for="Date" class="control-label">
+                @Html.DisplayNameFor(m => m.ShiftsDates):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label"><a href="#" id="seeshiftdates" data-id="@Model.ClientShift_ID">  @Model.StartDate.ToString("MMMM dd")- @Model.EndDate.ToString("MMMM dd")</a></label>
+            </div>
+        </div>
+        <div class="form-group-sm">
+            <label for="ClockInTime" class="control-label">
+                @Html.DisplayNameFor(m => m.ClockInTime):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">  @Model.ClockInTime.ToShortTimeString()-@Model.ClockOutTime.ToShortTimeString()</label>
+            </div>
+        </div>
+ 
+        <div class="form-group-sm">
+            <label for="Occurrences" class="control-label">
+                @Html.DisplayNameFor(m => m.Occurrences):
+            </label>
+            <div class="form-group-sm">
+                <label class="main-label">@Model.Occurrences</label>
+            </div>
+        </div>
+       
+        @{
+            if (Model.AppliedAllDays)
+            {
+        <div class="form-group-sm">
+            <label asp-for="AppliedAllDays" class="control-label">
+                @Html.DisplayNameFor(m => m.AppliedAllDays):
+            </label>
+
+            <div class="form-group-sm">
+                <label class="main-label">
+                    @{
+                        string appliedalldays = "Yes";
+                    }
+                    @appliedalldays
+                </label>
+            </div>
+        </div>
+                <div class="form-group-sm">
+                    <label asp-for="AppliedDaysList" class="control-label">
+                        @Html.DisplayNameFor(m => m.AppliedDaysList):
+
+                    </label>
+
+                    <div class="form-group-sm">
+                        <label class="main-label">
+                            @Model.StartDate.ToString("MMM dd")-@Model.EndDate.ToString("MMM dd")
+                        </label>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+
+                <div class="form-group-sm">
+                    <label asp-for="AppliedDaysList" class="control-label">
+                        @Html.DisplayNameFor(m => m.AppliedDaysList):
+
+                    </label>
+
+                    <div class="form-group-sm">
+                        <label class="main-label">
+                            @{
+                                string[] days = Model.AppliedDaysList.Split(",");
+                                List<DateTime> daylist = days.Select(x => Convert.ToDateTime(x)).ToList();
+                               
+                                string applieddays = String.Join(", ", daylist.Select(x => x.ToString("MMM dd")).ToList());
+                            }
+                            @applieddays
+                        </label>
+                    </div>
+                </div>
+            }
+
+        }
+    </div>
+ 

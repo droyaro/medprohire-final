@@ -1,0 +1,175 @@
+﻿@{
+    ViewData["Title"] = "Days Available";
+}
+@section cssplugins{
+
+    <link href="~/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+}
+
+<div class="dashboard-heading new-heading-background">
+    <h2 class="">@ViewData["Title"]</h2>
+</div>
+<div class="searchbackground   contentpad">
+    <div class="d-flex flex-column flex-xl-row">
+        <div class="d-xl-inline-flex flex-lg-row input-daterange p-2 flex-grow-1">
+            <div class="p-2">
+
+                <div class="form-group-sm">
+                    <label class="control-label searchlabel"> Dates</label>
+                </div>
+                <div class="form-group">
+                    
+                        <input type="text" class="form-control datetimepicker" id="Date" placeholder="Pick Date Range">
+                   
+                </div>
+                </div>
+    
+            <div class="p-2 paddingp2 flex-grow-1"></div>
+            <div class="p-2">
+
+                <div class="form-group-sm">
+                    <label class="control-label searchlabel">Start Time</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control timepicker" id="StartTime" placeholder="Pick Start Time">
+                </div>
+            </div>
+
+            <div class="p-2 paddingp2 flex-grow-1"></div>
+            <div class="p-2">
+                <div class="form-group-sm">
+                    <label class="control-label searchlabel">End Time</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control timepicker" id="EndTime" placeholder="Pick End Time">
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="p-2 paddingp2 flex-grow-1"></div>
+        <div class="p-2  text-xl-right text-lg-left">
+
+            <div class="form-group">
+                <input class="btn btn-search " type="button" id="SearchShifts" value="Search" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="usercontainer">
+    <div class="form-group availablelist">
+        <div class="row mx-auto">
+            @if (Model != null)
+            {
+
+                <div class="row ">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <div class="col-3 availabledayslist ">
+                            <div class="m-2 p-4 bg-white">
+                                <div class="p-2">
+                                    <div class="form-group-sm">
+                                        <label class="main-label">Date</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="datepicker_availableday" readonly Sta></div>
+                                        <label class="control-label"> @Model[i].AvailableDay.ToShortDateString()</label>
+                                    </div>
+                                </div>
+                                <div class="p-2">
+                                    <div class="form-group-sm">
+                                        <label class="main-label">StartTime</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"> @Model[i].StartTime.ToShortTimeString()</label>
+                                    </div>
+                                </div>
+                                <div class="p-2">
+                                    <div class="form-group-sm">
+                                        <label class="main-label">EndTime</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">@Model[i].EndTime.ToShortTimeString()</label>
+                                    </div>
+                                </div>
+                                <div class="p-2">
+                                    <div class="form-group-sm">
+                                        <label class="main-label">Duration</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"> @((Model[i].EndTime - Model[i].StartTime).Hours.ToString()) hrs</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+
+                </div>
+            }
+        </div>
+    </div>
+    <div class="mt-2" hidden>
+        <form asp-action="AddAvailableDays" id="AddAvailableDays" method="post">
+            <div class="row">
+
+
+                <div class="col-6 col-sm-12">
+                    <div class="form-group-sm">
+                        <label class="control-label searchlabel">Days</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control datetimepickerday" data-date-multidate="true" id="StartDate" name="StartDate" placeholder="Pick Start Time">
+                    </div>
+                </div>
+
+                <div class="col-6 col-sm-12">
+
+                    <div class="form-group-sm">
+                        <label class="control-label searchlabel">Start Time</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control datetimepicker" id="StartTime" name="StartTime" placeholder="Pick Start Time">
+                    </div>
+                </div>
+
+
+                <div class="col-6 col-sm-12">
+                    <div class="form-group-sm">
+                        <label class="control-label searchlabel">End Time</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control datetimepicker" id="EndTime" name="EndTime" placeholder="Pick End Time">
+                    </div>
+
+
+                </div>
+                <div class="col-12 text-right mt-2">
+                    <button class="btn btn-sm btn-main addavailableday" type="submit">Add Days</button>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+@section jsplugins{
+
+
+    <script src="~/node_modules/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/node_modules/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
+   
+
+}
+@section scripts{
+    <script src="~/js/Applicant/AvailableDays.js"></script>
+
+}

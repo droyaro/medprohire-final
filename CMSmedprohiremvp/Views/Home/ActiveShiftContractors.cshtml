@@ -1,0 +1,193 @@
+﻿@model List<CMSmedprohiremvp.Models.Applicant.ApplicantAppliedShiftsViewModel>
+
+@{
+   
+    if (Model != null)
+    {
+        <div class="wrapper wrapper-content  animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <h2>Active Shift Contractor</h2>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-sm-3 m-b-xs">
+
+                                </div>
+                                <div class="col-sm-6 m-b-xs">
+                                    <div class="row">
+                                        <div class="col-sm-5 m-b-xs">
+                                            <input class="form-control flat animation datepicker" id="insertdate" type="text" placeholder="Insert Date" />
+                                        </div>
+                                        <div class="input-group-append"><span class="input-group-text">to</span></div>
+                                        <div class="col-sm-5 m-b-xs">
+                                            <input class="form-control flat animation datepicker" placeholder="EndDate" id="enddate" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <input placeholder="Search" type="text" class="form-control form-control-sm" id="searchtext"> <span class="input-group-append">
+                                            <button type="button" class="btn btn-sm btn-primary">
+                                                Go!
+                                            </button>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-content">
+                                <div id="tab-1" class="tab-pane active">
+                                    <div class="full-height-scroll">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ContractorId</th>
+                                                        <th>Contractor Name</th>
+                                                        <th>Client Id</th>
+                                                        <th>Client Name</th>
+                                                        <th>Shift location</th>
+                                                        <th>Shift Start Time</th>
+                                                        <th>Shift End Time</th>
+                                                        <th>Shift Start Date</th>
+                                                        <th>Shift End Date</th>
+                                                        <th>Number of shift completed</th>
+                                                        <th>Hourly Rate</th>
+                                                        <th>Amount paid to date</th>
+                                                        <th>Numbers of hours worked</th>
+                                                        <th>Complete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @for (int i = 0; i < Model.Count; i++)
+                                                    {
+
+                                                    <tr>
+                                                        <td>
+                                                            @Model[i].Applicant_ID
+                                                        </td>
+                                                        <td>
+                                                            @Model[i].ApplicantName
+                                                        </td>
+                                                        <td>
+                                                            @Model[i].Institution_ID
+                                                        </td>
+                                                        <td>
+                                                            @Model[i].InstitutionName
+                                                        </td>
+                                                        <td>
+                                                            @Model[i].BranchName
+                                                        </td>
+                                                        <td>
+                                                            @Model[i].ClockInTime.ToShortTimeString()
+                                                        </td>
+                                                        <td>
+                                                            @Model[i].ClockOutTime.ToShortTimeString()
+                                                        </td>
+                                                        <td>
+                                                            @Model[i].StartDate.ToString("MMM dd")
+                                                        </td>
+                                                        <td>
+                                                            @Model[i].EndDate.ToString("MMM dd")
+                                                        </td>
+                                                        <td>@Model[i].NumberofCompletedShift</td>
+                                                        <td>@Model[i].HourlyRate</td>
+                                                        <td>Amount paid to date</td>
+                                                        <td>@Model[i].CountofHours.TotalHours</td>
+                                                        @if (Model[i].NumberofCompletedShift == Model[i].NumberofShift && Model[i].NumberofShift!=0)
+                                                        {
+                                                        <td>
+                                                            <button data-id="@Model[i].AppliedShift_ID" data-shiftcount="@Model[i].NumberofShift" data-completedshiftcount="@Model[i].NumberofCompletedShift"  id="Complete">Complete Shift</button>
+                                                        </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td></td>
+                                                        }
+                                                    </tr>
+
+
+                                                    }
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    }
+}
+        <div class="modal   fade" id="CompleteShift" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
+
+                    </div>
+            
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">
+                                        Shift Count
+                                    </label>
+                                    <input id="shiftcount" class="form-control" disabled />
+
+                                   
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">
+                                       Completed Shift Count
+                                    </label>
+                                    <input id="completedshiftcount" class="form-control" disabled />
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <h2>Shift Complete percentage</h2> <h3 id="percentage"></h3>
+                        </div>
+                        <div class="form-group text-center">
+                            <p>
+                                Are you sure you want to complete shift?
+                            </p>
+                            <div class="row text-center">
+                                <div class="col-6 text-right">
+                                    <div class="form-group">
+                                       <button id="completeshiftaccept" class="btn btn-success">Yes</button>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-left">
+                                    <div class="form-group">
+                                    <button id="dismissshift" class="btn btn-dark"  data-dismiss="modal">No</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+@section scripts{
+
+    <script src="~/js/Datatable.js"></script>
+       <script src="~/js/user/ActiveShiftContractors.js"></script>
+}

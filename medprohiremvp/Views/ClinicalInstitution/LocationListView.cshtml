@@ -1,0 +1,153 @@
+﻿@model List<medprohiremvp.Models.ClinicalInstitution.LocationViewModel>
+@{
+    ViewData["Title"] = "Locations";
+}
+<div class="new-heading new-heading-background ">
+    <h2 class="">@ViewData["Title"]</h2>
+</div>
+<div class="usercontainer ">
+    <form asp-action="LocationListView">
+        <div class="form-group text-left">
+            <a class="btn btn-main btn-big-main" asp-controller="ClinicalInstitution" asp-action="NewLocation">Create New</a>
+        </div>
+
+        <div class="backgroundlast">
+            <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+
+            @if (Model != null)
+            {
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="d-flex justify-content-between bd-highlight mb-2">
+                        <div class="p-2">
+                            <div class="form-group text-left">
+                                <h4 id="name">@Model[i].Name</h4>
+
+                                <ul class="list-unstyled address-list">
+                                    <li>
+                                        <label>
+                                            <strong>@(Html.DisplayNameFor(m=>m[0].Address)):</strong>
+                                            <span id="address">  @String.Format("{0}, {1}, ZipCode {2}", @Model[i].Address, @Model[i].cityname, @Model[i].ZipCode)</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            <strong>@(Html.DisplayNameFor(m => m[0].ContactName)):</strong>
+                                            <span id="contactname"> @Model[i].ContactName</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            <strong>@(Html.DisplayNameFor(m => m[0].PhoneNumber)):</strong>
+                                            <span id="phone">@Model[i].PhoneNumber</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            <strong>@(Html.DisplayNameFor(m => m[0].Email)):</strong>
+                                            <span id="phone">@Model[i].Email</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="p-2 text-left">
+
+                            @if (Model[i].Branch_ID != 0)
+                            {
+                                <div class="p-2">
+                                    <a class="btn btn-link" href=@Url.Action("EditLocation", "ClinicalInstitution", new { Branch_ID = Model[i].Branch_ID })><i class="fas fa-edit"> </i> Edit</a>
+                                </div>
+                                <div class="p-2">
+                                    <a class="btn btn-link" href="#" id="removelocation" data-address="@Model[i].Address" data-name="@Model[i].Name" data-contactname="@Model[i].ContactName" data-phone="@Model[i].PhoneNumber" onclick="RemoveLocation(@Model[i].Branch_ID, this)"><i class="fas fa-trash"></i> Remove</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    if (i != Model.Count - 1)
+                    {
+                        <hr />
+                    }
+                }
+            }
+        </div>
+
+    </form>
+</div>
+<div class="modal fade" id="RemoveModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex justify-content-between">
+                    <div class="p-2 flex-grow-1">
+                        <h3 class="">Remove Location</h3>
+                    </div>
+                    <div class="p-2">
+                        <a class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="modal-body">
+
+                <div class="container">
+                    <h5 class="text-center"><strong>Are you sure, you want to remove this location? </strong></h5>
+                    <div class="spacer"></div>
+                    <div class="form-group-sm">
+                        <span id="branchid" hidden></span>
+                        <h6 id="modalname"><strong>@(Html.DisplayNameFor(m => m[0].Address)):</strong></h6>
+                    </div>
+                    <div class="form-group-sm">
+
+                        <label>
+                            <strong>@(Html.DisplayNameFor(m => m[0].Address)):</strong>
+                            <span id="modaladdress"></span>
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label>
+                            <strong>@(Html.DisplayNameFor(m => m[0].ContactName)):</strong>
+                            <span id="modalcontactname"></span>
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label>
+                            <strong>@(Html.DisplayNameFor(m => m[0].PhoneNumber)):</strong>
+                            <span id="modalphone"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button id="removecomfirmed" data-dismiss="modal" class="btn btn-main">Remove</button>
+                <button data-dismiss="modal" class="btn btn-main">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal  fade" id="AnswerModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h6 class="success">
+                    <span class="text-success">
+                        <i class="fal fa-check-circle"></i>
+
+                        Location Removed Successfully 
+                    </span>
+                </h6>
+
+                <h6 class="danger" hidden>
+                    <span class="text-danger"><i class="fal fa-exclamation-circle"></i> Location can not be removed</span>
+                </h6>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/client/profile.js"></script>
+
+}

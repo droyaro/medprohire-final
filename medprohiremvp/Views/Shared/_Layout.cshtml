@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] </title>
+
+    <link href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700|Roboto:400,500,700|Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+
+    <!-- Template CSS Files  -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+    <!-- Bootstrap -->
+
+    <link href="~/node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/node_modules/mdi/font/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="~/node_modules/magnific-popup/dist/magnific-popup.css" rel="stylesheet" />
+    @*<link href="~/node_modules/owlcarousel/owl-carousel/owl.carousel.css" rel="stylesheet" />
+        <link href="~/node_modules/owlcarousel/owl-carousel/owl.theme.css" rel="stylesheet" />*@
+    <link href="~/node_modules/rangeslider.js/dist/rangeslider.css" rel="stylesheet" />
+    <link href="~/node_modules/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+
+    @RenderSection("cssplugins", required: false)
+
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/responsive.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    @{
+
+
+        string action = ViewContext.RouteData.Values["Action"].ToString().ToLower();
+        string controller = ViewContext.RouteData.Values["Controller"].ToString().ToLower();
+
+
+
+        if (controller == "home" && (action == "index" || action == "findtalent"))
+        {
+            if (action == "index")
+            {
+                @Html.Partial("_HomeHeaderMenu")
+            }
+            else
+            {
+                @Html.Partial("_HeaderMenu")
+            }
+            @RenderBody()
+            @Html.Partial("_FooterTop")
+            @Html.Partial("_Footer")
+        }
+        else
+        {
+
+            @Html.Partial("_MenuPartial")
+            @using Microsoft.AspNetCore.Identity
+            @using medprohiremvp.DATA.IdentityModels
+            @inject SignInManager<ApplicationUser> SignInManager
+            @inject UserManager<ApplicationUser> UserManager
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+
+                string rolename = "Applicant";
+                var user = UserManager.GetUserAsync(User).Result;
+                var roles = UserManager.GetRolesAsync(user).Result;
+                rolename = roles[0];
+                @if (rolename.ToLower() == "clinicalinstitution")
+                {
+                    <div class="d-flex flex-md-row flex-column">
+                        <div class="p-2  ">
+                            @Html.Partial("_ClientLeftMenu")
+                        </div>
+                        <div id="page-wrapper" class="p-2 flex-grow-1 containerbackground">
+
+
+                            @RenderBody()
+                           
+                        </div>
+
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex flex-md-row flex-column ">
+                        <div class="p-2  ">
+                            @Html.Partial("_UserleftMenu")
+                        </div>
+                        <div id="page-wrapper" class="p-2 flex-grow-1 containerbackground">
+                            @RenderBody()
+
+                        </div>
+                       
+                    </div>
+                }
+
+                @Html.Partial("_Footer")
+            }
+            else
+            {
+
+                @RenderBody()
+                @Html.Partial("_Footer")
+            }
+
+
+        }
+    }
+
+    <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="~/node_modules/popper.js/dist/umd/popper.js"></script>
+    <script src="~/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="~/node_modules/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    @*<script src="~/node_modules/owlcarousel/owl-carousel/owl.carousel.min.js"></script>*@
+    <script src="~/node_modules/rangeslider.js/dist/rangeslider.min.js"></script>
+    <script src="~/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/node_modules/moment/min/moment.min.js"></script>
+
+    <script src="~/node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    @RenderSection("jsplugins", required: false)
+
+
+    @RenderSection("scripts", required: false)
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzJ5tp2HofUl6zNKe76xSllkjxdT9n_40"></script>*@
+   
+    <script src="~/js/site.js"></script>
+
+</body>
+</html>

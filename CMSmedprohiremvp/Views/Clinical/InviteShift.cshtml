@@ -1,0 +1,248 @@
+﻿@model CMSmedprohiremvp.Models.Clinical.InviteShiftViewModel
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="ibox">
+                <h2>Shift Information</h2>
+
+                <div class="ibox-content">
+                    <div class="row align-items-center">
+                        <input type="hidden" value="@Model.Shift.ClientShift_ID" id="ClientShift_ID" />
+                        <input type="hidden" value="@Model.Shift.StartDate" id="StartDate" />
+                        <div class="col-md-6 col-sm-12">
+
+                            <div class="form-group text-left">
+                                <div class="form-group-sm">
+                                    <label for="DateOfShift" class="control-label ">
+                                        <strong>Insert Date:</strong>
+                                        @Model.Shift.DateOfShift.ToString("MMMM dd")
+                                    </label>
+
+                                </div>
+                                <div class="form-group-sm">
+                                    <label for="ContractorCount" class="control-label ">
+                                        <strong>Contractor Count:</strong>
+                                        @Model.Shift.ContractorCount
+                                    </label>
+                                </div>
+
+                                <div class="form-group-sm">
+                                    <label class="control-label ">
+                                        <strong>Date:</strong>
+                                        @Model.Shift.StartDate.ToString("MMMM dd")-@Model.Shift.EndDate.ToString("MMMM dd")
+                                    </label>
+                                </div>
+
+                                <div class="form-group-sm">
+                                    <label for="ShiftLabel_ID" class="control-label ">
+                                        <strong>Shift Label:</strong>
+                                        @Model.Shift.ShiftLabelName
+                                    </label>
+                                </div>
+                                <div class="form-group-sm">
+                                    <label for="ClockInTime" class="control-label ">
+                                        <strong> Time:</strong>
+                                        @Model.Shift.ClockInTime.ToShortTimeString()-@Model.Shift.ClockOutTime.ToShortTimeString()
+                                    </label>
+                                </div>
+                                <div class="form-group-sm">
+                                    <label for="HourlyRate" class="control-label ">
+                                        <strong> Hourly Rate:</strong>
+                                        @Model.Shift.HourlyRate
+                                    </label>
+                                </div>
+                                <div class="form-group-sm">
+                                    <label for="Occurrences" class="control-label ">
+                                        <Strong>Occurrences:</Strong>
+                                        @Model.Shift.Occurrences
+                                    </label>
+                                </div>
+                           
+                                <div class="form-group-sm">
+
+                                    <label for="ShiftExpirationDate" class="control-label ">
+                                        <strong>
+                                            Shift Expiration Date:
+                                        </strong>
+                                        @Model.Shift.ShiftExpirationDate.ToString("MMMM dd")
+
+                                    </label>
+                                </div>
+                                <div class="form-group-sm">
+                                    <label for="Specialities" class="control-label ">
+                                        <strong>Specalities:</strong>
+                                        @Model.Shift.SpecialitiesName
+                                    </label>
+                                </div>
+
+                                <div class="form-group-sm">
+                                    <label for="Branch_ID" class="control-label ">
+                                        <strong>
+                                            Location:
+                                        </strong>
+                                        @Model.Shift.BranchName
+                                    </label>
+                                </div>
+                                <div class="form-group-sm">
+                                    <label for="ShiftDescription" class="control-label">
+                                        <strong>Description:</strong>
+                                    </label>
+                                    <div class="form-group-sm">
+                                        <label>@Model.Shift.ShiftDescription</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-sm">
+                                    <label for="Responsibility" class="control-label">
+                                        <strong>
+                                            Responsibility:
+                                        </strong>
+                                    </label>
+                                    <div class="form-group-sm">
+                                        <label>@Model.Shift.Responsibility </label>
+
+                                    </div>
+                                </div>
+                                <div class="form-group-sm">
+                                    <input type="hidden" id="ShiftsDates" value="@Model.Shift.ShiftsDates" />
+                                    <label for="ShifdDates" class="control-label">
+                                        <strong>
+                                            ShiftDates:
+                                        </strong>
+                                    </label>
+                                    <div class="form-group-sm">
+                                        <div  id="calendarview" readonly data-date-start-date=@Model.Shift.StartDate data-date-end-date=@Model.Shift.EndDate data-date-multidate="true" data-date-format="mm/dd/yyyy"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="ibox">
+                <h2>Contractors List</h2>
+
+                <div class="ibox-content">
+                    <table class="table table-striped table-bordered table-hover dataTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Applicant
+                                </th>
+
+                                <th class="text-center">
+                                    Invite
+                                </th>
+                            </tr>
+                        </thead>
+
+
+                        @if (Model.Applicants != null)
+                        {
+                        <tbody>
+                            @for (int i = 0; i < Model.Applicants.Count; i++)
+                            {
+                            <tr>
+                                <td>
+                                            <div class="form-group-sm">
+                                                <label for="ApplicantName" class="control-label ">
+                                                    <strong>Applicant Name</strong>
+
+                                                    @string.Format("{0} {1}", Model.Applicants[i].LastName, Model.Applicants[i].FirstName)
+                                                </label>
+                                            </div>
+                                            <div class="form-group-sm">
+                                                <label for="specialities" class="control-label ">
+                                                    <strong>Applicant Specialites</strong>
+                                                    @Model.Applicants[i].SpecialitiesString
+
+                                                </label>
+                                            </div>
+                                    
+                                </td>
+                                <td class="align-middle text-center">
+                                  @if (!Model.Applicants[i].Applied)
+                                  {
+                                        <input type="button" value="Invite" id="InviteApplicant" data-App_ID="@Model.Applicants[i].Applicant_ID" data-ClientShift_ID="@Model.Shift.ClientShift_ID"/>
+                                  }
+                                  else
+                                  {
+                                      <span>Applied</span>
+                                  }
+                                </td>
+
+
+
+
+                            </tr>
+                            }
+                        </tbody>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal   fade" id="ModalInvite" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
+
+            </div>
+            <div class=""></div>
+          
+                <div class="modal-body">
+                    <input type="hidden" id="app_id" />
+                    <input type="hidden" id="clientshift_id" />
+                    <div class="form-group">
+                        <label for="Remarks" class="control-label ">
+                            <strong> Remarks</strong>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input id="Remarks" class="form-control flat animation" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="ActiveDays" class="control-label ">
+                            <strong> Active Days</strong>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <div class="Pickdays">
+                            <input type="hidden" value="@Model.Shift.ShiftsDates" asp-for="Shift.ShiftsDates" />
+                          
+                            <input type="hidden" asp-for="Shift.StartDate" />
+                            <input type="hidden" asp-for="Shift.EndDate" />
+                            <div class="datepickershift" id="calendarview" data-date-start-date=@Model.Shift.StartDate data-date-end-date=@Model.Shift.EndDate data-date-multidate="true" data-date-format="mm/dd/yyyy"></div>
+                            <div class="input-group date " data-date-start-date=@Model.Shift.StartDate data-date-end-date=@Model.Shift.EndDate data-date-multidate="true">
+                                <input type="text" hidden id="AppliedDaysList" name="AppliedDaysList" autocomplete="off" class=" form-control" value="@Model.Shift.ShiftsDates" />
+                 
+                            </div>
+                            <span id="pickeddays"></span>
+                        </div>
+                       
+
+                    </div>
+                    
+                </div>
+                <div class="modal-footer justify-content-center">
+
+                    <button type="submit" id="ApplyInvitation"  class="btn btn-primary">Invite</button>
+                </div>
+            
+        </div>
+    </div>
+</div>
+@section scripts{ 
+<script src="~/node_modules/moment/min/moment.min.js"></script>
+<script src="~/js/client/InviteShift.js"></script>
+}

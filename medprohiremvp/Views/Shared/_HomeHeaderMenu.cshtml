@@ -1,0 +1,84 @@
+﻿
+<header class="header-wrap">
+
+    @Html.Partial("_MenuPartial")
+    @using Microsoft.AspNetCore.Identity
+    @using medprohiremvp.DATA.IdentityModels
+    @inject SignInManager<ApplicationUser> SignInManager
+    @{ 
+        string action = ViewContext.RouteData.Values["Action"].ToString().ToLower();
+        string homeimg ="../images/home.jpg";
+        string loginedimg = "../images/loginedhome.jpg";
+        string starts = "";
+        switch(action)
+        {
+            case "findtalent":
+                homeimg = "../../images/findtalenthome.jpg";
+                break;
+            default:
+                starts = "";
+                break;
+
+        }
+        }
+    <div class="main-header-home" style=" background-size: cover;    background-repeat: no-repeat;     background-image: @(SignInManager.IsSignedIn(User)&& action=="index"?"linear-gradient(rgba(0, 75, 141, 0.3), rgba(0, 75, 141, 0.3)),":"") url(@(SignInManager.IsSignedIn(User)&& action=="index"?starts+loginedimg:starts+homeimg));">
+
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-4 ">
+             
+                    @inject SignInManager<ApplicationUser> SignInManager
+                    @inject UserManager<ApplicationUser> UserManager
+
+                    <ul class="list-unstyled  header-list @(SignInManager.IsSignedIn(User)?"login-header":"")">
+                        @if (!SignInManager.IsSignedIn(User))
+                        {
+                            <li>
+                                <h2 class="header-title font-nunito">
+                                    WE HELP YOU ADVANCE YOUR CAREER
+                                </h2>
+                                <p class="font-nunito">
+                                    Looking for work?
+                                </p>
+                                <a class="btn btn-main font-nunito" href="@(SignInManager.IsSignedIn(User) ? "#" : Url.Action("Registeration", "Home", new { id = 0 }))"><span>APPLY NOW</span></a>
+                                <hr />
+                            </li>
+
+                            <li>
+                                <h2 class="header-title font-nunito">
+                                    WE HELP YOU HIRE PROFESSIONALS NEARBY
+
+                                </h2>
+                                <p class="font-nunito">
+                                    Need to hire professionals?
+
+                                </p>
+                                <a class="btn btn-main font-nunito" href="@(SignInManager.IsSignedIn(User) ? "#" : Url.Action("Registeration", "Home", new { id = 1 }))">FIND TALENT</a>
+
+                            </li>
+                        }
+                        else
+                        {
+                            string rolename = "Applicant";
+                            var user = UserManager.GetUserAsync(User).Result;
+                            var roles = UserManager.GetRolesAsync(user).Result;
+
+                            rolename = roles[0];
+                            <li>
+                                <h2 class="header-title title_loginned font-nunito">
+                                 @(rolename=="Applicant"? "A Perfect Guide to Getting Staffed!" : " A Smart Solution to Your Medical Staffing Needs")  
+                                </h2>
+
+
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</header>

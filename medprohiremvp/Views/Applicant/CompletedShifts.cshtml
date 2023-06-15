@@ -1,0 +1,154 @@
+﻿@model medprohiremvp.Models.Applicant.AppDashboardViewModel
+
+@{
+    ViewData["Title"] = "Completed Shifts";
+}
+@section cssplugins{
+
+    <link href="~/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+}
+<div class="new-heading new-heading-background ">
+    <h2 class="">@ViewData["Title"]</h2>
+</div>
+<div class=" text-center">
+
+    <div class="usercontainer ">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading-3 text-left">
+                    <h4 class="">Completed Shift information</h4>
+                </div>
+                <table class="table responsive datatable text-left nowrap flex-fill">
+                    <thead>
+                        <tr>
+                            <th>Shift N</th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Shift Start Time</th>
+                            <th>Shift End Time</th>
+                            <th class="none">Shift count</th>
+                            <th class="none">Completed Shift</th>
+                            <th class="none">Complete</th>
+                            <th class="none">Hours Worked</th>
+                            <th data-priority="1" class="lasttd">View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model.Shifts != null)
+                            {
+                                for (int i = 0; i < Model.Shifts.Count; i++)
+                                {
+                                    <tr class="border">
+                                        <td>@Model.Shifts[i].AppliedShift_ID</td>
+                                        <td>@Model.Shifts[i].InstitutionName </td>
+                                        <td>@Model.Shifts[i].BranchName</td>
+                                        <td>
+                                            @Model.Shifts[i].ClockOutTime.ToShortTimeString()
+                                        </td>
+                                        <td>
+                                            @Model.Shifts[i].ClockInTime.ToShortTimeString()
+                                        </td>
+                                        <td>
+                                            @Model.Shifts[i].NumberofShift
+                                        </td>
+                                        @if (Model.Shifts[i].CompletedNumberofShift == @Model.Shifts[i].NumberofShift)
+                                        {
+                                            <td><i class="fas fa-check"></i></td>
+                                        }
+                                        else
+                                        {
+                                            if (Model.Shifts[i].CompletedNumberofShift == 0)
+                                            {
+                                                <td>@Model.Shifts[i].CompletedNumberofShift</td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <span class="pie" style="display: none;">@Model.Shifts[i].CompletedNumberofShift/@Model.Shifts[i].NumberofShift</span>
+                                                </td>
+                                            }
+                                        }
+                                        @if (Model.Shifts[i].NumberofShift != 0)
+                                        {
+                                            string percent = "0%";
+                                            percent = (((float)Model.Shifts[i].CompletedNumberofShift / Model.Shifts[i].NumberofShift) * 100).ToString("0") + "%";
+                                            <td>@percent</td>
+
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                0%
+                                            </td>
+                                        }
+
+                                        <td>@Model.Shifts[i].Numberofworkedhours.ToString("0")</td>
+                                        @*@{
+                                                var paid = "";
+                                                switch (Model.Shifts[i].Paid)
+                                                {
+                                                    case 0:
+                                                        paid = "";
+                                                        break;
+                                                    case 1:
+                                                        paid = "Partialy Paid";
+                                                        break;
+                                                    case 2:
+                                                        paid = "Paid in full";
+                                                        break;
+                                                }
+                                            }
+                                            <td>@paid</td>*@
+
+                                        <td><a target="_blank" data-id="@Model.Shifts[i].AppliedShift_ID" class="btn btn-link activeshiftview" href="#" id="activeshiftview"><i class="fal fa-eye "></i></a></td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade right" id="ShiftModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content shiftmodal">
+            <div class="modal-body shiftmodal">
+
+            </div>
+
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<div class="modal" id="ActiveShiftModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content ">
+            <div class="modal-body ">
+
+            </div>
+
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+@section jsplugins{
+
+    <script src="~/node_modules/peity/jquery.peity.min.js"></script>
+    <script src="~/node_modules/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/node_modules/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+
+}
+@section scripts{
+    <script src="~/js/Applicant/CompletedShifts.js"></script>
+
+
+}

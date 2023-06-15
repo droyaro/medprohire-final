@@ -1,0 +1,63 @@
+﻿@model CMSmedprohiremvp.Models.ApplicantViewModel
+@if (Model != null)
+{
+    <div class="mx-auto text-center">
+        <div class="heading-2">
+            <div class="d-inline-block">
+
+                <h3>Personal Information</h3>
+
+            </div>
+        </div>
+        <div class="background ">
+
+            <div class="form-group text-left">
+                <input type="hidden" value=@Model.Applicant_ID id="applicant_id" />
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class=" form-group">
+                            <strong><label asp-for="FirstName" class="control-label ">Name:</label></strong>
+                            <label>@String.Format("{0} {1} {2}", Model.LastName, Model.FirstName, Model.MiddleName)</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label "><strong>Phone Number:</strong>@Model.PhoneNumber</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label "><strong>Employment Eligibility:</strong>@Model.Visastatus</label>
+                            @if (Model.VisaStatus_ID == 3)
+                            {
+                                <label class="control-label "><strong>Is Eligible:</strong>@(Model.IsEligible ? "Yes" : "No")</label>
+                            }
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label "><strong>Availability:</strong>@Model.Availability</label>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label class="control-label "><strong>State:</strong>@Model.StateName.Substring(Model.StateName.IndexOf(',') + 1)</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label "><strong>City:</strong>@Model.CityName</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label "><strong>Address:</strong>@Model.Address</label>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+            <hr />
+
+            @*<button type="submit" id="boardingactivate" class="btn btn-primary">Activate</button>*@
+        </div>
+    </div>
+}

@@ -1,0 +1,58 @@
+﻿@model int
+@using medprohiremvp.Service.IServices
+@using medprohiremvp.DATA.Entity
+@using Microsoft.AspNetCore.Identity
+@using medprohiremvp.DATA.IdentityModels
+@inject ICommonServices commonservices
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var user = UserManager.GetUserAsync(User).Result;
+    ClinicalInstitutions clinical = commonservices.FindClinicaByUserID(user.Id);
+
+    var shiftlabels = commonservices.GetShiftLabels();
+}
+<tr>
+    <td class="">
+
+
+        <div class="row">
+
+            <div class="col-12">
+                <h4 class="header text-center mt-3 ">
+                    Choose Provider
+                </h4>
+                <div class="form-group  text-center mt-3 mb-5">
+                    <select class="form-control selectpicker  " title="" asp-items="@ViewBag.Speciality" required data-val="true" data-val-required="The Specialty_ID field is required." id="Specialties_@(Model)__Specialty_ID" name="Specialties[@(Model)].Specialty_ID"></select>
+                    <span class="text-danger field-validation-error" data-valmsg-for="Specialties_[@(Model)].Specialty_ID" data-valmsg-replace="true"></span>
+                </div>
+
+            </div>
+
+
+            @for (int j = 0; j < shiftlabels.Count; j++)
+            {
+                <div class="col-lg-3 col-md-6 col-sm-12 d-flex flex-column pb-3">
+
+                    <div class="p-2">
+                        <label class="main-label">@shiftlabels[j].ShiftLabelName Bill Rate</label>
+                        <input type="text" hidden class="form-control" value="@shiftlabels[j].ShiftLabel_ID" data-val="true" data-val-required="The ShiftLabel_ID field is required." id="Specialties_@(Model)__Cost_@(j)__ShiftLabel_ID" name="Specialties[@(Model)].Cost[@(j)].ShiftLabel_ID" />
+                     
+
+                    </div>
+                    <div class="p-2 mt-auto">
+                        <input type="number" class="form-control" placeholder="Cost" data-val="true" data-val-number="The field Cost must be a number." data-val-required="The Cost field is required." id="Specialties_@(Model)__Cost_@(j)__Cost" name="Specialties[@(Model)].Cost[@(j)].Cost" value="" />
+                    </div>
+                </div>
+
+
+            }
+
+
+
+
+        </div>
+
+
+
+    </td>
+</tr>

@@ -1,0 +1,216 @@
+﻿@model medprohiremvp.Models.Applicant.AppShiftSearchViewModel
+
+@{
+    ViewData["Title"] = "Available Shifts";
+
+}
+
+<form asp-action="Applicant_ShiftSearch" method="post">
+    <div class="d-flex justify-content-between flex-wrap u-nav-v1-2 contentpad flex-column flex-md-row">
+        <div class="p-2 flex-grow-1 nowrap">
+            <div class="new-heading search_heading heading-lineheight">
+                <h2 class="">@ViewData["Title"]</h2>
+            </div>
+        </div>
+        <div class="p-2 ml-auto  nowrap align-self-center availablepickmenu">
+            <ul class="nav u-nav-v1-1 u-nav-primary u-nav-search  ml-auto align-items-center nowrap" role="tablist" data-target="nav-1-1-default-hor-left-rounded-underline" data-tabs-mobile-type="slide-up-down" data-btn-classes="btn btn-md btn-block u-btn-outline-primary g-mb-20">
+                <li class="nav-item">
+                    <a class="nav-link g-rounded-bottom-0 active show" data-toggle="tab" href="#shiftlist" role="tab" aria-selected="true"> @*<i class="mdi mdi-check"></i>*@ Available</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link g-rounded-bottom-0" data-toggle="tab" href="#pickedlist" role="tab" aria-selected="false">@*<i class="mdi mdi-gesture-tap"></i>*@  Picked</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class=" text-center ">
+
+
+        <div class="row">
+            <div class=" col-sm-12  mx-auto">
+                <div class="searchbackground contentpad">
+
+                    <div class="d-flex  text-left  flex-xl-row flex-column">
+                        <div class="p-2 flex-grow-1 text-xl-center text-lg-left">
+                            <div class="sdsd">
+                                <div class="d-flex flex-column">
+                                    <div class="p-2  text-xl-left text-lg-left">
+
+                                        <div class="form-group">
+                                            <h6 class="text-weight-bold float-xl-left distance"> @string.Format("Distance from ZipCode {0}:", ViewBag.ZipCode)</h6>
+                                        </div>
+                                    </div>
+                                    <div class="p-2  text-xl-left align-self-start">
+                                        <div class="form-group rangesliderfixwidth">
+                                            <input id="range-slider-1" type="range" min="0" max="1000" value="0" asp-for="Search.Distance">
+                                            <h5 id="amount-label-1" class="text-weight-bold text-brand-color float-md-right"></h5>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-2 paddingp2 flex-grow-1"></div>
+                        <div class="p-2  text-xl-left">
+                            <div class="form-group-sm">
+                                <label class="control-label searchlabel">@Html.DisplayNameFor(m=>m.Search.States)</label>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control selectpicker" id="Search_States" data-actions-box="true" data-size="15" title="Select @Html.DisplayNameFor(m=>m.Search.States)" asp-items="@ViewBag.States" asp-for="Search.States" ></select>
+                            </div>
+                        </div>
+                        <div class="p-2 paddingp2 flex-grow-1"></div>
+                        <div class="p-2  text-xl-left">
+                            <div class="form-group-sm">
+                                <label class="control-label searchlabel">@Html.DisplayNameFor(m => m.Search.Cities)</label>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control selectpicker" data-actions-box="true" data-size="15" asp-for="Search.Cities" title="Select @Html.DisplayNameFor(m => m.Search.Cities)" asp-items="@ViewBag.Cities"></select>
+                            </div>
+                        </div>
+                        <div class="p-2 paddingp2 flex-grow-1"></div>
+                        <div class="p-2  text-xl-left">
+                            <div class="form-group-sm searchlabel">
+                                <label class="control-label">@Html.DisplayNameFor(m => m.Search.Specialities)</label>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control selectpicker flat" multiple title="Select @Html.DisplayNameFor(m => m.Search.Specialities)" asp-items="@ViewBag.Speciality" asp-for="Search.Specialities"></select>
+                            </div>
+                        </div>
+                        <div class="p-2 paddingp2 flex-grow-1"></div>
+                        <div class="p-2  text-xl-right text-lg-center">
+
+                            <div class="form-group">
+                                <input class="btn btn-search" type="submit" value="Search" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-sm-12  mx-auto ">
+                <div class="usercontainer contentpad">
+                    <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+                    <div id="shiftlist" class="tab-pane  fade active show">
+                        @{
+                            if (Model.Shifts != null)
+                            {
+                                <div class="row">
+                                    @for (int i = 0; i < Model.Shifts.Count; i++)
+                                    {
+                                        <div class="col-lg-4 col-md-6 col-sm-12 filter">
+                                            @Html.Partial("_availbleshiftdetail", Model.Shifts[i])
+                                        </div>
+                                    }
+                                </div>
+                                <ul id="pagination" class="pagination-sm justify-content-center paginationpadding"></ul>
+                            }
+                        }
+
+                    </div>
+                    <div id="pickedlist" class="tab-pane  fade">
+                        @{
+                            if (Model.PickedShifts != null)
+                            {
+                                <div class="row ">
+                                    @for (int i = 0; i < Model.PickedShifts.Count; i++)
+                                    {
+                                        <div class="col-lg-4 col-md-6 col-sm-12 filter">
+                                            @Html.Partial("_availbleshiftdetail", Model.PickedShifts[i])
+                                        </div>
+                                    }
+                                </div>
+                                <ul id="paginationpicked" class="pagination-sm justify-content-center paginationpadding"></ul>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div class="modal fade right" id="AvailableShift" tabindex="-1" role="dialog" aria-labelledby="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content shiftmodal">
+
+            <div class="modal-body shiftmodal">
+
+            </div>
+
+
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<div class="modal  fade" id="ShiftDateModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="form-group-sm text-center">
+                    <label class="control-label">
+                        <strong>
+                            Shift Dates:
+                        </strong>
+                    </label>
+
+                    <input type="hidden" id="StartDate" />
+                    <input type="hidden" id="EndDate" />
+                    <input type="hidden" id="ShiftsDates" />
+                    <div class="form-group">
+                        <div class="d-flex ">
+                            <div class="shiftdatelist mx-auto" readonly data-date-multidate="true">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section jsplugins{
+
+    <script src="~/node_modules/twbs-pagination/jquery.twbsPagination.min.js"></script>
+}
+@section scripts{
+    <script src="~/js/Applicant/AvailableShifts.js"></script>
+    <script src="~/js/Applicant/ShiftDates.js"></script>
+    <script>
+                var pagecount = @(Model.Shifts != null?Model.Shifts.Count % 6 == 0 ? Model.Shifts.Count / 6 : (Model.Shifts.Count / 6) + 1:0);
+        var pagecountpicked = @(Model.PickedShifts != null ? Model.PickedShifts.Count%6==0? Model.PickedShifts.Count /6: (Model.PickedShifts.Count / 6) +1:0);
+
+       if(pagecount!=0){
+        $('#pagination').twbsPagination({
+            totalPages: pagecount,
+            visiblePages: 1,
+            next: '<i class="far fa-angle-right"></i>',
+            prev: '<i class="far fa-angle-left"></i>',
+            first: '',
+            last: '',
+            onPageClick: function (event, page) {
+                //fetch content and render here
+                $('#shiftlist').find('.filter').not("hidden").prop("hidden", true);
+                $('#shiftlist').find('.filter').slice((page - 1) * 6, page * 6).prop("hidden", false);
+                                            }
+                                            });
+        };
+        if (pagecountpicked != 0) {
+            $('#paginationpicked').twbsPagination({
+                totalPages: pagecountpicked,
+                visiblePages: 1,
+                next: '<i class="far fa-angle-right"></i>',
+                prev: '<i class="far fa-angle-left"></i>',
+                first: '',
+                last: '',
+                onPageClick: function (event, page) {
+                    //fetch content and render here
+                    $('#shiftlist').find('.filter').not("hidden").prop("hidden", true);
+                    $('#shiftlist').find('.filter').slice((page - 1) * 6, page * 6).prop("hidden", false);
+                }
+            });
+        };
+    </script>
+}

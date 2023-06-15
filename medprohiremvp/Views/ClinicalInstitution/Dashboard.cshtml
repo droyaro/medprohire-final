@@ -1,0 +1,182 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.DashBoardViewModel
+@{ViewData["Title"] = "Dashboard";
+}
+<div class="new-heading new-heading-background ">
+    <h2 class="">@ViewData["Title"]</h2>
+</div>
+
+<div class="">
+    <div class="usercontainer">
+        <div class="heading-3 text-left">
+            <h4 class="">Quick Links</h4>
+        </div>
+    
+        <div class="d-flex flex-column flex-xl-row justify-content-between mb-3 ">
+
+            <div class="p-2 countrow mb-3 mr-4">
+                <div class="d-flex  justify-content-between align-items-center h-100 pl-5 pr-5 pt-3 pb-3 dashborad-list-count">
+                    <div class="p-2 text-left">
+                        <div class="form-group-sm">
+                            <span class="dashboardcount completed text-left">
+                                1
+                            </span>
+                        </div>
+                        <div class="form-group-sm">
+                            <span class="text-left dashboard-list-text">
+                                Number of Created Reqs
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-2 text-center">
+                        <a class="" asp-controller="ClinicalInstitution" asp-action="NewClientShift">
+                            <i class="fal fa-clipboard-list completed" title="Pick a Shift"></i>
+                        </a>
+                        <a class="nav-link" asp-controller="ClinicalInstitution" asp-action="NewClientShift">Create Requisition</a>
+                    </div>
+                </div>
+            </div>
+            <div class="p-2 countrow mb-3 mr-4">
+                <div class="d-flex  justify-content-between align-items-center h-100 pl-5 pr-5 pt-3 pb-3 dashborad-list-count">
+                    <div class="p-2 text-left">
+                        <div class="form-group-sm">
+                            <span class="dashboardcount confirmed text-left">
+                                2
+                            </span>
+                        </div>
+                        <div class="form-group-sm">
+                            <span class="text-left dashboard-list-text">
+                                Number of Available Talents
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-2 text-center">
+                        <a class="" asp-controller="ClinicalInstitution" asp-action="Search">
+                           
+                            <i class="fal fa-user-md confirmed"></i>
+
+                        </a>
+                        <a class="nav-link" asp-controller="ClinicalInstitution" asp-action="Search">Search Talent</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="p-2 countrow mb-3">
+                <div class="d-flex  justify-content-between align-items-center h-100 pl-5 pr-5 pt-3 pb-3 dashborad-list-count">
+                    <div class="p-2 text-left">
+                        <div class="form-group-sm">
+                            <span class="dashboardcount picked text-left">
+                                3
+                            </span>
+                        </div>
+                        <div class="form-group-sm">
+                            <span class="text-left dashboard-list-text">
+                                Number of open Reqs
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-2 text-center">
+                        <a class="" asp-controller="ClinicalInstitution" asp-action="InProcessShiftList">
+                            <i class="fal fa-file-check picked"></i>
+                        </a>
+                        <a class="nav-link" asp-controller="ClinicalInstitution" asp-action="InProcessShiftList">Open Reqs</a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <form asp-action="ClientShiftList">
+            @*<div class="heading-1">
+                <div class="d-inline-block">
+                    <hr class="before" />
+                    <h2 class="">@ViewData["Title"]</h2>
+                    <hr class="after" />
+                </div>
+            </div>*@
+            <div class="heading-3 text-left">
+                <h4 class="">Requisitions</h4>
+            </div>
+
+            <div class="d-flex">
+                <div data-toggle="buttons" class="btn-group btn-group-toggle" id="shiftquearter">
+                    <label class="btn btn-sm btn-white"> <input type="radio" id="year" name="options"> Year </label>
+                    <label class="btn btn-sm btn-white active"> <input type="radio" id="all" name="options"> All </label>
+                    <label class="btn btn-sm btn-white"> <input type="radio" id="Q1" name="options"> Q1 </label>
+                    <label class="btn btn-sm btn-white"> <input type="radio" id="Q2" name="options"> Q2 </label>
+                    <label class="btn btn-sm btn-white"> <input type="radio" id="Q3" name="options"> Q3 </label>
+                    <label class="btn btn-sm btn-white"> <input type="radio" id="Q4" name="options"> Q4 </label>
+                </div>
+            </div>
+            <div class="allshift">
+                @Html.Partial("_dashboardshiftView", Model.Allshifts)
+            </div>
+            <div class="Q1shift" hidden>
+                @Html.Partial("_dashboardshiftView", Model.Q1shifts)
+            </div>
+            <div class="Q2shift" hidden>
+                @Html.Partial("_dashboardshiftView", Model.Q2shifts)
+            </div>
+            <div class="Q3shift" hidden>
+                @Html.Partial("_dashboardshiftView", Model.Q3shifts)
+            </div>
+            <div class="Q4shift" hidden>
+                @Html.Partial("_dashboardshiftView", Model.Q4shifts)
+            </div>
+            <div class="yearshift" hidden>
+                @Html.Partial("_dashboardshiftView", Model.Yearshifts)
+            </div>
+
+            <div class="heading-3 text-left">
+
+                <h4 class="">Locations</h4>
+
+            </div>
+            <div class="d-flex">
+                <div data-toggle="buttons" class="btn-group btn-group-toggle" id="locationsquerter">
+                    <label class="btn btn-sm btn-white"> <input type="radio" id="year" name="options"> Year </label>
+                    <label class="btn btn-sm btn-white active"> <input type="radio" id="all" name="options"> All </label>
+                    <label class="btn btn-sm btn-white"> <input type="radio" id="Q1" name="options"> Q1 </label>
+                    <label class="btn btn-sm btn-white"> <input type="radio" id="Q2" name="options"> Q2 </label>
+                    <label class="btn btn-sm btn-white"> <input type="radio" id="Q3" name="options"> Q3 </label>
+                    <label class="btn btn-sm btn-white"> <input type="radio" id="Q4" name="options"> Q4 </label>
+                </div>
+            </div>
+            <div class="allLocations">
+                @Html.Partial("_dashboardlocationview", Model.AllLocation)
+            </div>
+
+
+            <div class="yearLocations" hidden>
+                @Html.Partial("_dashboardlocationview", Model.YearLocation)
+
+            </div>
+            <div class="Q1Locations" hidden>
+                @Html.Partial("_dashboardlocationview", Model.Q1Location)
+
+            </div>
+            <div class="Q2Locations" hidden>
+
+                @Html.Partial("_dashboardlocationview", Model.Q2Location)
+            </div>
+            <div class="Q3Locations" hidden>
+                @Html.Partial("_dashboardlocationview", Model.Q3Location)
+
+            </div>
+            <div class="Q4Locations" hidden>
+                @Html.Partial("_dashboardlocationview", Model.Q4Location)
+
+            </div>
+
+
+        </form>
+    </div>
+</div>
+@section jsplugins{
+
+    <script src="~/node_modules/peity/jquery.peity.min.js"></script>
+}
+@section scripts{
+    <script src="~/js/client/Dashboard.js"></script>
+
+}

@@ -1,0 +1,337 @@
+﻿
+body {
+    font-size: 15px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    line-height: 25px;
+    color: #555555;
+    background: #fff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Roboto Slab';
+    color: #333333;
+    font-weight: 700;
+
+}
+p {
+    font-family: 'Open Sans', sans-serif;
+    color: #333333;
+    font-weight: 400;
+}
+h2 {
+    font-size: 35px;
+    text-transform:uppercase;
+}
+a {
+    font-family: 'Open Sans', sans-serif;
+    color: #555555;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    text-transform: uppercase;
+}
+
+a {
+    padding-right: 0;
+}
+.btn-default
+{
+        width: 171px;
+        border-radius: 3px;
+        background-color: #0082c8;
+}
+
+.fontroboto {
+    font-family: 'Roboto Slab', serif;
+}
+.fontopensans {
+    font-family: 'Open Sans', sans-serif;
+}
+/*Drawing pentagon*/
+
+.roundHex {
+    background-image: url(../images/shape.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 128px;
+   
+}
+.ruondhex-text {
+    font-family: FontAwesome;
+    color: #0082c8;
+    font-size: 15.23px;
+    font-weight: 400;
+    line-height: 25px;
+    transform: scale(4.596,4.596);
+    position: relative;
+    top: calc(50% - 15.23px);
+}
+
+.how-it-works h6 {
+    font-size: 24px;
+    line-height: 30px;
+    padding-top: 10px;
+}
+.how-it-works div {
+    text-align: center;
+}
+    .how-it-works p {
+        height: 60px;
+        line-height: 22px;
+        text-align: center;
+        
+        display: table-cell;
+        padding-top: 10px;
+        padding-left: 50px;
+        padding-right: 50px;
+        position: relative;
+    }
+/*navigation bar*/
+#nav {
+    height: 70px;
+    background-color: #ffffff;
+    box-shadow: 2px 3px 4px 0px rgba(5, 5, 5, 0.05);
+    width: 100%;
+}
+    #nav .nav-item:hover > a,
+    #nav .nav-item.active > a,
+    #nav .nav-item > a:focus    {
+        background: none;
+    }
+
+    #nav .nav-item:hover > a,
+    #nav .nav-item.active > a,
+    #nav .nav-item > a:hover,
+    #nav .nav-item > a:focus {
+        color: #0082c8;
+    }
+
+
+/*HEADER*/
+.header-wrap {
+    position: relative;
+}
+.main-header-home {
+   padding-bottom: 755px;
+    background: url(../images/home.png) no-repeat center center;
+
+    background-size: cover;
+}
+.parallax {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+.header-list {
+    margin-top: 145px;
+    margin-left:345px;
+    margin-right:2.5%;
+}
+
+    .header-list h6 {
+     
+        color: #333333;
+        font-size: 35px;
+        font-weight: 700;
+        line-height: 38px;
+        text-transform: uppercase;
+    }
+
+    .header-list p {
+        margin-top: 20px;
+        color: #333333;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+    .header-list a {
+
+        margin-top: 20px;
+
+    }
+
+    .header-list li hr {
+        width: 320px;
+        height: 2px;
+        background-color: #0082c8;
+        margin-top: 35px;
+        margin-bottom: 35px;
+    }
+
+    .header-list a span {
+       
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 38px;
+        
+    }
+.about, .how-it-works {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.heading-1,
+.heading-2 {
+
+    padding-bottom: 50px;
+}
+
+
+    .heading-1.text-center::after,
+    .heading-2.text-center::after {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .heading-1 span::before {
+        content: "";
+        margin-left: 47%;
+        text-align: right;
+        width: 140px;
+        height: 3px;
+        display: block;
+        background-color: rgb(0, 130, 200);
+    }
+
+    .heading-1 span::after {
+        content: "";
+        margin-left: 39%;
+        /*margin-top: 3px;*/
+        text-align: center;
+        width: 140px;
+        height: 3px;
+        display: block;
+        background-color: rgb(0, 130, 200);
+    }
+
+    .heading-2 span::before {
+        content: "";
+        margin-left: 44.5%;
+        text-align: right;
+        width: 200px;
+        height: 3px;
+        display: block;
+        background-color: rgb(0, 130, 200);
+    }
+
+    .heading-2 span::after {
+        content: "";
+        margin-left: 34.5%;
+        /*margin-top: 3px;*/
+        text-align: center;
+        width: 200px;
+        height: 3px;
+        display: block;
+        background-color: rgb(0, 130, 200);
+    }
+.content-about a {
+    font-family: 'Roboto Slab', sans-serif;
+    color: #0082c8;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 38px;
+    text-transform: uppercase;
+}
+.content-about-object {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+/*Footer*/
+.footer-top {
+    background-color: #f5f5f5;
+    height:215px;
+}
+    .footer-top h6 {
+        padding-top:30px;
+        font-size: 20px;
+        line-height: 25px;
+        text-transform:uppercase;
+        padding-bottom:20px;
+    }
+    .footer-top p {
+        font-size: 15px;
+        line-height: 18px;
+        text-transform: capitalize;
+        padding-bottom: 10px;
+    }
+    .footer-top a span {
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 38px;
+    }
+    .footer-bottom {
+        padding-top: 50px;
+        background-color: #dddddd;
+        height: 368px;
+    }
+.lineseparator {
+    width: 3px;
+    background-color: #0082c8;
+}
+.footer-bottom .form-group {
+    padding-bottom: 2px;
+}
+    .footer-bottom img {
+        padding-bottom: 15px;
+    }
+    .copyright {
+        font-family: 'Open Sans', sans-serif;
+        color: #777777;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+
+.footer-menu a {
+    font-size: 15px;
+    line-height: 25px;
+    text-transform:capitalize;
+}
+footer .nav-link{
+    padding:5px;
+}
+.footer-terms a {
+    font-size: 11px;
+    line-height: 25px;
+    text-transform: capitalize;
+}
+.social-icons.icon-circle .fa {
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+.social-icons .fa {
+    font-size: 30px;
+    font-weight: 400;
+    display: inline-block;
+    font-family: FontAwesome;
+    width: 54px;
+    height: 54px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.fa-facebook {
+    
+    color: #3b5998;
+   
+}
+.fa-twitter {
+    color: #1da1f2;
+}
+.fa-linkedin {
+    color: #0077b5;
+}
+.fa-instagram {
+    color: #c13584;
+}

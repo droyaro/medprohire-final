@@ -1,0 +1,76 @@
+﻿@model medprohiremvp.Models.Applicant.Clockoutpartialviewmodel
+
+<div class="form-group">
+
+    <label asp-for="BranchName" class="control-label ">
+        <strong>
+            @Html.DisplayNameFor(m => m.BranchName):
+        </strong>
+        @Model.BranchName
+    </label>
+</div>
+<div class="form-group">
+    <label asp-for="SpecialitiesName" class="control-label ">
+        <strong>   @Html.DisplayNameFor(m => m.SpecialitiesName):</strong>
+        @Model.SpecialitiesName
+    </label>
+</div>
+<div class="form-group">
+    <label asp-for="SelectedDay" class="control-label "><strong> @Html.DisplayNameFor(m => m.SelectedDay):</strong></label>
+    @Model.SelectedDay.ToString("MMMM dd")
+    <span asp-validation-for="SelectedDay" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="ClockinTime" class="control-label"><strong> @Html.DisplayNameFor(m => m.ClockinTime):</strong></label>
+    @Model.ClockinTime.ToShortTimeString();
+</div>
+@using Microsoft.AspNetCore.Identity
+@using medprohiremvp.DATA.IdentityModels
+@inject UserManager<ApplicationUser> UserManager
+@{
+
+    var user = UserManager.GetUserAsync(User).Result;
+    if (user!=null)
+    {
+       
+        int timeoffset = user.TimeOffset;
+        TimeSpan offset = TimeSpan.FromMinutes(-(timeoffset));
+        DateTime timenow = DateTime.UtcNow.Add(offset);
+
+
+        @if ((Model.ClockOutTime - timenow).Hours > 0)
+        {
+            <p> @String.Format("Work must end at {0} Are you sure you want to end Work", Model.ClockOutTime.ToShortTimeString())</p>
+        }
+        else
+        {
+            if ((Model.ClockOutTime - timenow).Hours < 0)
+            {
+                <p>You can add clock out manually</p>
+
+                <div class="form-group">
+                    <label class="control-label "> @Html.DisplayNameFor(m => m.ClockOutTime)</label>
+                    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" asp-for="ClockOutTime" value=@Model.ClockOutTime.ToString("HH:mm") data-toggle="datetimepicker" />
+
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span hidden>@Model.clockin_id</span>
+                    <a id="clockoutmanually" class="btn btn-link">Clock out Manually</a>
+                </div>
+
+                <hr />
+            }
+        }
+
+        <div class="text-center">
+            <p>@String.Format("Now time is {0}", timenow.ToShortTimeString())</p>
+            <a id="clockoutnow" class="btn btn-link" data-id="@Model.clockin_id">Clock out Now </a>
+        </div>
+
+    }
+}
+
+
+

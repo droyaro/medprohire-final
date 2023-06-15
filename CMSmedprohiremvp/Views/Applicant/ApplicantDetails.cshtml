@@ -1,0 +1,341 @@
+﻿@model CMSmedprohiremvp.Models.ApplicantViewModel
+<form asp-action="ApplicantDetails" id="ApplicantDetails" asp-controller="Applicant">
+    <div class=" container text-center">
+
+        <div class="heading-1">
+            <div class="d-inline-block">
+                <hr class="before" />
+                <h2 class="">Applicant Details</h2>
+                <hr class="after" />
+            </div>
+        </div>
+
+
+        <div class="col-lg-7 col-sm-9 col-xs-12  mx-auto ">
+            <div class="heading-2">
+                <div class="d-inline-block">
+
+                    <h3>Personal Information</h3>
+
+                </div>
+            </div>
+            <div class="background ">
+
+                <div class="form-group text-left">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class=" form-group">
+                                <strong><label asp-for="FirstName" class="control-label ">FirstName:</label></strong>
+                                <label>@Model.FirstName</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label "><strong>MiddleName:</strong>@Model.MiddleName</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label "><strong>LastName:</strong>@Model.LastName</label>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label "><strong>Phone Number:</strong>@Model.PhoneNumber</label>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6 col-sm-12">
+                            @*<div class="form-group">
+            <label class="control-label "><strong>State:</strong>@Model.St</label>
+        </div>*@
+                            <div class="form-group">
+                                <label class="control-label "><strong>City:</strong>@Model.CityName</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label "><strong>Address:</strong>@Model.Address</label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label "><strong>Employment Eligibility:</strong>@Model.Visastatus</label>
+                                @if (Model.VisaStatus_ID == 3)
+                                {
+                                    <label class="control-label "><strong>Is Eligible:</strong>@(Model.IsEligible ? "Yes" : "No")</label>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label "><strong>Availability:</strong>@Model.Availability</label>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label "><strong>Resume:</strong></label><a target="_blank" asp-action="FileView" asp-controller="Applicant" asp-route-path=@Model.Resume>View</a>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="spacer-extra-large"></div>
+        <div class="col-lg-7 col-sm-9 col-xs-12  mx-auto ">
+            <div class="heading-2">
+                <div class="d-inline-block">
+
+                    <h3>Specialities</h3>
+
+                </div>
+            </div>
+            <div class="background ">
+
+                <table>
+                    <tbody id="bspecalities">
+
+                        @if (Model != null)
+                        {
+                            @for (int i = 0; i < Model.specialities.Count; i++)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="row text-left">
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class=" form-group">
+                                                    <label class="control-label "><strong>Speciality:</strong>@Model.specialities[i].AppSpeciality</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class=" form-group">
+                                                    <label class="control-label "><strong>License number:</strong>@Model.specialities[i].License</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class=" form-group">
+                                                    <label class="control-label "><strong>Legability States:</strong> @Model.specialities[i].LegabilityStates</label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+        <div class="spacer-extra-large"></div>
+        <div class="col-lg-7 col-sm-9 col-xs-12  mx-auto ">
+            <div class="heading-2">
+                <div class="d-inline-block">
+                    <h3>Work History</h3>
+                </div>
+            </div>
+            <div class="background ">
+                <table>
+
+                    <tbody id="bworkhistory">
+
+                        @if (Model.workHistories.Count > 0)
+                        {
+                            @for (int i = 0; i < Model.workHistories.Count; i++)
+                            {
+
+                                <tr>
+                                    <td>
+                                        <div class="row text-left">
+
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label "><strong>Start Date:</strong>@Model.workHistories[i].StartDate.ToString("MMM/yyyy")</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label "><strong>End Date:</strong>@(Model.workHistories[i].UntilNow ? "UntilNow" : Model.workHistories[i].StartDate.ToString("MMM/yyyy"))</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label "><strong>Employer:</strong>@Model.workHistories[i].PlaceName</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label "><strong>Employer:</strong>@Model.workHistories[i].AppSpeciality</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td><p>Applicant didn't fill this part</p></td></tr>
+
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+        <div class="spacer-extra-large"></div>
+        <div class="col-lg-7 col-sm-9 col-xs-12  mx-auto ">
+            <div class="heading-2">
+                <div class="d-inline-block">
+                    <h3>Professional Certifications</h3>
+                </div>
+            </div>
+            <div class="background ">
+                <table>
+
+                    <tbody id="bcertificates">
+
+                        @if (Model.certificates.Count > 0)
+                        {
+                            @for (int i = 0; i < Model.certificates.Count; i++)
+                            {
+
+                                <tr>
+                                    <td>
+                                        <div class="row text-left">
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label "><strong>Certificate Type:</strong>@Model.certificates[i].AppCertificateType</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label "><strong>Certificate Image:</strong></label><a target="_blank" asp-action="FileView" asp-controller="Applicant" asp-route-path=@Model.certificates[i].CeritifcationImg>View</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td><p>Applicant didn't fill this part</p></td></tr>
+
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+        @{
+            if (Model.BoardingProcess > 1)
+            {
+                <div class="spacer-extra-large"></div>
+                <div class="col-lg-7 col-sm-9 col-xs-12  mx-auto ">
+                    <div class="heading-2">
+                        <div class="d-inline-block">
+                            <h1>On Boarding Process </h1>
+                        </div>
+                    </div>
+                    <div class="background ">
+                        <div class="row text-left">
+                            <div class="col-md-6 col-sm-12">
+                                <div class=" form-group">
+                                    <strong><label class="control-label ">TIN:</label></strong>
+                                    <label>@Model.TIN</label>
+                                </div>
+                            </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="control-label "><strong>SSN:</strong>@Model.SSN</label>
+                                    </div>
+                                </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            @if (Model.I_9 != null)
+                                            {
+                                                <label class="control-label "><strong>I 9:</strong><a target="_blank" asp-action="FileView" asp-controller="Applicant" asp-route-path=@Model.I_9>View</a></label>
+                                            }
+                                        </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                </div>
+                <div class="col-lg-7 col-sm-9 col-xs-12  mx-auto ">
+                    <div class="heading-2">
+                        <div class="d-inline-block">
+                            <h3>References</h3>
+                        </div>
+                    </div>
+                    <div class="background ">
+                        <table>
+
+                            <tbody id="breferences">
+
+                                @if (Model.references.Count > 0)
+                                {
+                                    @for (int i = 0; i < Model.references.Count; i++)
+                                    {
+
+                                        <tr>
+                                            <td>
+                                                <div class="row text-left">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label "><strong>Company: </strong>@Model.references[i].Company</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label "><strong>Contact Name: </strong>@Model.references[i].ContactName</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label "><strong>Position: </strong>@Model.references[i].Position</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label "><strong>Email: </strong>@Model.references[i].Email</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label "><strong>Phone: </strong>@Model.references[i].PhoneNumber</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr><td><p>Applicant didn't fill this part</p></td></tr>
+
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</form>
+
+
+

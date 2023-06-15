@@ -1,0 +1,153 @@
+﻿@model CMSmedprohiremvp.Models.Ticket.TicketViewModel
+
+@section Styles{
+
+    <link href="~/node_modules/summernote/dist/summernote.css" rel="stylesheet" />
+    <link href="~/node_modules/summernote/dist/summernote-bs4.css" rel="stylesheet" />
+    <link href="~/node_modules/jquery-bar-rating/dist/themes/fontawesome-stars.css" rel="stylesheet" />
+}
+<div class=" container text-center">
+    <div class="heading-1">
+        <div class="d-inline-block">
+            <hr class="before" />
+            <h2 class="">Ticket Content</h2>
+            <hr class="after" />
+        </div>
+    </div>
+
+    <div class="form-group text-left">
+        <a class="btn btn-info animation" asp-controller="Ticket" asp-action="Index"><i class="fa fa-angle-left"></i> BACK</a>
+    </div>
+
+    <div class="background">
+        <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+        <div class="form-group text-left">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="TicketCategoryName" class="control-label ">Ticket Category</label>
+                        <input asp-for="TicketCategoryName" class="form-control flat animation" type="text" readonly />
+                        <span asp-validation-for="TicketCategoryName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Subject" class="control-label ">Subject</label>
+                        <input asp-for="Subject" class="form-control flat animation" type="text" readonly />
+                        <span asp-validation-for="Subject" class="text-danger"></span>
+                    </div>
+                    @if (Model.TicketType < 3)
+                    {
+                        <div hidden id="answerarea">
+                            <div class="form-group">
+                                <label asp-for="Answer" class="control-label ">Content</label>
+                                <textarea asp-for="Answer" class="summernote"></textarea>
+
+                            </div>
+                            <div class="form-group text-center">
+                                <input type="button" id="AddTicketContent" class="btn btn-main" value="Add Answer" data-id="@Model.Ticket_ID" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-right">
+                                <button id="AddAnswer" class="btn btn-main">Reply</button>
+                            </div>
+                            <div class="col-6 text-left">
+                                <button id="Complete" class="btn btn-main">Complete Ticket</button>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    @{
+        if (Model.TicketContents != null)
+        {
+            for (int i = 0; i < Model.TicketContents.Count; i++)
+            {
+                <div class="TicketContentHeader">
+                    <div class="d-flex justify-content-between bd-highlight mb-2 justify-content-center">
+                        <div class="p-2 text-left ">
+                            @{
+                                string firstname = @Model.TicketContents[i].UserName;
+                                string lastname = @Model.TicketContents[i].UserName;
+                            }
+                            <h4><strong>@Model.TicketContents[i].UserName</strong></h4>
+                        </div>
+                        <div class="p-2 text-right">
+                            <span>@Model.TicketContents[i].InsertDate.ToString("MMMM dd yyyy")</span>
+                        </div>
+                    </div>
+                </div><div class="TicketContent">
+                    <div class="form-group text-left">
+                        @Html.Raw(Model.TicketContents[i].TicketContent)
+                    </div>
+                    @*<div class="form-group text-right">
+                        <select asp-for="TicketContents[i].Rate" class="starrate" data-content_id="@Model.TicketContents[i].TicketContent_ID">
+                            <option value=""></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>*@
+                </div>
+            }
+        }
+    }
+</div>
+@if (Model.TicketType < 3)
+{
+    <div class="modal   fade" id="CompleteTicket" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
+
+                </div>
+                <div class=""></div>
+                <div class="heading-2 text-center">
+                    <div class="d-inline-block text-center">
+                        <hr class="before" />
+                        <h2 class="">Complete Ticket</h2>
+                        <hr class="after" />
+                    </div>
+                </div>
+
+
+                <div class="modal-body text-center">
+
+                    <div class="container">
+                        <p> Are you sure you want to complete this ticket?</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right">
+                            <button id="AccpetTicketComplete" class="btn btn-main" data-ticket_id="@Model.Ticket_ID">Yes</button>
+                        </div>
+                        <div class="col-6 text-left">
+                            <button data-dismiss="modal" class="btn btn-main">No</button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+}
+    @section scripts{
+        <script src="~/node_modules/summernote/dist/summernote.min.js"></script>
+        <script src="~/node_modules/summernote/dist/summernote-bs4.min.js"></script>
+        <script src="~/node_modules/jquery-bar-rating/jquery.barrating.js"></script>
+        <script src="~/js/ticket/TicketContent.js"></script>
+    }

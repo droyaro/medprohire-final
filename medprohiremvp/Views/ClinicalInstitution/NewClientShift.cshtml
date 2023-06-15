@@ -1,0 +1,145 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.ClientShiftViewModel
+@{ViewData["Title"] = "Create Requisition";
+}
+<div class="new-heading new-heading-background ">
+    <h2 class="">@ViewData["Title"]</h2>
+</div>
+<div class="usercontainer ">
+    <form asp-action="NewClientShift">
+
+
+        <div class="form-group text-left">
+            <a class="btn btn-info animation" asp-controller="ClinicalInstitution" asp-action="ClientShiftList"><i class="fa fa-angle-left"></i> Back</a>
+        </div>
+
+
+        <div class="background marginbottomcontent">
+            <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+            <div class="form-group text-left">
+                <div class="row">
+
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="Branch_ID" class="control-label "></label>
+                            <div class="form-group-sm">
+                                <select class="form-control selectpicker flat registerselect" title="Select Location" asp-items="@ViewBag.Locations" asp-for="Branch_ID"></select>
+                            </div>
+                            <span asp-validation-for="Branch_ID" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="Specialities" class="control-label "></label>
+                            <div class="form-group-sm">
+                                <select class="form-control selectpicker flat registerselect" title="Select Provider" data-selector=""  asp-items="@ViewBag.Speciality" asp-for="Specialities"></select>
+                            </div>
+                            <span asp-validation-for="Specialities" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="ContractorCount" class="control-label "></label>
+                            <input asp-for="ContractorCount" class="form-control flat animation" type="text" />
+                            <span asp-validation-for="ContractorCount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="ShiftLabel_ID" class="control-label "></label>
+                            <div class="form-group-sm">
+                                <select class="form-control selectpicker flat registerselect" title="Select Shift Label" asp-items="@ViewBag.ShiftLabels" asp-for="ShiftLabel_ID"></select>
+                            </div>
+                            <span asp-validation-for="ShiftLabel_ID" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="ClockInTime" class="control-label "></label>
+                            <div class="form-group-sm">
+                                <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker" asp-for="ClockInTime" data-toggle="datetimepicker" autocomplete="off" />
+
+                                </div>
+                              
+                            </div>
+                            <span asp-validation-for="ClockInTime" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="ClockOutTime" class="control-label "></label>
+                            <div class="form-group-sm">
+                                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" asp-for="ClockOutTime" data-toggle="datetimepicker" autocomplete="off"/>
+
+                                </div>
+                            </div>
+                            <span asp-validation-for="ClockOutTime" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="center-block">
+                    <div class="form-group">
+                        <label asp-for="ShiftDescription" class="control-labe ">Shift Description</label>
+                        <textarea asp-for="ShiftDescription" class="form-control flat animation" maxlength="2000" onkeyup="AutoGrowTextArea(this)"></textarea>
+                        <span asp-validation-for="ShiftDescription" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="center-block">
+                    <div class="form-group">
+                        <label asp-for="Responsibility" class="control-label ">Responsibility</label>
+                        <textarea asp-for="Responsibility" class="form-control flat animation" maxlength="2000" onkeyup="AutoGrowTextArea(this)"></textarea>
+                        <span asp-validation-for="Responsibility" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-md-row flex-sm-column">
+                            <div class="p-2">
+                                <div class="form-group-sm">
+                                    <label asp-for="ShiftsDates" class="control-label ">Shift Dates</label>
+                                    <div class="Pickdays">
+
+                                        <div class="datepickershift" id="calendarview" data-date-multidate="true" data-date-format="mm/dd/yyyy"></div>
+                                        <div class="d-inline-block">
+                                            <input type="text" asp-for="ShiftsDates" autocomplete="off" class="shiftdates" />
+
+                                        </div>
+                                        <span asp-validation-for="ShiftsDates" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-2 paddingp2"></div>
+                            <div class="p-2 align-self-center">
+                                <span id="pickeddays"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="text-center form-group">
+            <input type="submit" value="Create" class="btn btn-main" />
+        </div>
+
+
+    </form>
+</div>
+@section jsplugins{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <script src="~/node_modules/jquery-timepicker/jquery.timepicker.js"></script>
+}
+@section scripts{
+    <script src="~/js/client/Shift.js"></script>
+
+}
+@section cssplugins{
+
+    <link href="~/node_modules/jquery-timepicker/jquery.timepicker.css" rel="stylesheet" />
+
+}

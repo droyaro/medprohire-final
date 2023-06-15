@@ -1,0 +1,54 @@
+﻿@model List<medprohiremvp.Models.Applicant.AppliedShifts>
+
+
+        @{
+
+            if (Model != null)
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="d-flex justify-content-between bd-highlight mb-2 align-items-center">
+                        <div class="p-2">
+                            <div class="text-left">
+                                <div class="form-group-sm">
+                                    <label><strong>@Html.DisplayNameFor(m => m[0].Location): @Html.DisplayFor(modelItem => Model[i].BranchName)</strong></label>
+                                </div>
+                                <div class="form-group-sm">
+                                    <label><strong>@Html.DisplayNameFor(m=>m[0].Location):</strong> @Html.DisplayFor(modelItem => Model[i].Location)</label>
+                                </div>
+                                <div class="form-group-sm">
+                                    <label><strong>@Html.DisplayNameFor(m => m[0].StartDate):</strong> @Model[i].StartDate.ToString("MMMM dd")</label>
+                                </div>
+                                <div class="form-group-sm">
+                                    <label><strong>@Html.DisplayNameFor(m => m[0].EndDate):</strong> @Model[i].EndDate.ToString("MMMM dd")</label>
+                                </div>
+                         
+                                <div class="form-group-sm">
+                                    <span hidden>@Model[i].ClientShift_ID</span>
+                                    <a class="btn btn-link" href="#" id="ReadMore">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            @if (Model[i].Applied)
+                            {
+                               
+                            }
+                            else
+                            {
+                                <a class="btn btn-main" href=@Url.Action("ShiftView", "Applicant", new { ClientShift_ID = Model[i].ClientShift_ID })>Pick</a>
+                            }
+
+
+                        </div>
+                    </div>
+                    @if (i != Model.Count - 1)
+                    {
+                        <hr />
+                    }
+
+                }
+
+            }
+        }
+

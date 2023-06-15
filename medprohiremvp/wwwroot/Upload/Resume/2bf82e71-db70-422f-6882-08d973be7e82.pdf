@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedProHire - Get extraordinary medical professionals! </title>
+
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700|Roboto:400,500,700|Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+
+    <!-- Template CSS Files  -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+    <!-- Bootstrap -->
+
+    <link href="/node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/node_modules/mdi/font/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="/node_modules/magnific-popup/dist/magnific-popup.css" rel="stylesheet" />
+    <link href="/node_modules/rangeslider.js/dist/rangeslider.css" rel="stylesheet" />
+    <link href="/node_modules/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="/node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="/node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+
+    
+
+    <link href="/css/site.css" rel="stylesheet" />
+    <link href="/css/responsive.css" rel="stylesheet" />
+
+
+</head>
+<body>
+
+<header class="header-wrap">
+
+    
+
+
+
+
+
+    <nav id="nav" class="navbar navbar-expand-md justify-content-between">
+        <div class="container">
+            <!-- Nested Container Starts -->
+            <!-- Navbar Brand & Toggler Starts -->
+            <a class="navbar-brand" href="/">
+                <img src="/images/MedProHire_branding_logo.png" alt="Medprohire" class="logo img-fluid img-center-sm">
+            </a>
+            <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon fa fa-bars"></span>
+            </button>
+            <!-- Navbar Brand & Toggler Ends -->
+            <!-- Navbar Collapse Starts -->
+            <div class="navbar-collapse collapse text-lg-center text-xs-center">
+                <ul class="nav navbar-nav ml-auto">
+
+                    <li class="nav-item  "><a class="nav-link font-nunito" href="/Home/#about">ABOUT US</a></li>
+                    <li class="nav-item  "><a class="nav-link font-nunito" href="/Home/#to-find-job">TO FIND A JOB</a></li>
+                    <li class="nav-item  "><a class="nav-link font-nunito" href="/Home/FindTalent/1">FIND TALENT</a></li>
+
+                    <li class="nav-item "><a class="nav-link font-nunito" id="Register" href="/Home/Register">SIGN UP</a></li>
+                    <li class="nav-item "><a class="nav-link font-nunito" href="/Home/Login">LOG IN</a></li>
+                </ul>
+            </div>
+
+            <!-- Navbar Collapse Ends -->
+        </div>        <!-- Nested Container Ends -->
+    </nav>
+
+
+                <div class="main-header-home" style=" background-size: cover;    background-repeat: no-repeat;     background-image:  url(../images/home.jpg);">
+
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-4 ">
+             
+                    
+                    <ul class="list-unstyled  header-list ">
+                            <li>
+                                <h2 class="header-title font-nunito">
+                                    WE HELP YOU ADVANCE YOUR CAREER
+                                </h2>
+                                <p class="font-nunito">
+                                    Looking for work?
+                                </p>
+                                <a class="btn btn-main font-nunito" href="/Home/Registeration/0"><span>APPLY NOW</span></a>
+                                <hr />
+                            </li>
+                            <li>
+                                <h2 class="header-title font-nunito">
+                                    WE HELP YOU HIRE PROFESSIONALS NEARBY
+
+                                </h2>
+                                <p class="font-nunito">
+                                    Need to hire professionals?
+
+                                </p>
+                                <a class="btn btn-main font-nunito" href="/Home/Registeration/1">FIND TALENT</a>
+
+                            </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- Home Welcome Section Starts -->
+<section class="about " id="about">
+    <div class="container">
+        <div class="text-center  heading-1 ">
+
+            <div class="d-inline-block">
+                <hr class="before" />
+                <h2 class="font-nunito">
+                    About Us
+                </h2>
+                <hr class="after" />
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Welcome Content Starts -->
+
+            <div class="content-about col-lg-12 col-sm-12 font-nunito">
+                <p class="font-nunito">MedProHire LLC is focused on creating partnerships that provide extraordinary care for our clients and patients. We source exceptional healthcare professionals to deliver client centered care aimed to far exceed the expectations of patients and families.</p>
+                <p class="font-nunito">MedProHire LLC delivers a highly  interactive tool right on the hands of medical professionals to easily pick shifts, respond to service demand, and manage their work schedule.</p>
+
+
+            </div>
+
+            <!-- Welcome Image Ends -->
+        </div>
+    </div>
+</section>
+<!-- Home Welcome Section Ends -->
+<!-- Home Plan Info Section Starts -->
+<section class="how-it-works text-center" id="to-find-job">
+    <div class="container">
+        <div class="heading-1 ">
+            <div class="d-inline-block">
+                <hr class="before" />
+                <h2 class="font-nunito">
+                    TO FIND A JOB
+                </h2>
+                <hr class="after" />
+            </div>
+        </div>
+
+        <!-- Heading Ends -->
+        <!-- Plan Info Tab Wrap Starts -->
+        <div class="row text-xs-center text-sm-center text-md-center align-content-around">
+            <div class="form-group col-sm-3 col-lg-3 col-xs-12">
+                <div class=" roundHex">
+
+                    <i class="fal fa-user-plus ruondhex-text"></i>
+                </div>
+                <h6 class="font-nunito">Sign Up</h6>
+                <div class="readmoretext">
+                    <p class="font-nunito">
+                        Our simple online application process allows you to enter basic information about
+                            yourself and attach your resume.
+
+                       
+                    </p>
+                </div>
+                <a href="#" id="myBtn" class="btn btn-link font-nunito">Read More</a>
+            </div>
+            <div class="form-group col-sm-3 col-lg-3 col-xs-12 align-content-center">
+                <div class=" roundHex">
+
+                    <i class="fal fa-file-signature ruondhex-text"></i>
+                </div>
+                <h6 class="font-nunito">
+                    Get On Boarded
+                </h6>
+                <div class="readmoretext">
+                    <p class="font-nunito">
+                        An experienced recruiter will review your application, set up an interview, walk you
+                        through a background check proccess and have you onboarded as a contractor.
+
+
+
+                    </p>
+                </div>
+
+                <a href="#" id="myBtn" class="btn btn-link font-nunito">Read More</a>
+            </div>
+
+            <div class="form-group col-sm-3 col-lg-3 col-xs-12">
+                <div class="roundHex">
+
+                    <i class="fal fa-clock ruondhex-text"></i>
+                </div>
+                <h6 class="font-nunito">
+                    Pick A Shift
+                </h6>
+                <div class="readmoretext">
+                    <p class="font-nunito">
+                        Our interactive platform will alert you whenever a shift that suits your credentials is available.
+                            You can also search from a list of posted available shifts to pick one that is most convenient for you.
+
+                        
+
+                    </p>
+
+                </div>
+                <a id="myBtn" href="#" class="btn btn-link font-nunito">Read More</a>
+            </div>
+            <div class="form-group col-sm-3 col-lg-3 col-xs-12">
+                <div class="roundHex">
+
+                    <i class="fal fa-usd-circle ruondhex-text"></i>
+                </div>
+                <h6 class="font-nunito">
+                    Get Paid
+                </h6>
+                <div class="readmoretext">
+                    <p class="font-nunito">
+                        Our clock-in /clock-out system will ensure that you are compensated promptly on a weekly basis for
+                            hours worked.
+                    </p>
+                </div>
+                <a href="#" id="myBtn" class="btn btn-link font-nunito">Read More</a>
+            </div>
+        </div>
+    </div>
+    <!-- Plan Info Tab Wrap Ends -->
+</section>
+
+<section class="findtalant">
+    <div class="container">
+        <div>
+            <div class="text-center  heading-1 ">
+
+                <div class="d-inline-block">
+                    <hr class="before" />
+                    <h2>
+                        Find Talent
+                    </h2>
+                    <hr class="after" />
+                </div>
+            </div>
+        </div>
+        <div class="umb-grid">
+            <div class="grid-section">
+                <div>
+
+                </div>
+                <div class="findtalentboxes">
+                    <div class="container-fluid">
+                        <div class="row clearfix">
+                            <div class="col-lg-6 col-md-12  column">
+                                <div class="bg-color-front-hover" style="background-image:linear-gradient(rgba(0, 75, 141, 0.3), rgba(0, 75, 141, 0.3)), url(../images/findtalen1.jpg);">
+
+
+
+                                    <div class="RichTextEditorClass">
+                                        <div class="col-xs-12 col-sm-12 hidden-sm hidden-xs">
+                                            <div class="block block-expertise">
+                                                <article role="article">
+                                                    <h3 class="font-nunito">Pool Talent Services</h3>
+                                                    <h2 class="teaser font-nunito" style="font-size: 22px;">We have a portfolio of qualified and experienced medical professionals available for on-demand shift staffing needs.</h2>
+                                                    <div class="description font-nunito">
+                                                        <p class="font-nunito">Our technologically interactive platform enables medical institution to list available staffing requirements per shift basis, thus providing matching talent the opportunity to pick these shifts and provide the much-needed medical services.</p>
+                                                    </div>
+                                                    <a data-id="1115" title="Expertise" class="btn-line-white font-nunito" href="/Home/FindTalent/1">Learn more</a>
+                                                </article>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
+                                            <div class="ftbox expertise">
+                                                <h3 class="font-nunito">Pool Talent Services</h3>
+                                                <h2 class="font-nunito">We have a portfolio of qualified and experienced medical professionals available for on-demand shift staffing needs.</h2>
+                                                <p class="font-nunito">Our technologically interactive platform enables medical institution to list available staffing requirements per shift basis, thus providing matching talent the opportunity to pick these shifts and provide the much-needed medical services.</p>
+                                                <a data-id="4132" title="Staffing Services" class="btn-line-white font-nunito" href="/Home/FindTalent/1">Learn more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>          
+                            <div class="col-lg-6 col-md-12 column">
+                                <div class="bg-image-industry" style="background-image:linear-gradient(rgba(0, 75, 141, 0.3), rgba(0, 75, 141, 0.3)),url(../images/findtalent2.jpg);">
+
+
+
+                                    <div class="RichTextEditorClass">
+                                        <div class="col-xs-12 col-sm-12 hidden-sm hidden-xs">
+                                            <div class="block block-industry">
+                                                <article role="article">
+                                                    <h3 class="font-nunito">Direct Placement Services</h3>
+                                                    <h2 class="teaser font-nunito" style="font-size: 22px;" >We offer direct placement services for any open staffing positions within a medical institution.  </h2>
+                                                    <div class="description">
+                                                        <p class="font-nunito">Our niche recruiters will work with your hiring managers in sourcing and vetting the best possible candidates. Our platform allows you to advertise for these positions for free.</pclass="font-nunito">
+                                                    </div>
+                                                    <a data-id="1119" title="Industry Specialties" class="btn-line-white font-nunito" href="/Home/FindTalent/2">Learn more</a>
+                                                </article>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
+                                            <div class="ftbox industry">
+                                                <h3 class="font-nunito">Direct Placement Services</h3>
+                                                <h2 class="font-nunito">We offer direct placement services for any open staffing positions within a medical institution.  </h2>
+                                                <p class="font-nunito">Our niche recruiters will work with your hiring managers in sourcing and vetting the best possible candidates. Our platform allows you to advertise for these positions for free.</p>
+                                                <a data-id="4116" title="Advanced Services" class="btn-line-white font-nunito" href="/Home/FindTalent/2">Learn more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="deskonly-mt-30 findtalentboxes">
+                    <div class="container-fluid">
+                        <div class="row clearfix">
+                            <div class="col-lg-6 col-md-12 column">
+                                <div class="bg-image-solution" style="background-image:linear-gradient(rgba(0, 75, 141, 0.3), rgba(0, 75, 141, 0.3)),url(../images/findtalent3.jpg);">
+
+
+
+                                    <div class="RichTextEditorClass">
+                                        <div class="col-xs-12 col-sm-12 hidden-sm hidden-xs">
+                                            <div class="block block-industry">
+                                                <article role="article">
+                                                    <h3 class="font-nunito">Contract or Contract to Hire</h3>
+                                                    <h2 class="teaser font-nunito" style="font-size: 22px;">We offer temporary employment services for your midterm to long-term staffing needs on contractual basis. </h2>
+                                                    <div class="description">
+                                                        <p class="font-nunito">We will work closely with you in identifying the best possible candidates and go a step further to provide all HR and payroll services for assigned contractors.</p>
+                                                    </div>
+                                                    <a data-id="1119" title="Industry Specialties" class="btn-line-white font-nunito" href="/Home/FindTalent/3">Learn more</a>
+                                                </article>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 hidden-md hidden-lg" >
+                                            <div class="ftbox industry">
+                                                <h3 class="font-nunito">Contract or Contract to Hire</h3>
+                                                <h2 class="font-nunito">We offer temporary employment services for your midterm to long-term staffing needs on contractual basis. </h2>
+                                                <p class="font-nunito">We will work closely with you in identifying the best possible candidates and go a step further to provide all HR and payroll services for assigned contractors.</p>
+                                                <a data-id="1119" title="Industry Specialties" class="btn-line-white font-nunito" href="/Home/FindTalent/3">Learn more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>            <div class="col-lg-6 col-md-12 column">
+                                <div class="bg-color-front-hover" style="background-image:linear-gradient(rgba(0, 75, 141, 0.3), rgba(0, 75, 141, 0.3)),url(../images/findtalent4.jpg);">
+
+
+
+                                    <div class="RichTextEditorClass">
+                                        <div class="col-xs-12 col-sm-12 hidden-sm hidden-xs">
+                                            <div class="block block-engagement">
+                                                <article role="article">
+                                                    <h3 class="font-nunito">Home Infusion Therapy Nursing</h3>
+                                                    <h2 class="teaser font-nunito">We establish long-term relationships with infusion nurses to ensure that patient care and educational needs are completely met.</h2>
+                                                    <div class="description">
+                                                        <p class="font-nunito">
+                                                            Our intake specialists coordinate insurance verification to establish the patient’s care plan.
+                                                            Our clinicians help healthcare providers develop a personalized care plan for each patient based on diagnosis and therapeutic goals.
+                                                        </p>
+                                                    </div>
+                                                    <a data-id="1121" title="Offerings" class="btn-line-white font-nunito" href="/Home/FindTalent/4">Learn more</a>
+                                                </article>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 hidden-md hidden-lg" >
+                                            <div class="ftbox solutions">
+                                                <h3 class="font-nunito">Home Infusion Therapy Nursing</h3>
+                                                <h2 class="font-nunito">We establish long-term relationships with infusion nurses to ensure that patient care and educational needs are completely met.</h2>
+                                                <p class="font-nunito">
+                                                    Our intake specialists coordinate insurance verification to establish the patient’s care plan.
+                                                    Our clinicians help healthcare providers develop a personalized care plan for each patient based on diagnosis and therapeutic goals.
+                                                </p>
+                                                <a data-id="1884" title="Case Studies" class="btn-line-white font-nunito" href="/Home/FindTalent/4">Learn more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Home Plan Info Section Ends -->
+<!-- Main Container Ends -->
+<!-- Home Gallery Section Starts -->
+
+<div class="footer-top">
+    <!-- Nested Container Starts -->
+    <div class="container">
+        <div class="text-center">
+            <h6 class="font-nunito">
+                Take the next step
+            </h6>
+
+            <div class="row justify-content-center">
+                <div class="form-group ">
+                    <p class="font-nunito">
+                        We help you get your job
+
+                    </p>
+                    <a class="btn btn-main font-nunito" href="/Home/Registeration/0">APPLY NOW</a>
+                </div>
+                <div class="form-group lineseparator"></div>
+                <div class="form-group ">
+                    <p class="font-nunito">
+                        We Help You Hire Professionals
+
+                    </p>
+
+                    <a class="btn btn-main font-nunito" href="/Home/Registeration/1">FIND TALENT</a>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Nested Container Ends -->
+</div>
+
+<!-- Footer Top Ends -->
+<!-- Copyright Starts -->
+<footer>
+
+    <div class="footer-bottom">
+        <div class=" container text-center">
+            <div class="form-group">
+                <img src="/images/MedProHire_branding_logo.png" class="logofooter">
+
+                <ul class="social-icons icon-circle icon-zoom list-unstyled list-inline">
+                    <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a> </li>
+                    <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a> </li>
+                    <li class="list-inline-item"> <a href="#"><i class="fa fa-linkedin"></i></a> </li>
+                    <li class="list-inline-item"> <a href="#"><i class="fa fa-instagram"></i></a> </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <ul class=" list-unstyled list-inline footer-menu">
+
+                    <li class="list-inline-item"><a class="nav-link font-nunito" href="/Home/#about">About Us</a></li>
+                    <li class="list-inline-item"><a class="nav-link font-nunito" href="/Home/#to-find-job">To Find A Job</a></li>
+                    <li class="list-inline-item"><a class="nav-link font-nunito" href="#">News</a></li>
+                    <li class="list-inline-item"><a class="nav-link font-nunito" href="#">Contacts</a></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <ul class=" list-unstyled list-inline footer-terms">
+                    <li class="list-inline-item"><a class="nav-link font-nunito" href="#">Terms of Service </a></li>
+                    <li class="list-inline-item"><a class="nav-link font-nunito" href="#">Privacy Policy </a></li>
+                    <li class="list-inline-item"><a class="nav-link font-nunito" href="#">Trust & Safety</a></li>
+
+                </ul>
+            </div>
+            <div class="clearfix copyright">
+                <!-- Copyright Text Starts -->
+                <p class="font-nunito">&copy; 2019 MedProHire</p>
+
+            </div>
+        </div>
+        <!-- Nested Container Ends -->
+    </div>
+</footer>
+<!-- Copyright Ends -->
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/popper.js/dist/umd/popper.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="/node_modules/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    <script src="/node_modules/rangeslider.js/dist/rangeslider.min.js"></script>
+    <script src="/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="/node_modules/moment/min/moment.min.js"></script>
+
+    <script src="/node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    
+
+
+    
+   
+    <script src="/js/site.js"></script>
+
+
+<!-- Visual Studio Browser Link -->
+<script type="text/javascript" src="http://localhost:49902/f44dd42b6e054cc0a594c61e56040e13/browserLink" async="async" id="__browserLink_initializationData" data-requestId="b103ed65ec6f411ab2e7f50855cccc10" data-requestMappingFromServer="False"></script>
+<!-- End Browser Link -->
+
+</body>
+</html>

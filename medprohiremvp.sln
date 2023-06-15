@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "medprohiremvp", "medprohiremvp\medprohiremvp.csproj", "{C4553BBD-C0A6-401F-A899-0C557B4F86D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "medprohiremvp.DATA", "medprohiremvp.DATA\medprohiremvp.DATA.csproj", "{F54A8913-B0DF-4767-8DD1-E5417822F852}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "medprohiremvp.Repo", "medprohiremvp.Repo\medprohiremvp.Repo.csproj", "{C6040B2C-7A01-42C8-8853-F36F0D38E335}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "medprohiremvp.Service", "medprohiremvp.Service\medprohiremvp.Service.csproj", "{EBCFDF49-6923-4C3B-A6A3-BCF0D396E7E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMSmedprohiremvp", "CMSmedprohiremvp\CMSmedprohiremvp.csproj", "{D6E57F4B-54D1-4900-B11E-A9BA9B71239E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedProHireAPI", "MedProHireAPI\MedProHireAPI.csproj", "{232B1706-2163-4F00-995B-5D933EA190CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C4553BBD-C0A6-401F-A899-0C557B4F86D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4553BBD-C0A6-401F-A899-0C557B4F86D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4553BBD-C0A6-401F-A899-0C557B4F86D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4553BBD-C0A6-401F-A899-0C557B4F86D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F54A8913-B0DF-4767-8DD1-E5417822F852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F54A8913-B0DF-4767-8DD1-E5417822F852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F54A8913-B0DF-4767-8DD1-E5417822F852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F54A8913-B0DF-4767-8DD1-E5417822F852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6040B2C-7A01-42C8-8853-F36F0D38E335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6040B2C-7A01-42C8-8853-F36F0D38E335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6040B2C-7A01-42C8-8853-F36F0D38E335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6040B2C-7A01-42C8-8853-F36F0D38E335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBCFDF49-6923-4C3B-A6A3-BCF0D396E7E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBCFDF49-6923-4C3B-A6A3-BCF0D396E7E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBCFDF49-6923-4C3B-A6A3-BCF0D396E7E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBCFDF49-6923-4C3B-A6A3-BCF0D396E7E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6E57F4B-54D1-4900-B11E-A9BA9B71239E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6E57F4B-54D1-4900-B11E-A9BA9B71239E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6E57F4B-54D1-4900-B11E-A9BA9B71239E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6E57F4B-54D1-4900-B11E-A9BA9B71239E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{232B1706-2163-4F00-995B-5D933EA190CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{232B1706-2163-4F00-995B-5D933EA190CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{232B1706-2163-4F00-995B-5D933EA190CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{232B1706-2163-4F00-995B-5D933EA190CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EE1AAF84-6B1A-49AE-892D-00D59514CD97}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://garnikgiloyan.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = medprohiremvp\\medprohiremvp.csproj
+		SccProjectName1 = medprohiremvp
+		SccLocalPath1 = medprohiremvp
+		SccProjectUniqueName2 = medprohiremvp.DATA\\medprohiremvp.DATA.csproj
+		SccProjectName2 = medprohiremvp.DATA
+		SccLocalPath2 = medprohiremvp.DATA
+		SccProjectUniqueName3 = medprohiremvp.Repo\\medprohiremvp.Repo.csproj
+		SccProjectName3 = medprohiremvp.Repo
+		SccLocalPath3 = medprohiremvp.Repo
+		SccProjectUniqueName4 = medprohiremvp.Service\\medprohiremvp.Service.csproj
+		SccProjectName4 = medprohiremvp.Service
+		SccLocalPath4 = medprohiremvp.Service
+		SccProjectUniqueName5 = CMSmedprohiremvp\\CMSmedprohiremvp.csproj
+		SccProjectName5 = CMSmedprohiremvp
+		SccLocalPath5 = CMSmedprohiremvp
+		SccProjectUniqueName6 = MedProHireAPI\\MedProHireAPI.csproj
+		SccProjectName6 = MedProHireAPI
+		SccLocalPath6 = MedProHireAPI
+	EndGlobalSection
+EndGlobal

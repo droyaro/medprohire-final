@@ -1,0 +1,39 @@
+﻿<header class="header-wrap">
+
+    @Html.Partial("_MenuPartial")
+    @using Microsoft.AspNetCore.Identity
+    @using medprohiremvp.DATA.IdentityModels
+    @inject SignInManager<ApplicationUser> SignInManager
+    @{
+        string action = ViewContext.RouteData.Values["Action"].ToString().ToLower();
+        string homeimg = "../images/home.jpg";
+        string loginedimg = "../images/loginedhome.jpg";
+        string starts = "";
+        switch (action)
+        {
+            case "findtalent":
+                homeimg = "/../../images/findtalenthome.jpg";
+                break;
+            default:
+                starts = "";
+                break;
+
+        }
+    }
+    <div class="header-home" style=" background-size: cover;    background-repeat: no-repeat;     background-image: url(@(SignInManager.IsSignedIn(User) && action=="index"?starts+loginedimg:starts+homeimg));">
+       
+        <div class="menucontainer justify-content-end">
+         
+
+                    <ul class="list-unstyled  find-talent-list">
+                      
+                   
+                    </ul>
+             
+        
+
+        </div>
+
+    </div>
+
+</header>

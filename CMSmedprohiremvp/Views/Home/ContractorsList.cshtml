@@ -1,0 +1,292 @@
+﻿@model CMSmedprohiremvp.Models.Applicant.ContractorViewModel
+@using medprohiremvp.DATA.Entity
+@{
+    if (TempData["paycheckadded"] != null)
+    {
+        string text = "";
+        switch (TempData["paycheckadded"].ToString())
+        {
+            case "ok":
+                text = "Pay checked uploaded";
+                break;
+            case "fileerror":
+                text = "Pay checked didnt upload, file upload error";
+                break;
+            case "modelerror":
+                text = "Pay checked didnt upload, model validation error";
+                break;
+
+        }
+        <h2 class="text-danger">@text</h2>
+    }
+    if (Model.applicantViewModels != null)
+    {
+        <div class="wrapper wrapper-content  animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <h2>Contractors</h2>
+                        <div class="ibox-content">
+                            <div class="d-flex flex-column flex-md-row flex-fill justify-content-between">
+                                <div class="p-2 m-b-xs my-auto">
+                                    <ul class="list-unstyled ">
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                                Notifications <span class="label label-primary">@Model.applicantViewModels.Where(x => x.BoardingProcess == 0 || (x.BoardingProcess > 1 && x.Employment_agreement == null) || x.AppliedShiftCount > 0).ToList().Count</span>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-alerts dw">
+
+                                                <li>
+                                                    <a href="#" data-id="appliedshifts">
+                                                        <div class=" row align-items-center">
+                                                            <i class="fa fa-check-square fa-2x fa-fw"></i> <span class="labelnot label-danger">@Model.applicantViewModels.Where(x => x.AppliedShiftCount > 0).ToList().Count</span> Users Applied Shifts
+
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="divider"></li>
+
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="p-2 m-b-xs">
+                                    <div class="row">
+                                        <div class="col m-b-xs">
+                                            <input class="form-control flat animation datepicker" id="insertdate" type="text" placeholder="Insert Date" />
+                                        </div>
+                                        <div class="input-group-append mx-auto"><span class="input-group-text m-b-xs">to</span></div>
+                                        <div class="col-sm-5 m-b-xs">
+                                            <input class="form-control flat animation datepicker" placeholder="EndDate" id="enddate" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-2">
+                                    <div class="input-group">
+                                        <input placeholder="Search" type="text" class="form-control form-control-sm" id="searchtext"> <span class="input-group-append">
+                                            <button type="button" class="btn btn-sm btn-primary">
+                                                Go!
+                                            </button>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-content">
+                                <div id="tab-1" class="tab-pane active">
+                                    <div class="full-height-scroll">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTable">
+
+
+                                                <thead>
+                                                    <tr>
+                                                        <th>Modify date</th>
+                                                        <th>Applicant</th>
+                                                        <th>DrugScreen</th>
+                                                        <th>BoardingProccess</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @for (int i = 0; i < Model.applicantViewModels.Count; i++)
+                                                    {
+
+                                                        <tr>
+                                                            @*<td class="client-avatar"><img alt="img" src="@Model.applicantViewModels[i].Imgsrc"> </td>*@
+                                                            <td>@Model.applicantViewModels[i].DateModified.GetValueOrDefault().ToString("MMMM dd yyyy")</td>
+                                                            <td>@String.Format("{0} {1}", Model.applicantViewModels[i].LastName, Model.applicantViewModels[i].FirstName)</td>
+                                                            <td> @Model.applicantViewModels[i].Drugscreen</td>
+                                                            @{
+                                                                var status = "";
+
+                                                                switch (Model.applicantViewModels[i].BoardingProcess)
+                                                                {
+                                                                    case 0:
+                                                                        status = "Not Started";
+                                                                        break;
+                                                                    case 1:
+                                                                        status = "Waiting for user";
+                                                                        break;
+                                                                    case 2:
+                                                                        status = "Under review";
+                                                                        break;
+                                                                    case 3:
+                                                                        status = "Completed";
+                                                                        break;
+
+
+                                                                }
+                                                                <td> <span class="label @((BordingProcessEnum)@Model.applicantViewModels[i].BoardingProcess)">@status</span></td>
+                                                            }
+
+                                                            <td>
+                                                                <a href=@Url.Action("ApplicantDetails", "Applicant", new { Applicant_ID = Model.applicantViewModels[i].Applicant_ID}) class="btn  btn-sm"> View </a>
+
+                                                            </td>
+                                                            <td>
+                                                                <a target="_blank" href=@Url.Action("ViewEmpAgreement", "Applicant", new { user_id = Model.applicantViewModels[i].User_ID}) class="btn">View Signed Emp. Agreement</a>
+                                                            </td>
+                                                            <td>
+                                                                @if (Model.applicantViewModels[i].AppliedShiftCount > 0)
+                                                                {
+                                                                    <button id="appliedshifts" data-id="@Model.applicantViewModels[i].User_ID">Activate Shifts</button>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                <button data-userid="@Model.applicantViewModels[i].User_ID" id="ComposeMail"><i class="fa fa-envelope-open-o"></i>Email</button>
+                                                            </td>
+                                                            <td><button id="paychecks" data-app_id="@Model.applicantViewModels[i].Applicant_ID" data-id="@Model.applicantViewModels[i].User_ID">Add PayCheck</button></td>
+                                                        </tr>
+
+
+                                                    }
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    }
+}
+
+<div class="modal   fade" id="ModalBoarding" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
+
+            </div>
+            <div class=""></div>
+
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer text-center">
+
+                <button type="submit" id="boardingactivate" class="btn btn-primary">Activate</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal   fade" id="ModalShifts" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
+
+            </div>
+            <div class="modal-body">
+                <div class="personalinfo">
+                </div>
+                <div class="specialities">
+                </div>
+                <div class="appliedShifts">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal   fade" id="ModalPayCheck" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
+
+            </div>
+            <div class="modal-body">
+                <div class="personalinfo"></div>
+                <div class="appliedShifts"></div>
+                <div class="heading-2 text-center">
+                    <div class="d-inline-block text-center">
+                        <hr class="before" />
+                        <h2 class="">Pay Check</h2>
+                        <hr class="after" />
+                    </div>
+                </div>
+
+                <form id="PayCheck" method="post" enctype="multipart/form-data" asp-action="PayCheck" asp-controller="Applicant">
+                    <div class="modal-body">
+
+                        <div class="container">
+
+                            <input hidden asp-for="PayCheck.Applicant_ID" />
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label ">Check Date</label>
+                                        <input class="form-control flat animation datepicker" required type="text" asp-for="PayCheck.PayCheckDate" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Net Pay</label>
+                                        <input class="form-control flat animation" asp-for="PayCheck.Net_pay" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label ">Begin Date</label>
+                                        <input class="form-control flat animation datepicker" required type="text" asp-for="PayCheck.PayBeginDate" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label ">End Date</label>
+                                        <input class="form-control flat animation datepicker" required type="text" asp-for="PayCheck.PayEndDate" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                               
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label ">PayCheck File</label>
+                                        <input class="form-control flat animation" required type="file" asp-for="PayCheck.PaycheckFile" accept=".pdf, .PDF" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="modal-footer justify-content-center">
+
+                        <button type="submit" class="btn btn-primary" data->Add Pay Check</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/user/userslist.js"></script>
+    <script src="~/js/Datatable.js"></script>
+    <script src="~/js/ShiftDates.js"></script>
+}

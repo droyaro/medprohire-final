@@ -1,0 +1,93 @@
+﻿
+@model medprohiremvp.Models.Home.NotificationsViewModel
+@{ 
+    ViewData["Title"] = "Notifications";
+}
+<div class="new-heading new-heading-background ">
+    <h2 class="">@ViewData["Title"]</h2>
+</div> 
+<form>
+      <div class="usercontainer ">
+          <div class="background">
+              <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+              @if (Model.newNotifications != null && Model.newNotifications.Count > 0)
+              {
+
+                  @for (int i = 0; i < Model.newNotifications.Count; i++)
+                  {
+                      <div class="d-flex justify-content-between bd-highlight mb-2">
+                          <div class="text-left p-2">
+                              <div class="form-group-sm">
+                                  <label class="control-label"><strong>@Model.newNotifications[i].Notification_Title</strong></label>
+
+                              </div>
+                              <div class="form-group-sm">
+                                  <label class="control-label"><strong>@Model.newNotifications[i].Notification_Body</strong></label>
+
+                              </div>
+                          </div>
+                          <div class="p-2">
+                              @if (Model.newNotifications[i].Notification_Action == null)
+                              {
+                                  <a href="#" class="btn btn-link"><i class="fal fa-eye fa-1x centered_item"></i><span> View</span></a>
+                              }
+                              else
+                              {
+                                  <a class="btn btn-link" asp-controller=@String.Format("{0}",Model.newNotifications[i].Notification_controller) asp-action=@String.Format("{0}",Model.newNotifications[i].Notification_Action) asp-route-nid="@String.Format("{0}",Model.newNotifications[i].Notification_ID)"><i class="fal fa-eye fa-1x "></i> View</a>
+                              }
+
+
+                          </div>
+                      </div>
+                      if (i != Model.newNotifications.Count - 1)
+                      {
+
+                          <hr />
+                      }
+                  }
+              }
+
+              @if (Model.oldNotifications != null && Model.oldNotifications.Count > 0)
+              {
+                  @if (Model.newNotifications != null && Model.newNotifications.Count > 0)
+                  {
+                      <hr />
+                  }
+                  @for (int i = 0; i < Model.oldNotifications.Count; i++)
+                  {
+                      <div class="d-flex justify-content-between bd-highlight mb-2">
+                          <div class="text-left p-2">
+                              <div class="form-group-sm">
+                                  <label class="control-label">@Model.oldNotifications[i].Notification_Title</label>
+
+                              </div>
+                              <div class="form-group-sm">
+                                  <label class="control-label">@Model.oldNotifications[i].Notification_Body</label>
+
+                              </div>
+                          </div>
+                          <div class="p-2 align-self-center">
+                              @if (Model.oldNotifications[i].Notification_Action == null)
+                              {
+                                  <a href="#" class="btn btn-link"><i class="fal fa-eye fa-1x centered_item"></i> View</a>
+                              }
+                              else
+                              {
+                                  <a class="btn btn-link" asp-controller=@String.Format("{0}",Model.oldNotifications[i].Notification_controller) asp-action=@String.Format("{0}",Model.oldNotifications[i].Notification_Action) asp-route-nid="@String.Format("{0}",Model.oldNotifications[i].Notification_ID)"><i class="fal fa-eye fa-1x "></i><span> View</span></a>
+                              }
+
+                          </div>
+                      </div>
+                      if (i != Model.oldNotifications.Count - 1)
+                      {
+
+                          <hr />
+                      }
+                  }
+              }
+
+          </div>
+      </div>
+</form>
+
+

@@ -1,0 +1,102 @@
+﻿@model List<medprohiremvp.Models.Applicant.ApplicantAvailableViewModel>
+<div class="tb-teading text-left mb-3">
+    <h4 class="">Days Available</h4>
+</div>
+<div class="form-group availablelist">
+    <div class="row mx-auto">
+        @if (Model != null)
+        {
+            <table class="table responsive availabledatatable text-left nowrap table-bordered">
+                <thead>
+                    <tr>
+                  
+                        <th>Available Date</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Duration (Hours)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                      
+                            <td>
+                                @Model[i].AvailableDay.ToShortDateString()
+                            </td>
+                            <td>  @Model[i].StartTime.ToShortTimeString()</td>
+                            <td>  @Model[i].EndTime.ToShortTimeString()</td>
+                            <td>@((Model[i].EndTime - Model[i].StartTime).Hours.ToString()) hrs</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        }
+    </div>
+</div>
+<div class="mt-2">
+    <form asp-action="AddAvailableDays" id="AddAvailableDays" method="post">
+        <div class="row">
+
+            @*<div class="col-6 col-sm-12">
+                <div class="form-group-sm">
+                    <label class="control-label searchlabel">Shift Date</label>
+                </div>
+                <div class="form-group">
+                    <select data-style="btn-new" class="form-control selectpicker flat registerselect" id="ShiftLabelId" name="ShiftLabelId">
+                        @using medprohiremvp.DATA.Entity
+                        @using medprohiremvp.Service.IServices
+
+                        @inject ICommonServices CommonServices
+                        @{
+                            var selectshiftlabels = CommonServices.GetShiftLabels();
+                        }
+                        @foreach (var shiftlable in selectshiftlabels)
+                        {
+                            <option value="@shiftlable.ShiftLabel_ID">@shiftlable.ShiftLabelName</option>
+                        }
+
+                    </select>
+                </div>
+            </div>*@
+
+            <div class="col-6 col-sm-12">
+                <div class="form-group-sm">
+                    <label class="control-label searchlabel">Days</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control datetimepickerday" data-date-multidate="true" id="StartDate" name="StartDate" placeholder="Pick Start Time">
+                </div>
+            </div>
+
+            <div class="col-6 col-sm-12">
+
+                <div class="form-group-sm">
+                    <label class="control-label searchlabel">Start Time</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control datetimepicker" id="StartTime" name="StartTime" placeholder="Pick Start Time">
+                </div>
+            </div>
+
+
+            <div class="col-6 col-sm-12">
+                <div class="form-group-sm">
+                    <label class="control-label searchlabel">End Time</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control datetimepicker" id="EndTime" name="EndTime" placeholder="Pick End Time">
+                </div>
+
+
+            </div>
+            <div class="col-12 text-right mt-2">
+                <button class="btn btn-sm btn-main addavailableday" type="submit">Add Days</button>
+            </div>
+
+        </div>
+    </form>
+ 
+</div>
+

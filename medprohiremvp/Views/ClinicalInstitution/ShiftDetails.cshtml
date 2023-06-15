@@ -1,0 +1,119 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.ClientShiftViewModel
+@{ViewData["Title"] = "Shift Details";
+}<div class="new-heading new-heading-background ">
+    <h2 class="">@ViewData["Title"]</h2>
+</div>
+ <div class="usercontainer ">
+
+     <form asp-action="NewClientShift">
+         <div class="form-group text-left">
+             <a class="btn btn-info" asp-controller="ClinicalInstitution" asp-action="ClientShiftList"><i class="fa fa-angle-left"></i> BACK</a>
+         </div>
+
+         <div class="background">
+             <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+             <div class="form-group text-left">
+                 <div class="form-group-sm">
+                     <label asp-for="DateOfShift" class="control-label ">
+                         <strong>@(Html.DisplayNameFor(m => m.DateOfShift)):</strong>
+                         @Model.DateOfShift.ToString("MMMM dd")
+                     </label>
+
+                 </div>
+                 <div class="form-group-sm">
+                     <label asp-for="ContractorCount" class="control-label ">
+                         <strong>@(Html.DisplayNameFor(m => m.ContractorCount)):</strong>
+                         @Model.ContractorCount
+                     </label>
+                 </div>
+
+                 <div class="form-group-sm">
+                     <label class="control-label ">
+                         <strong>Date:</strong>
+                         @Model.StartDate.ToString("MMMM dd")- @Model.EndDate.ToString("MMMM dd")
+                     </label>
+                 </div>
+                 <div class="form-group-sm">
+                     <label asp-for="ShiftLabel_ID" class="control-label ">
+                         <strong>@(Html.DisplayNameFor(m => m.ShiftLabelName)):</strong>
+                         @Model.ShiftLabelName
+                     </label>
+                 </div>
+                 <div class="form-group-sm">
+                     <label asp-for="ClockInTime" class="control-label ">
+                         <strong>Time:</strong>
+                         @Model.ClockInTime.ToShortTimeString()-@Model.ClockOutTime.ToShortTimeString()
+                     </label>
+                 </div>
+
+                 <div class="form-group-sm">
+                     <label asp-for="Occurrences" class="control-label ">
+                         <Strong>@(Html.DisplayNameFor(m => m.Occurrences)):</Strong>
+                         @Model.Occurrences
+                     </label>
+                 </div>
+                 <div class="form-group-sm">
+                     <label asp-for="Specialities" class="control-label ">
+                         <strong>@(Html.DisplayNameFor(m => m.SpecialitiesName)):</strong>
+                         @Model.SpecialitiesName
+                     </label>
+                 </div>
+
+                 <div class="form-group-sm">
+                     <label asp-for="Branch_ID" class="control-label ">
+                         <strong>
+                             @(Html.DisplayNameFor(m => m.BranchName)):
+                         </strong>
+                         @Model.BranchName
+                     </label>
+                 </div>
+                 <div class="form-group-sm">
+                     <label asp-for="ShiftDescription" class="control-label">
+                         <strong>@(Html.DisplayNameFor(m => m.ShiftDescription)):</strong>
+                     </label>
+                     <div class="form-group-sm">
+                         <label> @Model.ShiftDescription</label>
+                     </div>
+                 </div>
+
+                 <div class="form-group-sm">
+                     <label asp-for="Responsibility" class="control-label">
+                         <strong>
+                             @(Html.DisplayNameFor(m => m.Responsibility)):
+                         </strong>
+                     </label>
+                     <div class="form-group-sm">
+                         <label> @Model.Responsibility </label>
+                     </div>
+                 </div>
+                 <div class="form-group-sm">
+                     <label asp-for="ShiftsDates" class="control-label">
+                         <strong>
+                             @(Html.DisplayNameFor(m => m.ShiftsDates)):
+                         </strong>
+                     </label>
+                     <input type="hidden" id="StartDate" value="@Model.StartDate" />
+                     <input type="hidden" id="EndDate" value="@Model.EndDate" />
+                     <input type="hidden" id="ShiftsDates" value="@Model.ShiftsDates" />
+                     <div class="shiftdatelist" readonly data-date-start-date=@Model.StartDate data-date-end-date=@(Model.EndDate) data-date-multidate="true">
+
+                     </div>
+                 </div>
+             </div>
+             <div class="form-group-sm from-group text-left">
+                 <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+
+                 @Html.Partial("_shift_detail", Model.ShiftDetailPicked)
+             </div>
+         </div>
+
+
+     </form>
+ </div>
+
+ 
+    @section scripts{
+        <script src="~/js/client/FillShiftDates.js"></script>
+
+    }
+ 

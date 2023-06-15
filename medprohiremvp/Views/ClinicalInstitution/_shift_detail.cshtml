@@ -1,0 +1,81 @@
+﻿@model List<medprohiremvp.Models.Applicant.ShiftDetailViewModel>
+@{
+    ViewData["Title"] = "_shift_detail";
+}
+    <link href="~/css/shiftdetail.css" rel="stylesheet" />
+<div>
+    <hr style="border: 2px black solid;" />
+    @if (Model != null)  
+    {
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="media">
+                @if (@Model[i].Imgsrc == null || @Model[i].Imgsrc == "")
+                {
+
+                    <img alt="image" class="rounded-circle mr-3" src="/Upload/User.png">
+                }
+                else
+                {
+                    <img alt="image" class="rounded-circle mr-3" src="/@Model[i].Imgsrc">
+                }
+
+                <div class="media-body" id="show">
+                    <div class="form-group-sm">
+                        <label asp-for="@Model[i].FirstName">
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => m[i].FirstName)):
+                            </strong>
+                            @Model[i].FirstName
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label asp-for="@Model[i].LastName">
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => m[i].LastName)):
+                            </strong>
+                            @Model[i].LastName
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label asp-for="@Model[i].Speciality">
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => m[i].Speciality)):
+                            </strong>
+                            @Model[i].Speciality
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label asp-for="@Model[i].City">
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => m[i].City)):
+                            </strong>
+                            @Model[i].City
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label asp-for="@Model[i].State">
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => m[i].State)):
+                            </strong>
+                            @Model[i].State
+                        </label>
+                    </div>
+                    <div class="form-group-sm">
+                        <label asp-for="@Model[i].ZipCode">
+                            <strong class="control-label">
+                                @(Html.DisplayNameFor(m => m[i].ZipCode)):
+                            </strong>
+                            @Model[i].ZipCode
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <p></p>
+        }
+    }
+    else
+    {
+        <h4>Not found applicant how pick</h4>
+    }
+</div>

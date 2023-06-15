@@ -1,0 +1,94 @@
+﻿@model List<medprohiremvp.Models.Account.TicketViewModel>
+@{
+    ViewData["Title"] = "Support";
+}
+@section cssplugins{
+
+    <link href="~/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+}
+<div class="new-heading new-heading-background ">
+    <h2 class="">@ViewData["Title"]</h2>
+</div>
+
+
+<form asp-action="Support">
+    <div class="usercontainer  ">
+        <div class="form-group text-left">
+            <a class="btn btn-main" asp-controller="Account" asp-action="NewTicket">New Ticket</a>
+        </div>
+       
+
+        <div class="justifing_content">
+            <table class=" table   display responsive nowrap datatable text-left" style="width:100%">
+                @{
+                    if (Model != null)
+                    {
+                        <thead>
+                            <tr>
+                                <th>  @Html.DisplayNameFor(m => m[0].TicketCategoryName)</th>
+                                <th> @Html.DisplayNameFor(m => m[0].Subject)</th>
+                                <th> @Html.DisplayNameFor(m => m[0].TicketType)</th>
+                                <th> @Html.DisplayNameFor(m => m[0].DateModified)</th>
+                                <th data-priority="1">View</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @for (int i = 0; i < Model.Count; i++)
+                            {
+                                <tr>
+                                    <td>@Model[i].TicketCategoryName</td>
+                                    <td><a href="@Url.Action("TicketContent","Account", new { Ticket_ID=Model[i].Ticket_ID})" class="btn btn-link">@Model[i].Subject</a> </td>
+                                    @{
+                                        string ticketypestring = "";
+                                        switch (Model[i].TicketType)
+                                        {
+                                            case 0:
+                                                ticketypestring = "Created by User";
+                                                break;
+                                            case 1:
+                                                ticketypestring = "Answered";
+                                                break;
+                                            case 2:
+                                                ticketypestring = "Changed by user";
+                                                break;
+                                            default:
+                                                ticketypestring = "Completed";
+                                                break;
+                                        }
+                                    }
+                                    <td>@ticketypestring</td>
+                                    <td>
+                                        @Model[i].DateModified.ToString("MMMM dd yyyy")
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("TicketContent","Account", new { Ticket_ID=Model[i].Ticket_ID})" class="btn btn-link"><i class="fal fa-eye"></i></a>
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    }
+                }
+            </table>
+        </div>
+
+        </div>
+    
+</form>
+
+@section jsplugins{
+
+
+    <script src="~/node_modules/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/node_modules/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+}
+
+@section scripts{
+    <script src="~/js/home/Ticket.js"></script>
+}
+

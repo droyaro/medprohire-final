@@ -1,0 +1,85 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.ShiftsCountViewModel
+@{ 
+    string all = "of All Reqs";
+}
+<div class="row marginbottomcontent">
+    <div class="col-lg-2 marginbottomcontent">
+       
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>@(Html.DisplayNameFor(m=>m.Created))</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@Model.Created</h1>
+                    <div class="stat-percent font-bold text-success"> </div>
+                   
+                </div>
+            </div>
+        
+    </div>
+    <div class="col-lg-2 marginbottomcontent">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>@(Html.DisplayNameFor(m => m.Created))</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@Model.NotStarted</h1>
+                <div class="stat-percent font-bold text-info">@(Model.Created != 0 ? ((float)Model.NotStarted/Model.Created * 100).ToString("0") : "0")% </div>
+                <small>@all</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2 marginbottomcontent">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>@(Html.DisplayNameFor(m => m.Completed))</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@Model.Completed</h1>
+                <div class="font-bold text-navy">@(Model.Created != 0 ? ((float)Model.Completed / Model.Created * 100).ToString("0") : "0")% </div>
+                <small>@all</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2 marginbottomcontent">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>@(Html.DisplayNameFor(m => m.Active))</h5>
+            </div>
+            <div class="ibox-content">
+
+                <h1 class="no-margins">@Model.Active</h1>
+                <div class="font-bold text-navy">@(Model.Created != 0 ? ((float)Model.Active / Model.Created * 100).ToString("0") : "0")% </div>
+                <small>@all</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 marginbottomcontent">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>@(Html.DisplayNameFor(m => m.Incomplete))</h5>
+            </div>
+            <div class="ibox-content">
+
+                <h1 class="no-margins">@Model.Incomplete</h1>
+                <div class="font-bold text-navy">@(Model.Created != 0 ? ((float)Model.Incomplete / Model.Created * 100).ToString("0") : "0")% </div>
+                <small>@all</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 marginbottomcontent">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>@(Html.DisplayNameFor(m => m.Cancelled))</h5>
+            </div>
+            <div class="ibox-content">
+
+                <h1 class="no-margins">@Model.Cancelled</h1>
+                <div class="font-bold text-navy">@(Model.Created != 0 ? ((float)Model.Cancelled / Model.Created * 100).ToString("0") : "0")% </div>
+                <small>@all</small>
+            </div>
+        </div>
+    </div>
+</div>

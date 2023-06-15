@@ -1,0 +1,175 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.DashBoardViewModelold
+<form asp-action="ClientShiftList">
+    <div class="usercontainer text-center">
+
+        <div class="heading-1">
+            <div class="d-inline-block">
+                <hr class="before" />
+                <h2 class="">Dashboard</h2>
+                <hr class="after" />
+            </div>
+        </div>
+
+        <div class="row">
+
+            @Html.Partial("_UserLeftMenu")
+            <div class="col-lg-9 col-sm-9 col-xs-12  mx-auto ">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="ibox ">
+                            <div class="ibox-title">
+                                <h5>Shifts </h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">@Model.ShiftCount</h1>
+                                <div class="stat-percent font-bold text-success">@(Model.AllShiftCount != 0 ? Model.ShiftCount / Model.AllShiftCount * 100 : 0)% <i class="fa fa-bolt"></i></div>
+                                <small>of All shifts</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h5>On Going Shifts</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">@Model.OnGoingShiftCount</h1>
+                                <div class="stat-percent font-bold text-info">@(Model.AllOnGoingShiftCount != 0 ? Model.OnGoingShiftCount / Model.AllOnGoingShiftCount * 100 : 0)% <i class="fa fa-level-up"></i></div>
+                                <small>of All on going shifts</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="ibox ">
+                            <div class="ibox-title">
+                                <h5>Current Contractors</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">@Model.Contractors</h1>
+                                <div class="font-bold text-navy">@(Model.AllContractors != 0 ? Model.Contractors / Model.AllContractors * 100 : 0)% <i class="fa fa-level-up"></i> </div>
+                                <small>of All Contractors</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ibox ">
+                            <div class="ibox-title">
+                                <h5>Locations</h5>
+                            </div>
+                            <div class="ibox-content">
+
+                                <h1 class="no-margins">@Model.Locations</h1>
+                                <div class="font-bold text-navy">@(Model.AllLocations != 0 ? Model.Locations / Model.AllLocations * 100 : 0)% <i class="fa fa-level-up"></i> </div>
+                                <small>of All Locations</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="background">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Shift N</th>
+                                <th>Name </th>
+                                <th>Location</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Count</th>
+                                <th>Completed </th>
+                                <th>Task</th>
+                                <th>
+                                    Hourly Rate
+                                </th>
+                                <th>
+                                    Worked Hours
+                                </th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                if (Model.ContractorsTable != null)
+                                {
+                                    for (int i = 0; i < Model.ContractorsTable.Count; i++)
+                                    {
+                                        <tr>
+                                            <td>@Model.ContractorsTable[i].ClientShift_ID</td>
+                                            <td>@(Model.ContractorsTable[i].LastName + " " + Model.ContractorsTable[i].FirstName)</td>
+                                            <td>@Model.ContractorsTable[i].Location</td>
+                                            @if (Model.ContractorsTable[i].AppliedAllDays)
+                                            {
+                                                <td>
+                                                    @string.Format("{0}-{1}", Model.ContractorsTable[i].StartDate.ToString("dd MMM"), Model.ContractorsTable[i].EndDate.ToString("dd MMM"))
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                List<string> days = Model.ContractorsTable[i].AppliedDaysList.Split(";").ToList();
+                                                string applieddays = "";
+                                                foreach (string day in days)
+                                                {
+                                                    applieddays += Convert.ToDateTime(day).ToString("dd MMM") + "; ";
+                                                }
+                                                if (applieddays.Length > 2)
+                                                {
+                                                    applieddays = applieddays.Substring(0, applieddays.Length - 2);
+                                                }
+                                                <td>@applieddays</td>
+                                            }
+
+                                            <td> @string.Format("{0}-{1}", Model.ContractorsTable[i].ClockInTime.ToShortTimeString(), Model.ContractorsTable[i].ClockOutTime.ToShortTimeString())</td>
+                                            <td>
+                                                @Model.ContractorsTable[i].NumberofShift
+                                            </td>
+                                            @if (Model.ContractorsTable[i].CompletedNumberofShift == @Model.ContractorsTable[i].NumberofShift)
+                                            {
+                                                <td><i class="fa fa-check text-navy"></i></td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <span class="pie" style="display: none;">@Model.ContractorsTable[i].CompletedNumberofShift/@Model.ContractorsTable[i].NumberofShift</span>
+                                                </td>
+                                            }
+                                            @if (Model.ContractorsTable[i].NumberofShift != 0)
+                                            {
+                                                string percent = "0%";
+                                                percent = (((float)Model.ContractorsTable[i].CompletedNumberofShift / Model.ContractorsTable[i].NumberofShift) * 100).ToString("0") + "%";
+                                                <td>@percent</td>
+
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    0%
+                                                </td>
+                                            }
+                                            <td>
+                                                @Model.ContractorsTable[i].HourlyRate
+                                            </td>
+                                            <td>@Model.ContractorsTable[i].Numberofworkedhours</td>
+
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+@section jsplugins{
+
+    <script src="~/node_modules/peity/jquery.peity.min.js"></script>
+}
+@section scripts{
+    <script src="~/js/client/Dashboard.js"></script>
+
+}

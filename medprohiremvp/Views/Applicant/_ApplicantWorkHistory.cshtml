@@ -1,0 +1,45 @@
+﻿@model int
+
+
+<tr>
+    <td>
+   
+        <div class="row text-left">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for=@string.Format("workHistories_{0}__PlaceName", Model) class="control-label ">Employer</label>
+                    <input class="form-control flat animation" data-val="true" data-val-required="The Employer field is required." id="@string.Format("workHistories_{0}__PlaceName", Model)" name="workHistories[@Model].PlaceName" value="" type="text">
+                    <span class="text-danger field-validation-error" data-valmsg-for="workHistories[@Model].PlaceName" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for=@string.Format("workHistories_{0}__JobTitle", Model) class="control-label ">Job Title</label>
+                    <input class="form-control flat animation" data-val="true" data-val-required="The Job Title field is required." id="@string.Format("workHistories_{0}__JobTitle", Model)" name="workHistories[@Model].JobTitle" value="" type="text">
+                    <span class="text-danger field-validation-error" data-valmsg-for="workHistories[@Model].JobTitle" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for=@string.Format("workHistories_{0}__StartDate", Model) class="control-label ">Start Date</label>
+                    <input class="hasdatepicker flat animation" data-val="true" data-val-required="The StartDate field is required." id="@string.Format("workHistories_{0}__StartDate", Model)" name="workHistories[@Model].StartDate" value="" type="text">
+                    <span class="text-danger field-validation-error" data-valmsg-for="workHistories[@Model].StartDate" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for=@string.Format("workHistories_{0}__EndDate", Model) class="control-label ">End Date</label>
+                    <input class="hasdatepicker flat animation" data-val="true" data-val-required="The EndDate field is required." id="@string.Format("workHistories_{0}__EndDate", Model)" name="workHistories[@Model].EndDate" value="" type="text">
+                    <span class="text-danger field-validation-error" data-valmsg-for="workHistories[@Model].EndDate" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group-sm" id="untilnow_checkbox">
+                    <input type="checkbox" data-val="false" data-val-required="The EndDate field is required." id=@string.Format("workHistories_{0}__UntilNow", Model) name="workHistories[@Model].UntilNow" class="until" value="true" aria-required="false">
+                    <label class="checkbox" for=@string.Format("workHistories_{0}__UntilNow", Model)>To Date</label>
+
+                </div>
+            </div>
+
+        </div>
+    </td>
+    <td>  <div class="align-middle"><a id="trash" class=" btn btn-info"><i class="fa fa-trash"></i></a></div></td>
+</tr>

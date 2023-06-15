@@ -1,0 +1,81 @@
+﻿@model medprohiremvp.Models.Applicant.AccpetedShiftClockinViewModel
+@{ 
+    int timeoffset = Model.TimeSpanOffset;
+    TimeSpan offset = TimeSpan.FromMinutes(-(timeoffset));
+    DateTime timenow = DateTime.UtcNow.Add(offset);
+
+<div class="availbleshiftdetail d-flex flex-column align-items-center">
+    <div class="p-2 mr-auto">
+
+
+            <div class="form-group">
+                <label for="WorkingDay" class="control-label ">
+                    @Html.DisplayNameFor(m => m.WorkingDay):
+                </label>
+                <div class="form-group-sm">
+                    <label class="main-label"> @Model.WorkingDay.ToString("MMMM dd") </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ClockInTime" class="control-label ">
+
+                    @Html.DisplayNameFor(m => m.ClockInTime):
+                </label>
+                <div class="form-group-sm">
+                    <label class="main-label">   @Model.ClockInTime.ToShortTimeString()-@Model.ClockOutTime.ToShortTimeString() </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="SpecialitiesName" class="control-label ">
+
+                    @Html.DisplayNameFor(m => m.SpecialitiesName):
+                </label>
+                <div class="form-group-sm">
+                    <label class="main-label"> @Model.SpecialitiesName </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="BranchName" class="control-label ">
+
+                    @Html.DisplayNameFor(m => m.BranchName):
+                </label>
+                <div class="form-group-sm">
+                    <label class="main-label"> @String.Format("{0} ({1})", Model.InstitutionName, Model.BranchName)</label>
+                </div>
+            </div>
+           
+        </div>
+    
+    <div class="p-2 mt-auto ml-auto">
+        <span hidden></span>
+        @if (Model.disable)
+        {
+        <div class="d-flex flex-row justify-content-between flex-wrap">
+            @if ((Model.ClockInTime - timenow).Days < 0 || ((Model.ClockInTime - timenow).Days == 0 && (Model.ClockInTime - timenow).Hours <= 0))
+
+            {
+                <div class="p-2">
+                    <a class="btn btn-link " id="addmanually" data-id="@Model.clockiIn_ID">Manual Time Input</a>
+                </div>
+            }
+            @if (Model.MaxClockinDifference.Days != 0 ? (timenow - Model.ClockInTime).Duration() <= Model.MaxClockinDifference : ((Model.ClockInTime - timenow).Days == 0 || (((Model.ClockInTime - timenow).Days == 1 || (Model.ClockInTime - timenow).Days == -1) && (Model.ClockInTime - timenow).Hours <= 0)))
+            {
+                <div class="p-2">
+                    <a class="btn btn-link " id="clockin" data-id="@Model.clockiIn_ID">Clock In</a>
+                </div>
+            }
+        </div>
+
+        }
+        else
+        {
+            if (Model.workingshift)
+            {
+                <div class="form-group">
+                    <a class="btn btn-link " id="clockout" data-id="@Model.clockiIn_ID">Clock Out</a>
+                </div>
+            }
+        }
+    </div>
+</div>
+    }

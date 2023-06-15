@@ -1,0 +1,85 @@
+﻿@using CMSmedprohiremvp.Helpers.HtmlHelpers
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    @using Microsoft.AspNetCore.Identity
+                    @using medprohiremvp.DATA.IdentityModels
+                    @using System.IO
+                    @using Microsoft.AspNetCore.Hosting
+                    @using medprohiremvp.Service.IServices
+                    @inject SignInManager<ApplicationUser> SignInManager
+                    @inject UserManager<ApplicationUser> UserManager
+                    @inject IHostingEnvironment Environment
+                    @inject ICommonServices CommonServices
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        var user = UserManager.GetUserAsync(User).Result;
+                        var admin = CommonServices.GetAdministratorbyID(user.Id);
+                        var firstname = "";
+                        var lastname = "";
+                        string img = "/Upload/User.png";
+
+                        if (admin != null)
+                        {
+                            if (!String.IsNullOrEmpty(admin.ProfileImg))
+                            {
+                                img = "/" + admin.ProfileImg.Replace("\\", "/");
+                            }
+                            firstname = admin.FirstName;
+                            lastname = admin.LastName;
+                        }
+                        <img alt="image" class="rounded-circle" src="@img">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-expanded="true">
+                            <span class="block m-t-xs font-bold">@firstname @lastname</span>
+                            <span class="text-muted text-xs block">Administrator <b class="caret"></b></span>
+                        </a>
+                        <ul class="dropdown-menu ">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Logout", "Home")">Logout</a></li>
+                        </ul>
+
+
+                    }
+
+
+                </div>
+
+            </li>
+            <li class="active mm-active">
+                <a href="@Url.Action("UsersList", "Home")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">Users List</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level ">
+                    <li class="@Html.IsSelected(action: "UsersList")"><a href="@Url.Action("UsersList", "Home")">Applicants</a></li>
+                    <li class="@Html.IsSelected(action: "ContractorsList")"><a href="@Url.Action("ContractorsList", "Home")">Contractors</a></li>
+                    <li class="@Html.IsSelected(action: "ActiveShiftContractors")"><a href="@Url.Action("ActiveShiftContractors", "Home")">Active Shift Contractors</a></li>
+                    <li class="@Html.IsSelected(action: "ShiftContractors")">
+                        @*<a href="@Url.Action("OnShiftContractors", "Home")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">Shift Contractors</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level ">
+                        <li class="@Html.IsSelected(action: "OnShiftContractors")"><a href="@Url.Action("OnShiftContractors", "Home")">On Shift Contractors</a></li>
+
+                    </ul>*@
+                    </li>
+                </ul>
+            </li>
+            <li class="active mm-active">
+                <a href="@Url.Action("ClientsList", "Home")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">Client List</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level ">
+                    <li class="@Html.IsSelected(action: "ClientsList")"><a href="@Url.Action("ClientsList", "Home")">Clients</a></li>
+                    <li class="@Html.IsSelected(action: "ShiftsList")"><a href="@Url.Action("ShiftsList", "Home")">Shift List</a></li>
+
+                </ul>
+            </li>
+            <li class="active mm-active">
+                <a href="@Url.Action("Index", "Ticket")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">Tickets</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level ">
+                    <li class="@Html.IsSelected(controller: "Ticket")"><a href="@Url.Action("Index", "Ticket")">Tickets</a></li>
+                 
+
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using medprohiremvp.DATA.IdentityModels
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    string rolename = "Applicant";
+
+    if (SignInManager.IsSignedIn(User))
+    {
+        
+
+        var user = UserManager.GetUserAsync(User).Result;
+        var roles = UserManager.GetRolesAsync(user).Result;
+
+        rolename = roles[0];
+    }
+}
+<div class="footer-top">
+    <!-- Nested Container Starts -->
+    <div class="container">
+        <div class="text-center">
+            <h6 class="font-nunito">
+                Take the next step
+            </h6>
+
+            <div class="row justify-content-center">
+                <div class="form-group ">
+                    <p class="font-nunito">
+                        @(SignInManager.IsSignedIn(User) ? rolename == "Applicant"?"Make yourself available": "Place your staffing requisition" : "We help you get your job")
+
+                    </p>
+                    <a class="btn btn-main font-nunito" href="@(SignInManager.IsSignedIn(User)?rolename=="Applicant"?Url.Action("Profile", "Applicant"):Url.Action("NewClientShift", "ClinicalInstitution"):Url.Action("Registeration", "Home", new { id=0}))">@(SignInManager.IsSignedIn(User) ?rolename=="Applicant"?"AVAILABLE": "CREATE REQ" : "APPLY NOW")</a>
+                </div>
+                <div class="form-group lineseparator"></div>
+                <div class="form-group ">
+                    <p class="font-nunito">
+                        @(SignInManager.IsSignedIn(User) ? rolename == "Applicant" ? "looking for work?":"need to staff professionals?" : "We Help You Hire Professionals")
+
+                    </p>
+
+                    <a class="btn btn-main font-nunito" href="@(SignInManager.IsSignedIn(User)?rolename=="Applicant"?Url.Action("AvailableShifts", "Applicant"):Url.Action("Search", "ClinicalInstitution"):Url.Action("Registeration", "Home", new { id=1}))">@(SignInManager.IsSignedIn(User) ? rolename == "Applicant" ? "PICK SHIFT" : "FIND TALENT" : "FIND TALENT")</a>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Nested Container Ends -->
+</div>

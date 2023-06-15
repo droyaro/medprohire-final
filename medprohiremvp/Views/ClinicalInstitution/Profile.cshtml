@@ -1,0 +1,486 @@
+﻿@model medprohiremvp.Models.ClinicalInstitution.ClientProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+@section cssplugins{
+    <link href="~/node_modules/cropperjs/dist/cropper.min.css" rel="stylesheet" />
+}
+<div class="new-heading new-heading-background ">
+    <h2 class="">@ViewData["Title"]</h2>
+</div>
+<div class="usercontainer ">
+    @{
+        var passwordtemp = TempData["changeanswer"] != null ? TempData["changeanswer"].ToString() : "";
+        @if (Model.Profile.Disabled)
+        {
+            <p class="text-danger text-left">You have reached the maximum amount of changes allowed. Please try again in one hour.</p>
+        }
+        <div class="background">
+            <div class="d-flex flex-column flex-xl-row">
+                <div class="p-2 mx-auto">
+
+                    @*<div style="background-image:linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2)), url(@Model.Profile.Imgsrc); background-size: 350px 350px;" class="Profile" id="image-cropper" />
+                        </div>*@
+
+                    <div class="u-block-hover g-pos-rel">
+                        <figure>
+                            <img class="profile img-fluid w-100 u-block-hover__main--zoom-v1 logofit" id="image-cropper" src="@Model.LogoSrc" />
+                        </figure>
+
+                        <!-- Figure Caption -->
+                        <figcaption class="u-block-hover__additional--fade g-bg-black-opacity-0_5 g-pa-30">
+                            <div class="u-block-hover__additional--fade u-block-hover__additional--fade-up g-flex-middle">
+                                <!-- Figure Social Icons -->
+                                <ul class="list-inline text-right g-flex-middle-item--bottom g-mb-20">
+                                    <li class="list-inline-item align-middle g-mx-7">
+                                        <a class="u-icon-v1 u-icon-size--md g-color-white" id="uploadimg" href="#">
+                                            <i class="fas fa-upload"></i>
+                                        </a>
+                                    </li>
+                                    @if (!Model.Profile.Disabled)
+                                    {
+                                        <li class="list-inline-item align-middle g-mx-7" hidden>
+                                            <a class="u-icon-v1 u-icon-size--md g-color-white" id="saveimage" href="#">
+                                                <i class="fas fa-save"></i>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                                <!-- End Figure Social Icons -->
+                            </div>
+                        </figcaption>
+                        <form asp-action="SaveProfileImage" id="SaveProfileImage" method="post" enctype="multipart/form-data">
+                            <div class="form-group list-group-item " hidden>
+                                <input type="file" asp-for="Logo" class="cropit-image-input" accept=".png, .jpg, .jpeg" />
+                                <span asp-validation-for="Logo" class="text-danger"></span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="list-group list-group-border-0 g-mb-40">
+
+
+                        <!-- Profile -->
+                        <a class="list-group-item justify-content-between @(passwordtemp==""?"active":"")" data-toggle="tab" href="#Profileview" role="tab" aria-selected="false">
+                            <span><i class="fal fa-user-circle"></i> Profile</span>
+                        </a>
+                        <!-- End Profile -->
+                        <a class="list-group-item justify-content-between  @(passwordtemp!=""?"active":"")" data-toggle="tab" href="#password" role="tab" aria-selected="false">
+                            <span><i class="mdi mdi-lock-reset"></i> Change Password</span>
+                        </a>
+                        <a class="list-group-item justify-content-between" data-toggle="tab" href="#changephone" role="tab" aria-selected="false">
+                            <span><i class="mdi mdi-cellphone-iphone"></i> Change Phone Number</span>
+                        </a>
+                    </div>
+                    <div class="text-left form-group ">
+
+                    </div>
+                </div>
+                <div class="paddingp2"></div>
+                <div class="p-2 mx-auto flex-grow-1">
+                    <div id="Profileview" class="tab-pane  fade @(passwordtemp==""?"active show":"")">
+                        <div class="d-flex flex-row flex-lg-column ">
+                            <div class="p-2">
+                                <div class="form-group">
+                                    <ul class="nav u-nav-v1-1 u-nav-primary u-nav-profile flex-column flex-lg-row nowrap g-mb-30" role="tablist" data-target="nav-1-1-default-hor-left-rounded-underline" data-tabs-mobile-type="slide-up-down" data-btn-classes="btn btn-md btn-block u-btn-outline-primary g-mb-20">
+                                        <li class="nav-item flex-grow-1">
+                                            <a class="nav-link g-rounded-bottom-0 active show" data-toggle="tab" href="#EditProfile" role="tab" aria-selected="true"> <i class="fal fa-user-circle"></i> Edit Profile</a>
+                                        </li>
+                                        <li class="nav-item flex-grow-1">
+                                            <a class="nav-link g-rounded-bottom-0" data-toggle="tab" href="#specalities" role="tab" aria-selected="false"><i class="far fa-user-md"></i> Provider Managment</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="paddingp2"></div>
+                            <div class="p-2">
+                                <div asp-validation-summary="ModelOnly" class="text-danger text-left"></div>
+                                <div class="tab-pane  fade active show" id="EditProfile">
+                                    <form asp-action="Profile" id="Profile" asp-controller="ClinicalInstitution" method="post" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-6">
+                                                <div class=" form-group">
+                                                    <div class="form-group">
+                                                        <label asp-for="Profile.Institution_ID" class="control-label "></label>
+                                                        <div class="form-group">
+                                                            <h4 class="form-control flat animation" disabled> @Model.Profile.Institution_ID</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Profile.InstitutionName" class="control-label "></label>
+                                                        <input asp-for="Profile.InstitutionName" class="form-control flat animation" disabled />
+                                                        <span asp-validation-for="Profile.InstitutionName" class="text-danger"></span>
+                                                    </div>
+                                                    <label asp-for="Profile.ContactPerson" class="control-label "></label>
+                                                    <input asp-for="Profile.ContactPerson" class="form-control flat animation" disabled />
+                                                    <span asp-validation-for="Profile.ContactPerson" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="Profile.ContactTitle" class="control-label "></label>
+                                                    <input asp-for="Profile.ContactTitle" class="form-control flat animation" disabled />
+                                                    <span asp-validation-for="Profile.ContactTitle" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="Profile.Email" class="control-label "></label>
+                                                    <input asp-for="Profile.Email" class="form-control flat animation" disabled />
+                                                    <span asp-validation-for="Profile.Email" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="Profile.InstitutionTaxId" class="control-label "></label>
+                                                    <input asp-for="Profile.InstitutionTaxId" class="form-control flat animation" disabled />
+                                                    <span asp-validation-for="Profile.InstitutionTaxId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-lg-6">
+                                                <div class="form-group">
+                                                    <label asp-for="Profile.InstitutionType_ID" class="control-label "></label>
+                                                    <div class="form-group">
+                                                        <select class="form-control selectpicker flat registerselect" title="Select InstitutionTypes" asp-items="@ViewBag.InstitutionTypes" asp-for="Profile.InstitutionType_ID" disabled></select>
+                                                    </div>
+                                                    <span asp-validation-for="Profile.InstitutionType_ID" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="Profile.State_ID" class="control-label "></label>
+                                                    <select class="form-control selectpicker flat registerselect" title="Select @(Html.DisplayNameFor(m=>m.Profile.State_ID))" data-size="15" asp-items="@ViewBag.States" asp-for="Profile.State_ID" disabled></select>
+                                                    <span asp-validation-for="Profile.State_ID" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="Profile.City_ID" class="control-label "></label>
+                                                    <select class="form-control selectpicker flat registerselect" title="Select @(Html.DisplayNameFor(m=>m.Profile.City_ID))" data-size="15" asp-items="@ViewBag.Cities" asp-for="Profile.City_ID" disabled></select>
+                                                    <span asp-validation-for="Profile.City_ID" class="text-danger"></span>
+                                                </div>
+                                                <input type="hidden" asp-for="Profile.Latitude" />
+                                                <input type="hidden" asp-for="Profile.Longitude" />
+                                                <div class="form-group">
+                                                    <label asp-for="Profile.Address" class="control-label "></label>
+                                                    <input asp-for="Profile.Address" class="form-control flat animation" disabled />
+                                                    <span asp-validation-for="Profile.Address" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="Profile.ZipCode" class="control-label "></label>
+                                                    <input asp-for="Profile.ZipCode" class="form-control flat animation" disabled />
+                                                    <span asp-validation-for="Profile.ZipCode" class="text-danger"></span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label asp-for="Profile.InstitutionDescription" class="control-label "></label>
+                                            <textarea asp-for="Profile.InstitutionDescription" class="form-control flat animation" maxlength="2000" onkeyup="AutoGrowTextArea(this)" disabled></textarea>
+                                            <span asp-validation-for="Profile.InstitutionDescription" class="text-danger"></span>
+                                        </div>
+
+
+
+
+                                        @if (!Model.Profile.Disabled)
+                                        {
+                                            <div class="form-group text-center">
+                                                <button type="button" class="btn btn-main animation" id="editchanges"> Edit </button>
+                                            </div>
+                                            <div class="changesbuttons" hidden>
+                                                <div class="row">
+                                                    <div class="col-6  text-right">
+                                                        <button type="button" class="btn btn-main animation" id="savechanges"> Save </button>
+                                                    </div>
+                                                    <div class="col-6 text-left">
+                                                        <button type="button" class="btn btn-main animation" id="cancelchanges"> Cancel </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    </form>
+                                </div>
+
+                                <div id="specalities" class="tab-pane  fade">
+                                    <p>* Provider any changes need to be accepted by our administration</p>
+                                    <form asp-action="AddSpecialityCosts" id="AddSpecialityCosts" asp-controller="ClinicalInstitution" method="post" enctype="multipart/form-data">
+
+                                        @if (!Model.Profile.Disabled)
+                                        {
+                                            <div class="nwtb mb-3">
+
+                                                <table class="table dataTable">
+                                                    @*<thead>
+                                                            <tr>
+                                                                <th>
+                                                                    <h2 class="header text-center">Provider</h2>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>*@
+                                                    <tbody class="bprovider">
+
+                                                        @{
+                                                            if (Model.Specialties != null)
+                                                            {
+                                                                @for (int i = 0; i < Model.Specialties.Count; i++)
+
+                                                                {
+                                                                    var shiftLabelCost = Model.Specialties[i].Cost;
+                                                                    <tr>
+                                                                        <td class="">
+
+
+                                                                            <div class="row">
+
+                                                                                <div class="col-12">
+                                                                                    <h4 class="header text-center mt-3 mb-5">@Model.Specialties[i].SpecialtyName</h4>
+                                                                                </div>
+
+                                                                                @for (int j = 0; j < shiftLabelCost.Count; j++)
+                                                                                {
+
+                                                                                    <div class="col-lg-3 col-md-6 col-sm-12 d-flex flex-column pb-3">
+
+                                                                                        <div class="p-2">
+                                                                                            <label class="main-label">@shiftLabelCost[j].ShiftLabelName Bill Rate</label>
+                                                                                            <input type="text" hidden asp-for="@Model.Specialties[i].Cost[j].ShiftLabel_ID" class="form-control" value="@shiftLabelCost[j].ShiftLabel_ID" />
+
+
+                                                                                        </div>
+                                                                                        <div class="p-2 mt-auto">
+                                                                                            <input type="number" asp-for="@Model.Specialties[i].Cost[j].Cost" class="form-control" placeholder="Cost" value="@shiftLabelCost[j].Cost" />
+                                                                                        </div>
+                                                                                    </div>
+
+
+                                                                                }
+
+
+                                                                                <div class="form-group mr-3">
+
+                                                                                    <input type="text" asp-for="@Model.Specialties[i].Specialty_ID" class="form-control" value="@Model.Specialties[i].Specialty_ID" hidden />
+                                                                                </div>
+                                                                            </div>
+
+
+
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td class="text-right">
+                                                                <button type="button" id="add-provider" class="btn btn-main "><i class="fa fa-plus"></i> Add Provider</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                            <div class="form-group text-center">
+                                                <button type="submit" class="btn btn-main animation" id="savespacialities"> Save </button>
+                                            </div>
+                                        }
+                                    </form>
+
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div id="password" class="tab-pane  fade @(passwordtemp!=""?"active show":"")">
+                        <form asp-action="ChangePassword" id="ChangePassword" asp-controller="Account" method="post">
+
+
+                            <div class="text-center">
+                                <div class="row">
+                                    <div class="col-lg-12 col-xl-6  mx-auto ">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                                        <div class="form-group">
+                                            <label asp-for="Password.OldPassword" class="control-label "></label>
+                                            <input class="form-control flat animation" id="oldpassword" asp-for="Password.OldPassword" />
+                                            <span asp-validation-for="Password.OldPassword" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Password.NewPassword" class="control-label "></label>
+                                            <input class="form-control flat animation" asp-for="Password.NewPassword" />
+                                            <span asp-validation-for="Password.NewPassword" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Password.ConfirmPassword" class="control-label "></label>
+                                            <input asp-for="Password.ConfirmPassword" class="form-control flat animation" />
+                                            <span asp-validation-for="Password.ConfirmPassword" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (!Model.Profile.Disabled)
+                                {
+
+                                    <button type="submit" class="btn btn-main smalltext">Save Password</button>
+                                }
+                            </div>
+
+                        </form>
+                    </div>
+                    <div id="changephone" class="tab-pane  fade ">
+                        <form asp-action="ChanePhoneNumber" id="ChanePhoneNumber" asp-controller="Account" method="post">
+
+
+                            <div class="text-center">
+                                <div class="row">
+                                    <div class="col-lg-12 col-xl-6 mx-auto ">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        <div class="phonenumerror"></div>
+                                        <div class="form-group">
+                                            <label class="control-label ">Old Phone Number</label>
+                                            <input class="form-control flat animation" id="OldPhoneNumber" value="@Model.PhoneNumber" disabled />
+
+                                        </div>
+                                        <div class="form-group afterphonenumber">
+                                            <label asp-for="PhoneNumber" class="control-label applicantnames">New Phone Number</label>
+                                            <div class="text-left">
+                                                <input type="text" class="form-control flat animation phonenumber" id="NewPhoneNumber" />
+                                                <label class="phonenumbercode">+1</label>
+                                            </div>
+                                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                @if (!Model.Profile.Disabled)
+                                {
+
+                                    <button type="button" class="btn btn-main smalltext" id="phoneverify" data-number="@Model.PhoneNumber">Verify</button>
+                                }
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @if (!Model.Profile.Disabled)
+        {
+            <div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog ">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <div class="d-flex justify-content-between">
+                                <div class="p-2 flex-grow-1">
+                                    <h2 class="">Changes</h2>
+                                </div>
+                                <div class="p-2">
+                                    <a class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="modal-body">
+                            <input type="hidden" id="formid" />
+                            <p>
+                                Are you sure you want to make changes?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="button" id="save" class="btn btn-main smalltext">Yes</button>
+                                </div>
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-main smalltext" data-dismiss="modal">No</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal  fade" id="PhoneVerifyModel" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="d-flex justify-content-between">
+                                <div class="p-2 flex-grow-1">
+                                    <h2 class="">Verification</h2>
+                                </div>
+                                <div class="p-2">
+                                    <a class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <p>
+                                Please insert 6 - digit code
+                            </p>
+
+                            <input id="verifykey" type="number" class="form-control flat animation" placeholder="XXXXXX" size="6" />
+                            <input type="hidden" id="key" />
+                        </div>
+                        <div class="modal-footer">
+
+                            <button type="button" id="verify" class="btn btn-main smalltext">Verify & Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal  fade" id="AnswerModel" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <div class="modal-body text-center">
+                            <h6 class="success">
+                                <span class="text-success">
+                                    <i class="fal fa-check-circle"></i>
+
+                                    Changes Successfully Saved
+                                </span>
+                            </h6>
+
+                            <h6 class="danger" hidden>
+                                <span class="text-danger"><i class="fal fa-exclamation-circle"></i> </span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+    }
+</div>
+@section jsplugins{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/node_modules/jquery-input-mask-phone-number/dist/jquery-input-mask-phone-number.min.js"></script>
+}
+@section scripts{
+    <script src="~/js/client/profile.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var password = "@(TempData["changeanswer"] != null ? TempData["changeanswer"].ToString() : "0")";
+            if (password != "0") {
+                if (password == "ok") {
+                    $('#AnswerModel').modal('show');
+                }
+                else {
+                    $('#AnswerModel').find('.modal-body').find('.success').attr('hidden', true);
+                    $('#AnswerModel').find('.modal-body').find('.danger').attr('hidden', false);
+                    $('#AnswerModel').find('.modal-body').find('.danger span').append(password);
+                    $('#AnswerModel').modal('show');
+                }
+            }
+        });
+    </script>
+}
+
+
+
+
+
